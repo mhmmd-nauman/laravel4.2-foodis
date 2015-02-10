@@ -15,7 +15,6 @@
 		"angular-skycons",
 		"angular-loading-bar",
 		"FBAngular",
-
 		/* Custom Modules */
 		"app.ctrls",
 		"app.directives",
@@ -27,7 +26,8 @@
 		"app.chart.ctrls",
 		"app.chart.directives",
 		"app.todo",
-		"app.email.ctrls"
+		"app.email.ctrls",
+		"ui.timepicker",
 
 	])
 

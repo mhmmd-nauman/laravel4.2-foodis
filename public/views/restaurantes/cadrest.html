@@ -1,188 +1,255 @@
 <div class="page page-form-wizard clearfix">
 
 
-	<ol class="breadcrumb breadcrumb-small">
-		<li>Meus Restaurantes</li>
-		<li class="active"><a href="#/forms/form-wizard">Cadastrar Restaurante</a></li>
-	</ol>
+<ol class="breadcrumb breadcrumb-small">
+    <li>Meus Restaurantes</li>
+    <li class="active"><a href="#/forms/form-wizard">Cadastrar Restaurante</a></li>
+</ol>
 
-	<div class="page-wrap">
-		<div class="row">
-			<div class="col-lg-12">
-				<!-- Form wizard -->
-				<div class="panel panel-lined mb30" ng-controller="FormWizardCtrl">
-					<div class="panel-body">
-						<ul class="list-unstyled wizard-tabs mb30">
-							<li ng-class="{active: steps[0]}">
-								<span class="text">Informações do Restaurante</span>
-								<i class="fa fa-long-arrow-right"></i>
-							</li>
-							<li ng-class="{active: steps[1]}">
-								<span class="text">Horário e Taxas</span>
-								<i class="fa fa-long-arrow-right"></i>
-							</li>
-							<li ng-class="{active: steps[2]}">
-								<span class="text">Concluído</span>
-							</li>
-						</ul>
-						<hr class="dashed mb30"/>
+<div class="page-wrap">
+<div class="row">
+<div class="col-lg-12">
+<!-- Form wizard -->
+<div class="panel panel-lined mb30" ng-controller="FormWizardCtrl">
+<div class="panel-body">
+<ul class="list-unstyled wizard-tabs mb30">
+    <li ng-class="{active: steps[0]}">
+        <span class="text">Informações do Restaurante</span>
+        <i class="fa fa-long-arrow-right"></i>
+    </li>
+    <li ng-class="{active: steps[1]}">
+        <span class="text">Horário e Taxas</span>
+        <i class="fa fa-long-arrow-right"></i>
+    </li>
+    <li ng-class="{active: steps[2]}">
+        <span class="text">Concluído</span>
+    </li>
+</ul>
+<hr class="dashed mb30"/>
 
-						<!-- step 1 -->
-						<form class="form-horizontal col-lg-10" name="wizard-step-1" id="addRestaurante" ng-show="steps[0]">
-							<div class="form-group">
-								<label class="col-lg-4 control-label">Nome</label>
-								<div class="col-lg-8">
-									<input type="text" id="nome-restaurante" class="form-control" ng-minlength="4" placeholder="Nome do Restaurante" required>
-								</div>
-							</div>
+<!-- step 1 -->
+<form class="form-horizontal col-lg-10" name="wizard-step-1" ng-show="steps[0]">
+    <div class="form-group">
+        <label class="col-lg-4 control-label">Nome</label>
+        <div class="col-lg-8">
+            <input type="text" class="form-control" ng-minlength="4" id="nome-restaurante" placeholder="Nome do Restaurante" required>
+        </div>
+    </div>
 
-							<div class="form-group">
-								<label class="col-lg-4 control-label">Endereço</label>
-								<div class="col-lg-8">
-									<input type="text" id="endereco-restaurante" class="form-control" name="endereco" id="endereco" placeholder="Rua Sao Pedro, 575" required>
-								</div>
-							</div>
+    <div class="form-group">
+        <label class="col-lg-4 control-label">Endereço</label>
+        <div class="col-lg-8">
+            <input type="text" class="form-control" id="endereco-restaurante" placeholder="Rua Sao Pedro, 575" required>
+        </div>
+    </div>
 
-							<div class="form-group">
-								<label class="col-lg-4 control-label">Email</label>
-								<div class="col-lg-8">
-									<input type="email" class="form-control" placeholder="john@doe.com" ng-model="fv.email" required>
-								</div>
-							</div>
+    <div class="form-group">
+        <label class="col-lg-4 control-label">Cidade</label>
+        <div class="col-lg-8">
+            <input type="text" class="form-control" id="cidade-restaurante" placeholder="Juazeiro do Norte" required>
+        </div>
+    </div>
 
-							<div class="form-group">
-								<label class="col-lg-4 control-label">CEP</label>
-								<div class="col-lg-8">
-									<input type="text" id="cep" class="form-control" ng-minlength="6" placeholder="63010000">
-								</div>
-							</div>
+    <div class="form-group">
+        <label class="col-lg-4 control-label">CEP</label>
+        <div class="col-lg-8">
+            <input type="text" class="form-control" id="cep" ng-maxlength="9" ng-minlength="9" ng-model="fv.rangelength" ng-pattern="/\d{5}-\d{3}$/" placeholder="63010000">
+        </div>
+    </div>
 
-							<div class="form-group">
-								<label class="col-lg-4 control-label">Telefone Estabelecimento</label>
-								<div class="col-lg-8">
-									<input type="tel" id="telefone-estabelecimento" class="form-control" ng-pattern="/\d{2}-\d{4}-\d{4}$/" ng-model="fv.phone" placeholder="(87) 8801-0000" required>
-								</div>
-							</div>
-							<div class="form-group">
-								<label class="col-lg-4 control-label">Telefone Proprietário</label>
-								<div class="col-lg-8">
-									<input type="tel" id="telefone-proprietario" class="form-control" ng-pattern="/\d{2}-\d{4}-\d{4}$/" ng-model="fv.phone" placeholder="xx-xxxxx-xx" required>
-								</div>
-							</div>
-							<div class="form-group">
-									<label class="col-lg-4 control-label">Taxa de Entrega</label>
-								<div class="col-lg-8">
-										<input type="text" id="taxa-entrega" class="form-control" ng-pattern="/^\w+$/" placeholder="R$ 5,00" ng-model="fv.text" required>
-								</div>
-							</div>
-							<div class="clearfix">
-								<button type="submit" class="btn btn-primary right" ng-click="stepNext(1)">Próximo</button>
-							</div>
-						</form>
-						<!-- #end step 1 -->
+    <div class="form-group">
+        <label class="col-lg-4 control-label">Telefone Estabelecimento</label>
+        <div class="col-lg-8">
+            <input type="tel" class="form-control" ng-pattern="/\d{2}-\d{4}-\d{4}$/" id="telefone-estabelecimento" ng-model="fv.phone" placeholder="88-8232-2323" required>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-lg-4 control-label">Taxa de Entrega</label>
+        <div class="col-lg-8">
+            <input type="text" class="form-control" ng-pattern="/^[0-9]{1,7}(\.[0-9]+)?$/" id="taxa-entrega" placeholder="R$ 5,00" ng-model="fv.text" required>
+        </div>
+    </div>
+    <div class="clearfix">
+        <button type="submit" class="btn btn-primary right" ng-click="stepNext(1)">Próximo</button>
+    </div>
+</form>
+<!-- #end step 1 -->
 
 
-						<!-- step 2 -->
-						<form class="form-inline text-center col-lg-12" id="addFuncionamento" name="wizard-step-2" ng-show="steps[1]">
-							<div class="form-group form-group-sm">
-							<h4>Segunda<h4>
-								<div class="input-group">
-									<input type="text" class="form-control" placeholder="Abertura" id="abertura-segunda">
-								</div>
-								<div class="input-group">
-									<input type="text" class="form-control" placeholder="Fechamento" id="fechamento-segunda">
-								</div>
-							<h4>Terça<h4>
-								<div class="input-group">
-									<input type="text" class="form-control" placeholder="Abertura" id="abertura-terca">
-								</div>
-								<div class="input-group">
-									<input type="text" class="form-control" placeholder="Fechamento" id="fechamento-terca">
-								</div>
-							<h4>Quarta<h4>
-								<div class="input-group">
-									<input type="text" class="form-control" placeholder="Abertura" id="abertura-quarta">
-								</div>
-								<div class="input-group">
-									<input type="text" class="form-control" placeholder="Fechamento" id="fechamento-quarta">
-								</div>
-							<h4>Quinta<h4>
-								<div class="input-group">
-									<input type="text" class="form-control" placeholder="Abertura" id="abertura-quinta">
-								</div>
-								<div class="input-group">
-									<input type="text" class="form-control" placeholder="Fechamento" id="fechamento-quinta">
-								</div>
-							<h4>Sexta<h4>
-								<div class="input-group">
-									<input type="text" class="form-control" placeholder="Abertura" id="abertura-sexta">
-								</div>
-								<div class="input-group">
-									<input type="text" class="form-control" placeholder="Fechamento" id="fechamento-sexta">
-								</div>
-							<h4>Sábado<h4>
-								<div class="input-group">
-									<input type="text" class="form-control" placeholder="Abertura" id="abertura-sabado">
-								</div>
-								<div class="input-group">
-									<input type="text" class="form-control" placeholder="Fechamento" id="fechamento-sabado">
-								</div>
-							<h4>Domingo<h4>
-								<div class="input-group">
-									<input type="text" class="form-control" placeholder="Abertura" id="abertura-domingo">
-								</div>
-								<div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Fechamento" id="fechamento-domingo">
-								</div>
-								<hr>
+<!-- step 2 -->
+<form class="form-inline text-center col-lg-12" name="wizard-step-2" ng-show="steps[1]">
 
-							<h4>Fechamos para horario de almoço<h4>
-								<div class="ui-toggle ui-toggle-primary mb15">
-									<label class="ui-toggle-inline">
-										<input type="checkbox"onclick="toggle_visibility('almocoShow')" name="toggleShow" > 
-										<span></span>
-									</label>
-								</div>
+    <div class="form-group form-group-sm">
+        <h4>Segunda</h4>
 
-								<div id="almocoShow" style="display:none;">
-									<div class="input-group">
-									<input type="text" class="form-control" placeholder="Horario de fechamento" id="fechamento-almoco">
-									</div>
-									<div class="input-group">
-									<input type="text" class="form-control" placeholder="Horario de retorno" id="abertura-almoco">
-									</div>
-								</div>
-						</div>
+        <div class="ui-toggle ui-toggle-primary mb15">
+            <a href="j:;" tooltip-placement="left" tooltip="Ativar se o estabelecimento for aberto!">
+                <label class="ui-toggle-inline">
+                    <input type="checkbox"onclick="toggle_visibility('segunda')" name="toggleShow" >
+                    <span></span>
+                </label>
+            </a>
+        </div>
+        <div id="segunda" style="display:none;">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Abertura">
+            </div>
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Fechamento">
+            </div>
+        </div>
+        <h4>Terça</h4>
+        <div class="ui-toggle ui-toggle-primary mb15">
+            <a href="j:;" tooltip-placement="left" tooltip="Ativar se o estabelecimento for aberto!">
+                <label class="ui-toggle-inline">
+                    <input type="checkbox"onclick="toggle_visibility('terca')" name="toggleShow" >
+                    <span></span>
+                </label>
+            </a>
+        </div>
+        <div id="terca" style="display:none;">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Abertura">
+            </div>
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Fechamento">
+            </div>
+        </div>
+        <h4>Quarta</h4>
+        <div class="ui-toggle ui-toggle-primary mb15">
+            <a href="j:;" tooltip-placement="left" tooltip="Ativar se o estabelecimento for aberto!">
+                <label class="ui-toggle-inline">
+                    <input type="checkbox"onclick="toggle_visibility('quarta')" name="toggleShow" >
+                    <span></span>
+                </label>
+            </a>
+        </div>
+        <div id="quarta" style="display:none;">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Abertura">
+            </div>
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Fechamento">
+            </div>
+        </div>
+        <h4>Quinta</h4>
+        <div class="ui-toggle ui-toggle-primary mb15">
+            <a href="j:;" tooltip-placement="left" tooltip="Ativar se o estabelecimento for aberto!">
+                <label class="ui-toggle-inline">
+                    <input type="checkbox"onclick="toggle_visibility('quinta')" name="toggleShow" >
+                    <span></span>
+                </label>
+            </a>
+        </div>
+        <div id="quinta" style="display:none;">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Abertura">
+            </div>
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Fechamento">
+            </div>
+        </div>
+        <h4>Sexta</h4>
+        <div class="ui-toggle ui-toggle-primary mb15">
+            <a href="j:;" tooltip-placement="left" tooltip="Ativar se o estabelecimento for aberto!">
+                <label class="ui-toggle-inline">
+                    <input type="checkbox"onclick="toggle_visibility('sexta')" name="toggleShow" >
+                    <span></span>
+                </label>
+            </a>
+        </div>
+        <div id="sexta" style="display:none;">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Abertura">
+            </div>
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Fechamento">
+            </div>
+        </div>
+        <h4>Sábado</h4>
+        <div class="ui-toggle ui-toggle-primary mb15">
+            <a href="j:;" tooltip-placement="left" tooltip="Ativar se o estabelecimento for aberto!">
+                <label class="ui-toggle-inline">
+                    <input type="checkbox"onclick="toggle_visibility('sabado')" name="toggleShow" >
+                    <span></span>
+                </label>
+            </a>
+        </div>
+        <div id="sabado" style="display:none;">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Abertura">
+            </div>
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Fechamento">
+            </div>
+        </div>
+        <h4>Domingo</h4>
+        <div class="ui-toggle ui-toggle-primary mb15">
+            <a href="j:;" tooltip-placement="left" tooltip="Ativar se o estabelecimento for aberto!">
+                <label class="ui-toggle-inline">
+                    <input type="checkbox"onclick="toggle_visibility('domingo')" name="toggleShow" >
+                    <span></span>
+                </label>
+            </a>
+        </div>
+        <div id="domingo" style="display:none;">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Abertura">
+            </div>
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Fechamento">
+            </div>
+        </div>
+        <hr>
+        <h4>Fechamos para horario de almoço</h4>
+        <div class="ui-toggle ui-toggle-primary mb15">
+            <a href="j:;" tooltip-placement="left" tooltip="Ativar se o estabelecimento for aberto!">
+                <label class="ui-toggle-inline">
+                    <input type="checkbox"onclick="toggle_visibility('almocoShow')" name="toggleShow" >
+                    <span></span>
+                </label>
+            </a>
+        </div>
+        <div id="almocoShow" style="display:none;">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Horario de fechamento">
+            </div>
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Horario de retorno">
+            </div>
+        </div>
+    </div>
 
-							<div class="clearfix">
-								<button type="button" class="btn btn-primary mr5" ng-click="stepNext(0)">Voltar</button>
-								<button type="submit" class="btn btn-primary" ng-click="stepNext(2)">Próximo</button>
-							</div>
-						</form>
-						<!-- #end step 2 -->
+    <div class="clearfix">
+        <button type="button" class="btn btn-primary mr5" ng-click="stepNext(0)">Voltar</button>
+        <button type="submit" class="btn btn-primary" ng-click="stepNext(2)">Próximo</button>
+    </div>
+</form>
+<!-- #end step 2 -->
 
 
 
-						<!-- step 3 -->
-						<div class="wizard-complete-msg text-center col-lg-8 col-lg-offset-2" ng-show="steps[2]">
-							<h3 class="text-light">Restaurante Adicionado!</h3>
-							<p> O Restaurante:  <p id="restaurante_nome"> <strong> [nome_restaurante] </strong> </p> Foi adicionado a sua lista de restaurantes, para adicionar produtos
-							vá até a guia <strong> Meus Produtos </strong> e depois Adicionar Produtos.</p>
-							
-							<button type="button" class="btn btn-primary" ng-click="stepReset()">Adicionar Outro!</button>
-						</div>
-						<!-- #end step 3 -->
+<!-- step 3 -->
+<div class="wizard-complete-msg text-center col-lg-8 col-lg-offset-2" ng-show="steps[2]">
+    <h3 class="text-light">Restaurante Adicionado!</h3>
+    <p> O restaurante [nome do restaurante] foi adicionado a sua lista de restaurantes, para adicionar produtos
+        vá até a guia Meus Produtos e depois Adicionar Produtos.</p>
 
-						
-					</div>
-				</div>
-				<!-- #end form wizard -->
-			</div>
-		</div>
-		<!-- #end row -->
-	</div>
-	<!-- #end page-wrap -->
+    <button type="button" class="btn btn-primary" ng-click="stepReset()">Adicionar Outro!</button>
 </div>
+<!-- #end step 3 -->
+
+
+</div>
+</div>
+<!-- #end form wizard -->
+</div>
+</div>
+<!-- #end row -->
+</div>
+<!-- #end page-wrap -->
+</div>
+
 
 <script>
 
@@ -195,16 +262,16 @@
         restaurante_nome = nomeRestaurante;
         var endereco = document.getElementById('endereco-restaurante').value;
         var cep = document.getElementById('cep').value;
+        var cidade = document.getElementById('cidade').value;
         var telefone_estabelecimento = document.getElementById('telefone-estabelecimento').value;
-        var telefone_proprietario = document.getElementById('telefone-proprietario').value;
         var taxaEntrega = document.getElementById('taxa-entrega').value;
 
         var date = {
             'nome_restaurante' : nomeRestaurante,
             'endereco_restaurante' : endereco,
             'cep' : cep,
+            'cidade': cidade,
             'telefone_estabelecimento' : telefone_estabelecimento,
-            'telefone_proprietario': telefone_proprietario,
             'taxa_entrega': taxaEntrega
         }
 
@@ -284,3 +351,5 @@
 
 
 </script>
+=======
+>>>>>>> b2e728d47fae4773c8dd8d31f20bc41a1467cf70
