@@ -28,7 +28,7 @@
 <hr class="dashed mb30"/>
 
 <!-- step 1 -->
-<form class="form-horizontal col-lg-10" name="wizard-step-1" ng-show="steps[0]">
+<form class="form-horizontal col-lg-10" name="wizard-step-1" ng-show="steps[0]" id="addRestaurante" name="addRestaurante">
     <div class="form-group">
         <label class="col-lg-4 control-label">Nome</label>
         <div class="col-lg-8">
@@ -77,7 +77,7 @@
 
 
 <!-- step 2 -->
-<form class="form-inline text-center col-lg-12" name="wizard-step-2" ng-show="steps[1]">
+<form class="form-inline text-center col-lg-12" name="wizard-step-2" ng-show="steps[1]" id="addFuncionamento">
 
     <div class="form-group form-group-sm">
         <h4>Segunda</h4>
@@ -90,14 +90,16 @@
                 </label>
             </a>
         </div>
+
         <div id="segunda" style="display:none;">
             <div class="input-group">
-                <input type="text" class="form-control" placeholder="Abertura">
+                <input type="text" class="form-control" placeholder="Abertura" id="abertura-segunda">
             </div>
             <div class="input-group">
-                <input type="text" class="form-control" placeholder="Fechamento">
+                <input type="text" class="form-control" placeholder="Fechamento" id="fechamento-segunda">
             </div>
         </div>
+
         <h4>Terça</h4>
         <div class="ui-toggle ui-toggle-primary mb15">
             <a href="j:;" tooltip-placement="left" tooltip="Ativar se o estabelecimento for aberto!">
@@ -107,14 +109,16 @@
                 </label>
             </a>
         </div>
+
         <div id="terca" style="display:none;">
             <div class="input-group">
-                <input type="text" class="form-control" placeholder="Abertura">
+                <input type="text" class="form-control" placeholder="Abertura" id="abertura-terca">
             </div>
             <div class="input-group">
-                <input type="text" class="form-control" placeholder="Fechamento">
+                <input type="text" class="form-control" placeholder="Fechamento" id="fechamento-terca">
             </div>
         </div>
+
         <h4>Quarta</h4>
         <div class="ui-toggle ui-toggle-primary mb15">
             <a href="j:;" tooltip-placement="left" tooltip="Ativar se o estabelecimento for aberto!">
@@ -126,10 +130,10 @@
         </div>
         <div id="quarta" style="display:none;">
             <div class="input-group">
-                <input type="text" class="form-control" placeholder="Abertura">
+                <input type="text" class="form-control" placeholder="Abertura" id="abertura-quarta">
             </div>
             <div class="input-group">
-                <input type="text" class="form-control" placeholder="Fechamento">
+                <input type="text" class="form-control" placeholder="Fechamento" id="fechamento-quarta">
             </div>
         </div>
         <h4>Quinta</h4>
@@ -143,10 +147,10 @@
         </div>
         <div id="quinta" style="display:none;">
             <div class="input-group">
-                <input type="text" class="form-control" placeholder="Abertura">
+                <input type="text" class="form-control" placeholder="Abertura" id="abertura-quinta">
             </div>
             <div class="input-group">
-                <input type="text" class="form-control" placeholder="Fechamento">
+                <input type="text" class="form-control" placeholder="Fechamento" id="fechamento-quinta">
             </div>
         </div>
         <h4>Sexta</h4>
@@ -160,10 +164,10 @@
         </div>
         <div id="sexta" style="display:none;">
             <div class="input-group">
-                <input type="text" class="form-control" placeholder="Abertura">
+                <input type="text" class="form-control" placeholder="Abertura" id="abertura-sexta">
             </div>
             <div class="input-group">
-                <input type="text" class="form-control" placeholder="Fechamento">
+                <input type="text" class="form-control" placeholder="Fechamento" id="fechamento-sexta">
             </div>
         </div>
         <h4>Sábado</h4>
@@ -177,10 +181,10 @@
         </div>
         <div id="sabado" style="display:none;">
             <div class="input-group">
-                <input type="text" class="form-control" placeholder="Abertura">
+                <input type="text" class="form-control" placeholder="Abertura" id="abertura-sabado">
             </div>
             <div class="input-group">
-                <input type="text" class="form-control" placeholder="Fechamento">
+                <input type="text" class="form-control" placeholder="Fechamento" id="fechamento-sabado">
             </div>
         </div>
         <h4>Domingo</h4>
@@ -194,10 +198,10 @@
         </div>
         <div id="domingo" style="display:none;">
             <div class="input-group">
-                <input type="text" class="form-control" placeholder="Abertura">
+                <input type="text" class="form-control" placeholder="Abertura" id="abertura-domingo">
             </div>
             <div class="input-group">
-                <input type="text" class="form-control" placeholder="Fechamento">
+                <input type="text" class="form-control" placeholder="Fechamento" id="fechamento-domingo">
             </div>
         </div>
         <hr>
@@ -212,10 +216,10 @@
         </div>
         <div id="almocoShow" style="display:none;">
             <div class="input-group">
-                <input type="text" class="form-control" placeholder="Horario de fechamento">
+                <input type="text" class="form-control" placeholder="Horario de fechamento" id="fechamento-almoco">
             </div>
             <div class="input-group">
-                <input type="text" class="form-control" placeholder="Horario de retorno">
+                <input type="text" class="form-control" placeholder="Horario de retorno" id="retorno-almoco">
             </div>
         </div>
     </div>
@@ -232,7 +236,7 @@
 <!-- step 3 -->
 <div class="wizard-complete-msg text-center col-lg-8 col-lg-offset-2" ng-show="steps[2]">
     <h3 class="text-light">Restaurante Adicionado!</h3>
-    <p> O restaurante [nome do restaurante] foi adicionado a sua lista de restaurantes, para adicionar produtos
+    <p> O restaurante <p id="restaurante_nome"> [nome do restaurante] </p> foi adicionado a sua lista de restaurantes, para adicionar produtos
         vá até a guia Meus Produtos e depois Adicionar Produtos.</p>
 
     <button type="button" class="btn btn-primary" ng-click="stepReset()">Adicionar Outro!</button>
@@ -262,7 +266,7 @@
         restaurante_nome = nomeRestaurante;
         var endereco = document.getElementById('endereco-restaurante').value;
         var cep = document.getElementById('cep').value;
-        var cidade = document.getElementById('cidade').value;
+        var cidade = document.getElementById('cidade-restaurante').value;
         var telefone_estabelecimento = document.getElementById('telefone-estabelecimento').value;
         var taxaEntrega = document.getElementById('taxa-entrega').value;
 
@@ -321,7 +325,7 @@
 
         /* Horario de Almoço */
         var fechamento_almoco = document.getElementById('fechamento-almoco').value;
-        var abertura_almoco = document.getElementById('fechamento-domingo').value;
+        var abertura_almoco = document.getElementById('retorno-almoco').value;
 
         /* Array com todas as informações */
         var data = {
