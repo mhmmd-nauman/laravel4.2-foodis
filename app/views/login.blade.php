@@ -30,7 +30,7 @@
 </head>
 <body ng-app="app" 
 	id="app" 
-	class="app {{themeActive}}" custom-page 
+	class="app {{themeActive}}" custom-page
 	ng-controller="AppCtrl">
 
 		<div class="page page-auth clearfix">
