@@ -7,23 +7,24 @@
     <meta name="keywords" content="appboard, webapp, admin, dashboard, template, ui">
     <meta name="author" content="solutionportal">
     <!-- <base href="/"> -->
-    @yield('titulo')
+
+    <title>Foodis - Dashboard</title>
+
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800' rel='stylesheet' type='text/css'>
 
     <!-- Icons -->
-    <link rel="stylesheet" href="assets/fonts/font-awesome/font-awesome.css">
-
+    <link rel="stylesheet" href="fonts/font-awesome/font-awesome.css">
+    
     <!-- Css/Less Stylesheets -->
-    <link rel="stylesheet" href="assets/styles/vendors/bootstrap.min.css">
-    <link rel="stylesheet/less" href="assets/styles/main.less">
-
-    <!-- Set this in dist folder in index.html file -->
-    <!--    <link rel="stylesheet" href="styles/bootstrap.min.css">
-            <link rel="stylesheet" href="styles/main.min.css">
-        -->
-
+    <link rel="stylesheet" href="styles/vendors/bootstrap.min.css">
+    <link rel="stylesheet/less" href="styles/main.less">
+     
+        <!-- Set this in dist folder in index.html file -->
+<!--    <link rel="stylesheet" href="styles/bootstrap.min.css">
+        <link rel="stylesheet" href="styles/main.min.css">  
+    -->
+    
     <!-- Match Media polyfill for IE9 -->
-    <!--[if IE 9]><!--> <script src="assets/scripts/ie/matchMedia.js"></script>  <!--<![endif]-->
+    <!--[if IE 9]><!--> <script src="scripts/ie/matchMedia.js"></script>  <!--<![endif]--> 
 
 </head>
-@extends('template.body')

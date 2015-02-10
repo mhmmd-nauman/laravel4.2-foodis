@@ -1,0 +1,57 @@
+<div class="page page-table-static clearfix">
+
+	<ol class="breadcrumb breadcrumb-small">
+		<li>Pedidos</li>
+		<li class="active"><a href="#/tables/static-table">Em Aberto</a></li>
+	</ol>
+
+	<div class="page-wrap">
+
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="panel panel-lined mb30 table-responsive">
+					<div class="panel-heading"><i>Pedidos em Aberto</i></div>
+						<table class="table table-bordered table-striped table-condensed table-hover" ng-controller="ResponsiveTableDemoCtrl">
+						<thead>
+							<tr>
+								<th>Numero Pedido</th>
+								<th class="col-lg-1">Tempo no Sistema</th>
+								<th>Cliente</th>
+								<th>Endereço</th>
+								<th>Opções</th>
+								<th>Categorias</th>
+								<th class="col-lg-2">Data e Hora</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="data in responsiveData">
+								<td>{{data.numero}}</td>
+								<td>{{data.tempo}}</td>
+								<td>{{data.cliente}}</td>
+								<td>{{data.endereco}}</td>
+								<td>
+									<a href="#/pedidos/pedido" >
+										<button type="button" class="btn btn-success btn-sm">Ver Pedido</button>
+									</a>
+									<button type="button" class="btn btn-danger btn-sm">Rejeitar Pedido</button>
+								</td>
+								<td>
+									<label class="label label-primary mr5" ng-repeat="tag in data.tags">{{tag}}</label>
+								</td>
+								<td>{{data.date}}</td>
+							</tr>
+						</tbody>
+					</table>
+
+					<div class="panel-footer clearfix">
+						<pagination boundary-links="true" total-items="60" ng-model="currentPage" class="pagination-xs right" 
+						previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></pagination>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+	</div>
+	<!-- #end page-wrap -->
+</div>
