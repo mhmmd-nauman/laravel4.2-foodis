@@ -44,35 +44,29 @@
 							</div>
 
 							<div class="form-group">
-								<label class="col-lg-4 control-label">Email</label>
+								<label class="col-lg-4 control-label">Cidade</label>
 								<div class="col-lg-8">
-									<input type="email" class="form-control" placeholder="john@doe.com" ng-model="fv.email" required>
+									<input type="text" class="form-control" placeholder="Juazeiro do Norte" required>
 								</div>
 							</div>
 
 							<div class="form-group">
 								<label class="col-lg-4 control-label">CEP</label>
 								<div class="col-lg-8">
-									<input type="text" class="form-control" ng-minlength="6" placeholder="63010000">
+									<input type="text" class="form-control" ng-maxlength="9" ng-minlength="9" ng-model="fv.rangelength" ng-pattern="/\d{5}-\d{3}$/" placeholder="63010000">
 								</div>
 							</div>
 
 							<div class="form-group">
 								<label class="col-lg-4 control-label">Telefone Estabelecimento</label>
 								<div class="col-lg-8">
-									<input type="tel" class="form-control" ng-pattern="/\d{2}-\d{5}-\d{2}$/" ng-model="fv.phone" placeholder="xx-xxxxx-xx" required>
-								</div>
-							</div>
-							<div class="form-group">
-								<label class="col-lg-4 control-label">Telefone Proprietário</label>
-								<div class="col-lg-8">
-									<input type="tel" class="form-control" ng-pattern="/\d{2}-\d{5}-\d{2}$/" ng-model="fv.phone" placeholder="xx-xxxxx-xx" required>
+									<input type="tel" class="form-control" ng-pattern="/\d{2}-\d{4}-\d{4}$/" ng-model="fv.phone" placeholder="88-8232-2323" required>
 								</div>
 							</div>
 							<div class="form-group">
 									<label class="col-lg-4 control-label">Taxa de Entrega</label>
 								<div class="col-lg-8">
-										<input type="text" class="form-control" ng-pattern="/^\w+$/" placeholder="R$ 5,00" ng-model="fv.text" required>
+										<input type="text" class="form-control" ng-pattern="/^[0-9]{1,7}(\.[0-9]+)?$/" placeholder="R$ 5,00" ng-model="fv.text" required>
 								</div>
 							</div>
 							<div class="clearfix">
@@ -84,63 +78,137 @@
 
 						<!-- step 2 -->
 						<form class="form-inline text-center col-lg-12" name="wizard-step-2" ng-show="steps[1]">
+
 							<div class="form-group form-group-sm">
-							<h4>Segunda<h4>
-								<div class="input-group">
-									<input type="text" class="form-control" placeholder="Abertura">
+							<h4>Segunda</h4>
+
+								<div class="ui-toggle ui-toggle-primary mb15">
+									<a href="j:;" tooltip-placement="left" tooltip="Ativar se o estabelecimento for aberto!">
+									<label class="ui-toggle-inline">
+										<input type="checkbox"onclick="toggle_visibility('segunda')" name="toggleShow" > 
+										<span></span>
+									</label>
+									</a>
 								</div>
-								<div class="input-group">
-									<input type="text" class="form-control" placeholder="Fechamento">
+								<div id="segunda" style="display:none;">
+									<div class="input-group">
+										<input type="text" class="form-control" placeholder="Abertura">
+									</div>
+									<div class="input-group">
+										<input type="text" class="form-control" placeholder="Fechamento">
+									</div>
 								</div>
-							<h4>Terça<h4>
-								<div class="input-group">
-									<input type="text" class="form-control" placeholder="Abertura">
+							<h4>Terça</h4>
+								<div class="ui-toggle ui-toggle-primary mb15">
+									<a href="j:;" tooltip-placement="left" tooltip="Ativar se o estabelecimento for aberto!">
+									<label class="ui-toggle-inline">
+										<input type="checkbox"onclick="toggle_visibility('terca')" name="toggleShow" > 
+										<span></span>
+									</label>
+									</a>
 								</div>
-								<div class="input-group">
-									<input type="text" class="form-control" placeholder="Fechamento">
+								<div id="terca" style="display:none;">
+									<div class="input-group">
+										<input type="text" class="form-control" placeholder="Abertura">
+									</div>
+									<div class="input-group">
+										<input type="text" class="form-control" placeholder="Fechamento">
+									</div>
 								</div>
-							<h4>Quarta<h4>
-								<div class="input-group">
-									<input type="text" class="form-control" placeholder="Abertura">
+							<h4>Quarta</h4>
+								<div class="ui-toggle ui-toggle-primary mb15">
+									<a href="j:;" tooltip-placement="left" tooltip="Ativar se o estabelecimento for aberto!">
+									<label class="ui-toggle-inline">
+										<input type="checkbox"onclick="toggle_visibility('quarta')" name="toggleShow" > 
+										<span></span>
+									</label>
+									</a>
 								</div>
-								<div class="input-group">
-									<input type="text" class="form-control" placeholder="Fechamento">
+								<div id="quarta" style="display:none;">
+									<div class="input-group">
+										<input type="text" class="form-control" placeholder="Abertura">
+									</div>
+									<div class="input-group">
+										<input type="text" class="form-control" placeholder="Fechamento">
+									</div>
 								</div>
-							<h4>Quinta<h4>
-								<div class="input-group">
-									<input type="text" class="form-control" placeholder="Abertura">
+							<h4>Quinta</h4>
+								<div class="ui-toggle ui-toggle-primary mb15">
+									<a href="j:;" tooltip-placement="left" tooltip="Ativar se o estabelecimento for aberto!">
+									<label class="ui-toggle-inline">
+										<input type="checkbox"onclick="toggle_visibility('quinta')" name="toggleShow" > 
+										<span></span>
+									</label>
+									</a>
 								</div>
-								<div class="input-group">
-									<input type="text" class="form-control" placeholder="Fechamento">
+								<div id="quinta" style="display:none;">
+									<div class="input-group">
+										<input type="text" class="form-control" placeholder="Abertura">
+									</div>
+									<div class="input-group">
+										<input type="text" class="form-control" placeholder="Fechamento">
+									</div>
 								</div>
-							<h4>Sexta<h4>
-								<div class="input-group">
-									<input type="text" class="form-control" placeholder="Abertura">
+							<h4>Sexta</h4>
+								<div class="ui-toggle ui-toggle-primary mb15">
+									<a href="j:;" tooltip-placement="left" tooltip="Ativar se o estabelecimento for aberto!">
+									<label class="ui-toggle-inline">
+										<input type="checkbox"onclick="toggle_visibility('sexta')" name="toggleShow" > 
+										<span></span>
+									</label>
+									</a>
 								</div>
-								<div class="input-group">
-									<input type="text" class="form-control" placeholder="Fechamento">
+								<div id="sexta" style="display:none;">
+									<div class="input-group">
+										<input type="text" class="form-control" placeholder="Abertura">
+									</div>
+									<div class="input-group">
+										<input type="text" class="form-control" placeholder="Fechamento">
+									</div>
 								</div>
-							<h4>Sábado<h4>
-								<div class="input-group">
-									<input type="text" class="form-control" placeholder="Abertura">
+							<h4>Sábado</h4>
+								<div class="ui-toggle ui-toggle-primary mb15">
+									<a href="j:;" tooltip-placement="left" tooltip="Ativar se o estabelecimento for aberto!">
+									<label class="ui-toggle-inline">
+										<input type="checkbox"onclick="toggle_visibility('sabado')" name="toggleShow" > 
+										<span></span>
+									</label>
+									</a>
 								</div>
-								<div class="input-group">
-									<input type="text" class="form-control" placeholder="Fechamento">
+								<div id="sabado" style="display:none;">
+									<div class="input-group">
+										<input type="text" class="form-control" placeholder="Abertura">
+									</div>
+									<div class="input-group">
+										<input type="text" class="form-control" placeholder="Fechamento">
+									</div>
 								</div>
-							<h4>Domingo<h4>
-								<div class="input-group">
-									<input type="text" class="form-control" placeholder="Abertura">
+							<h4>Domingo</h4>
+								<div class="ui-toggle ui-toggle-primary mb15">
+									<a href="j:;" tooltip-placement="left" tooltip="Ativar se o estabelecimento for aberto!">
+									<label class="ui-toggle-inline">
+										<input type="checkbox"onclick="toggle_visibility('domingo')" name="toggleShow" > 
+										<span></span>
+									</label>
+									</a>
 								</div>
-								<div class="input-group">
-									<input type="text" class="form-control" placeholder="Fechamento">
+								<div id="domingo" style="display:none;">
+									<div class="input-group">
+										<input type="text" class="form-control" placeholder="Abertura">
+									</div>
+									<div class="input-group">
+										<input type="text" class="form-control" placeholder="Fechamento">
+									</div>
 								</div>
 								<hr>
-							<h4>Fechamos para horario de almoço<h4>
+							<h4>Fechamos para horario de almoço</h4>
 								<div class="ui-toggle ui-toggle-primary mb15">
+									<a href="j:;" tooltip-placement="left" tooltip="Ativar se o estabelecimento for aberto!">
 									<label class="ui-toggle-inline">
 										<input type="checkbox"onclick="toggle_visibility('almocoShow')" name="toggleShow" > 
 										<span></span>
 									</label>
+									</a>
 								</div>
 								<div id="almocoShow" style="display:none;">
 									<div class="input-group">

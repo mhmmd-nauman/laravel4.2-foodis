@@ -63,6 +63,7 @@
 	<script src="scripts/charts/app.chart.directives.js"></script>
 	<script src="scripts/todo/app.todo.js"></script>
 	<script src="scripts/email/app.email.ctrls.js"></script>
+	<script src="scripts/ui/app.ui.timepicker.directives.js"></script>
 	
 
 	<!-- Set this in dist index.html after removing above scripts-->
