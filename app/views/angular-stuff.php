@@ -35,6 +35,10 @@
 	<script src="scripts/vendors/jquery.min.js"></script> <!-- load before angular -->
 	<script src="scripts/vendors/angular.min.js"></script>
 
+	<!--angularstrap-->
+	<script src="//cdnjs.cloudflare.com/ajax/libs/angular-strap/2.1.2/angular-strap.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/angular-strap/2.1.2/angular-strap.tpl.min.js"></script>
+
 	<!-- Plugins -->
 	<script src="scripts/plugins/angular-route.min.js"></script>
 	<script src="scripts/plugins/angular-animate.min.js"></script>
@@ -49,6 +53,8 @@
 	<script src="scripts/plugins/angular-skycons.min.js"></script>
 	<script src="scripts/plugins/loading-bar.min.js"></script>
 	<script src="scripts/plugins/angular-fullscreen.js"></script>
+	<script src="scripts/plugins/jquery.bpopup.min.js"></script>
+	<script src="scripts/plugins/ngDialog.js"></script>
 	
 	<!-- Custom scripts -->
 	<script src="scripts/app.js"></script>

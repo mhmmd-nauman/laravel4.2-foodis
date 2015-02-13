@@ -1,7 +1,6 @@
 ;(function() {
 "use strict";
 
-
 angular.module("app.ctrls", [])
 
 // Root Controller
@@ -169,9 +168,19 @@ angular.module("app.ctrls", [])
 
 }])
 
+.controller('ModalCtrl', function($scope, $modal) {
+    // Show a basic modal from a controller
+    var myModal = $modal({title: 'My Title', content: 'My Content', show: true});
+
+     // Pre-fetch an external template populated with a custom scope
+     var myOtherModal = $modal({scope: $scope, template: '/../bower_components/angular-strap/src/modal.tpl.html', show: false});
+     // Show when some event occurs (use $promise property to ensure the template has been loaded)
+     $scope.showModal = function() {
+         myOtherModal.$promise.then(myOtherModal.show);
+    };
 
 
-
+})
 
 }())
 

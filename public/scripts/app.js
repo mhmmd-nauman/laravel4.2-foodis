@@ -28,6 +28,7 @@
 		"app.todo",
 		"app.email.ctrls",
 		"ui.timepicker",
+		"mgcrea.ngStrap",
 
 	])
 
@@ -46,8 +47,8 @@
 	.config(["$routeProvider", "$locationProvider", function($routeProvider, $locationProvider) {
 
 		var routes = [
-			"dashboard", "restaurantes/cadrest", "restaurantes/editrest", "prods/addprod", "prods/editprod", "pedidos/aberto","pedidos/pedido",
-			"pedidos/andamento","pedidos/cancelado","pedidos/concluido","pedidos/rejeitado","funcs/addfunc","funcs/editfunc","funcs/editfunc2"
+			"dashboard", "restaurante/adicionar", "restaurante/editar", "produto/adicionar", "produto/editar", "pedidos/aberto","pedidos/pedido",
+			"pedidos/andamento","pedidos/cancelado","pedidos/concluido","pedidos/rejeitado","funcionario/adicionar","funcionario/editar","funcionario/editar_info"
 		];
 
 		function setRoutes(route) {

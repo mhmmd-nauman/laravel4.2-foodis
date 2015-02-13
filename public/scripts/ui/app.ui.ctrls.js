@@ -145,9 +145,5 @@ angular.module("app.ui.ctrls", [])
 
 }]);
 
-
-
-
-
 // end
 }())
