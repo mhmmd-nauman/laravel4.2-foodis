@@ -8,28 +8,31 @@
 			<div class="col-lg-6">
 				<div class="panel panel-lined mb30">
 						<div class="panel-body">
-							<form role="form5">
+
+                            <p id="mensagem-sucesso" class="bg-success" style="text-align:center; display: none;" > <br/> Usuário Cadastrado com Sucesso <br/> <br/></p>
+
+							<form role="form5" id="addFuncionario">
 										<div class="form-group">
 											<label class="text-uppercase small text-bold">Nome:</label>
-											<input type="text" class="form-control" placeholder="Priscila Campos">
+											<input type="text" id="nome-completo" class="form-control" placeholder="Priscila Campos" autofocus="autofocus">
 										</div>
 										<div class="form-group">
 											<label class="text-uppercase small text-bold">Usuario:</label>
-											<input type="text" class="form-control" placeholder="atendente1">
+											<input type="text" id="usuario" class="form-control" placeholder="Atendente">
 										</div>
 										<div class="form-group">
 											<label class="text-uppercase small text-bold">Senha:</label>
-											<input type="password" class="form-control" placeholder="">
+											<input type="password" id="password" class="form-control" placeholder="*******">
 										</div>
 										<div class="form-group">
-											<label class="text-uppercase small text-bold">Permissões:</label>
+											<label class="text-uppercase small text-bold">Permissão:</label>
 											<div class="ui-checkbox ui-checkbox-danger">
 												<label>
-													<input type="checkbox"> 
+													<input type="radio" name="permissao" value="1" id="nivel">
 													<span>Administrador</span>
-												</label>
+												</label> <br/>
 												<label>
-													<input type="checkbox"> 
+													<input type="radio" name="permissao" value="2" id="nivel">
 													<span>Vendedor</span>
 												</label>
 											</div>
@@ -45,3 +48,43 @@
 	</div>
 	<!-- #end page-wrap -->
 </div>
+<script>
+    $("#addFuncionario").submit(function (event) {
+       /* URL utilizada na Requisicao */
+       var URL = 'http://localhost/foodis-restaurante/public/add/funcionario';
+
+       /* Informações do Formulario */
+       var nome = document.getElementById("nome-completo").value;
+       var usuario = document.getElementById("usuario").value;
+       var password = document.getElementById("password").value;
+       var nivel = $('input[name=permissao]:checked').val();
+
+       var data = {
+         'nome' : nome,
+         'usuario' : usuario,
+         'password': password,
+         'permissao': nivel
+       };
+
+        /* Envio da Requisição */
+
+        $.ajax({
+            url: URL,
+            type: "POST",
+            data: JSON.stringify(data),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (result) {
+                /* Exibo a mensagem de sucesso */
+                $('#mensagem-sucesso').show();
+
+                /* Limpo todos os inputs do Formulario */
+                $('#nome-completo').val('');
+                $('#usuario').val('');
+                $('#password').val('');
+                $("input:radio").attr("checked", false);
+            }
+        })
+
+    });
+</script>

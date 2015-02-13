@@ -1,251 +1,357 @@
 <div class="page page-form-wizard clearfix">
 
 
-	<ol class="breadcrumb breadcrumb-small">
-		<li>Meus Restaurantes</li>
-		<li class="active"><a href="#/forms/form-wizard">Cadastrar Restaurante</a></li>
-	</ol>
+<ol class="breadcrumb breadcrumb-small">
+    <li>Meus Restaurantes</li>
+    <li class="active"><a href="#/forms/form-wizard">Cadastrar Restaurante</a></li>
+</ol>
 
-	<div class="page-wrap">
-		<div class="row">
-			<div class="col-lg-12">
-				<!-- Form wizard -->
-				<div class="panel panel-lined mb30" ng-controller="FormWizardCtrl">
-					<div class="panel-body">
-						<ul class="list-unstyled wizard-tabs mb30">
-							<li ng-class="{active: steps[0]}">
-								<span class="text">Informações do Restaurante</span>
-								<i class="fa fa-long-arrow-right"></i>
-							</li>
-							<li ng-class="{active: steps[1]}">
-								<span class="text">Horário e Taxas</span>
-								<i class="fa fa-long-arrow-right"></i>
-							</li>
-							<li ng-class="{active: steps[2]}">
-								<span class="text">Concluído</span>
-							</li>
-						</ul>
-						<hr class="dashed mb30"/>
+<div class="page-wrap">
+<div class="row">
+<div class="col-lg-12">
+<!-- Form wizard -->
+<div class="panel panel-lined mb30" ng-controller="FormWizardCtrl">
+<div class="panel-body">
+<ul class="list-unstyled wizard-tabs mb30">
+    <li ng-class="{active: steps[0]}">
+        <span class="text">Informações do Restaurante</span>
+        <i class="fa fa-long-arrow-right"></i>
+    </li>
+    <li ng-class="{active: steps[1]}">
+        <span class="text">Horário e Taxas</span>
+        <i class="fa fa-long-arrow-right"></i>
+    </li>
+    <li ng-class="{active: steps[2]}">
+        <span class="text">Concluído</span>
+    </li>
+</ul>
+<hr class="dashed mb30"/>
 
-						<!-- step 1 -->
-						<form class="form-horizontal col-lg-10" name="wizard-step-1" ng-show="steps[0]">
-							<div class="form-group">
-								<label class="col-lg-4 control-label">Nome</label>
-								<div class="col-lg-8">
-									<input type="text" class="form-control" ng-minlength="4" placeholder="Nome do Restaurante" required>
-								</div>
-							</div>
+<!-- step 1 -->
+<form class="form-horizontal col-lg-10" name="wizard-step-1" ng-show="steps[0]" id="addRestaurante" name="addRestaurante">
+    <div class="form-group">
+        <label class="col-lg-4 control-label">Nome</label>
+        <div class="col-lg-8">
+            <input type="text" class="form-control" ng-minlength="4" id="nome-restaurante" placeholder="Nome do Restaurante" required>
+        </div>
+    </div>
 
-							<div class="form-group">
-								<label class="col-lg-4 control-label">Endereço</label>
-								<div class="col-lg-8">
-									<input type="text" class="form-control" placeholder="Rua Sao Pedro, 575" required>
-								</div>
-							</div>
+    <div class="form-group">
+        <label class="col-lg-4 control-label">Endereço</label>
+        <div class="col-lg-8">
+            <input type="text" class="form-control" id="endereco-restaurante" placeholder="Rua Sao Pedro, 575" required>
+        </div>
+    </div>
 
-							<div class="form-group">
-								<label class="col-lg-4 control-label">Cidade</label>
-								<div class="col-lg-8">
-									<input type="text" class="form-control" placeholder="Juazeiro do Norte" required>
-								</div>
-							</div>
+    <div class="form-group">
+        <label class="col-lg-4 control-label">Cidade</label>
+        <div class="col-lg-8">
+            <input type="text" class="form-control" id="cidade-restaurante" placeholder="Juazeiro do Norte" required>
+        </div>
+    </div>
 
-							<div class="form-group">
-								<label class="col-lg-4 control-label">CEP</label>
-								<div class="col-lg-8">
-									<input type="text" class="form-control" ng-maxlength="9" ng-minlength="9" ng-model="fv.rangelength" ng-pattern="/\d{5}-\d{3}$/" placeholder="63010000">
-								</div>
-							</div>
+    <div class="form-group">
+        <label class="col-lg-4 control-label">CEP</label>
+        <div class="col-lg-8">
+            <input type="text" class="form-control" id="cep" ng-maxlength="9" ng-minlength="9" ng-model="fv.rangelength" ng-pattern="/\d{5}-\d{3}$/" placeholder="63010000">
+        </div>
+    </div>
 
-							<div class="form-group">
-								<label class="col-lg-4 control-label">Telefone Estabelecimento</label>
-								<div class="col-lg-8">
-									<input type="tel" class="form-control" ng-pattern="/\d{2}-\d{4}-\d{4}$/" ng-model="fv.phone" placeholder="88-8232-2323" required>
-								</div>
-							</div>
-							<div class="form-group">
-									<label class="col-lg-4 control-label">Taxa de Entrega</label>
-								<div class="col-lg-8">
-										<input type="text" class="form-control" ng-pattern="/^[0-9]{1,7}(\.[0-9]+)?$/" placeholder="R$ 5,00" ng-model="fv.text" required>
-								</div>
-							</div>
-							<div class="clearfix">
-								<button type="submit" class="btn btn-primary right" ng-click="stepNext(1)">Próximo</button>
-							</div>
-						</form>
-						<!-- #end step 1 -->
-
-
-						<!-- step 2 -->
-						<form class="form-inline text-center col-lg-12" name="wizard-step-2" ng-show="steps[1]">
-
-							<div class="form-group form-group-sm">
-							<h4>Segunda</h4>
-
-								<div class="ui-toggle ui-toggle-primary mb15">
-									<a href="j:;" tooltip-placement="left" tooltip="Ativar se o estabelecimento for aberto!">
-									<label class="ui-toggle-inline">
-										<input type="checkbox"onclick="toggle_visibility('segunda')" name="toggleShow" > 
-										<span></span>
-									</label>
-									</a>
-								</div>
-								<div id="segunda" style="display:none;">
-									<div class="input-group">
-										<input type="text" class="form-control" placeholder="Abertura">
-									</div>
-									<div class="input-group">
-										<input type="text" class="form-control" placeholder="Fechamento">
-									</div>
-								</div>
-							<h4>Terça</h4>
-								<div class="ui-toggle ui-toggle-primary mb15">
-									<a href="j:;" tooltip-placement="left" tooltip="Ativar se o estabelecimento for aberto!">
-									<label class="ui-toggle-inline">
-										<input type="checkbox"onclick="toggle_visibility('terca')" name="toggleShow" > 
-										<span></span>
-									</label>
-									</a>
-								</div>
-								<div id="terca" style="display:none;">
-									<div class="input-group">
-										<input type="text" class="form-control" placeholder="Abertura">
-									</div>
-									<div class="input-group">
-										<input type="text" class="form-control" placeholder="Fechamento">
-									</div>
-								</div>
-							<h4>Quarta</h4>
-								<div class="ui-toggle ui-toggle-primary mb15">
-									<a href="j:;" tooltip-placement="left" tooltip="Ativar se o estabelecimento for aberto!">
-									<label class="ui-toggle-inline">
-										<input type="checkbox"onclick="toggle_visibility('quarta')" name="toggleShow" > 
-										<span></span>
-									</label>
-									</a>
-								</div>
-								<div id="quarta" style="display:none;">
-									<div class="input-group">
-										<input type="text" class="form-control" placeholder="Abertura">
-									</div>
-									<div class="input-group">
-										<input type="text" class="form-control" placeholder="Fechamento">
-									</div>
-								</div>
-							<h4>Quinta</h4>
-								<div class="ui-toggle ui-toggle-primary mb15">
-									<a href="j:;" tooltip-placement="left" tooltip="Ativar se o estabelecimento for aberto!">
-									<label class="ui-toggle-inline">
-										<input type="checkbox"onclick="toggle_visibility('quinta')" name="toggleShow" > 
-										<span></span>
-									</label>
-									</a>
-								</div>
-								<div id="quinta" style="display:none;">
-									<div class="input-group">
-										<input type="text" class="form-control" placeholder="Abertura">
-									</div>
-									<div class="input-group">
-										<input type="text" class="form-control" placeholder="Fechamento">
-									</div>
-								</div>
-							<h4>Sexta</h4>
-								<div class="ui-toggle ui-toggle-primary mb15">
-									<a href="j:;" tooltip-placement="left" tooltip="Ativar se o estabelecimento for aberto!">
-									<label class="ui-toggle-inline">
-										<input type="checkbox"onclick="toggle_visibility('sexta')" name="toggleShow" > 
-										<span></span>
-									</label>
-									</a>
-								</div>
-								<div id="sexta" style="display:none;">
-									<div class="input-group">
-										<input type="text" class="form-control" placeholder="Abertura">
-									</div>
-									<div class="input-group">
-										<input type="text" class="form-control" placeholder="Fechamento">
-									</div>
-								</div>
-							<h4>Sábado</h4>
-								<div class="ui-toggle ui-toggle-primary mb15">
-									<a href="j:;" tooltip-placement="left" tooltip="Ativar se o estabelecimento for aberto!">
-									<label class="ui-toggle-inline">
-										<input type="checkbox"onclick="toggle_visibility('sabado')" name="toggleShow" > 
-										<span></span>
-									</label>
-									</a>
-								</div>
-								<div id="sabado" style="display:none;">
-									<div class="input-group">
-										<input type="text" class="form-control" placeholder="Abertura">
-									</div>
-									<div class="input-group">
-										<input type="text" class="form-control" placeholder="Fechamento">
-									</div>
-								</div>
-							<h4>Domingo</h4>
-								<div class="ui-toggle ui-toggle-primary mb15">
-									<a href="j:;" tooltip-placement="left" tooltip="Ativar se o estabelecimento for aberto!">
-									<label class="ui-toggle-inline">
-										<input type="checkbox"onclick="toggle_visibility('domingo')" name="toggleShow" > 
-										<span></span>
-									</label>
-									</a>
-								</div>
-								<div id="domingo" style="display:none;">
-									<div class="input-group">
-										<input type="text" class="form-control" placeholder="Abertura">
-									</div>
-									<div class="input-group">
-										<input type="text" class="form-control" placeholder="Fechamento">
-									</div>
-								</div>
-								<hr>
-							<h4>Fechamos para horario de almoço</h4>
-								<div class="ui-toggle ui-toggle-primary mb15">
-									<a href="j:;" tooltip-placement="left" tooltip="Ativar se o estabelecimento for aberto!">
-									<label class="ui-toggle-inline">
-										<input type="checkbox"onclick="toggle_visibility('almocoShow')" name="toggleShow" > 
-										<span></span>
-									</label>
-									</a>
-								</div>
-								<div id="almocoShow" style="display:none;">
-									<div class="input-group">
-									<input type="text" class="form-control" placeholder="Horario de fechamento">
-									</div>
-									<div class="input-group">
-									<input type="text" class="form-control" placeholder="Horario de retorno">
-									</div>
-								</div>
-						</div>
-
-							<div class="clearfix">
-								<button type="button" class="btn btn-primary mr5" ng-click="stepNext(0)">Voltar</button>
-								<button type="submit" class="btn btn-primary" ng-click="stepNext(2)">Próximo</button>
-							</div>
-						</form>
-						<!-- #end step 2 -->
+    <div class="form-group">
+        <label class="col-lg-4 control-label">Telefone Estabelecimento</label>
+        <div class="col-lg-8">
+            <input type="tel" class="form-control" ng-pattern="/\d{2}-\d{4}-\d{4}$/" id="telefone-estabelecimento" ng-model="fv.phone" placeholder="88-8232-2323" required>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-lg-4 control-label">Taxa de Entrega</label>
+        <div class="col-lg-8">
+            <input type="text" class="form-control" ng-pattern="/^[0-9]{1,7}(\.[0-9]+)?$/" id="taxa-entrega" placeholder="R$ 5,00" ng-model="fv.text" required>
+        </div>
+    </div>
+    <div class="clearfix">
+        <button type="submit" class="btn btn-primary right" ng-click="stepNext(1)">Próximo</button>
+    </div>
+</form>
+<!-- #end step 1 -->
 
 
+<!-- step 2 -->
+<form class="form-inline text-center col-lg-12" name="wizard-step-2" ng-show="steps[1]" id="addFuncionamento">
 
-						<!-- step 3 -->
-						<div class="wizard-complete-msg text-center col-lg-8 col-lg-offset-2" ng-show="steps[2]">
-							<h3 class="text-light">Restaurante Adicionado!</h3>
-							<p> O restaurante [nome do restaurante] foi adicionado a sua lista de restaurantes, para adicionar produtos
-							vá até a guia Meus Produtos e depois Adicionar Produtos.</p>
-							
-							<button type="button" class="btn btn-primary" ng-click="stepReset()">Adicionar Outro!</button>
-						</div>
-						<!-- #end step 3 -->
+    <div class="form-group form-group-sm">
+        <h4>Segunda</h4>
 
-						
-					</div>
-				</div>
-				<!-- #end form wizard -->
-			</div>
-		</div>
-		<!-- #end row -->
-	</div>
-	<!-- #end page-wrap -->
+        <div class="ui-toggle ui-toggle-primary mb15">
+            <a href="j:;" tooltip-placement="left" tooltip="Ativar se o estabelecimento for aberto!">
+                <label class="ui-toggle-inline">
+                    <input type="checkbox"onclick="toggle_visibility('segunda')" name="toggleShow" >
+                    <span></span>
+                </label>
+            </a>
+        </div>
+
+        <div id="segunda" style="display:none;">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Abertura" id="abertura-segunda">
+            </div>
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Fechamento" id="fechamento-segunda">
+            </div>
+        </div>
+
+        <h4>Terça</h4>
+        <div class="ui-toggle ui-toggle-primary mb15">
+            <a href="j:;" tooltip-placement="left" tooltip="Ativar se o estabelecimento for aberto!">
+                <label class="ui-toggle-inline">
+                    <input type="checkbox"onclick="toggle_visibility('terca')" name="toggleShow" >
+                    <span></span>
+                </label>
+            </a>
+        </div>
+
+        <div id="terca" style="display:none;">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Abertura" id="abertura-terca">
+            </div>
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Fechamento" id="fechamento-terca">
+            </div>
+        </div>
+
+        <h4>Quarta</h4>
+        <div class="ui-toggle ui-toggle-primary mb15">
+            <a href="j:;" tooltip-placement="left" tooltip="Ativar se o estabelecimento for aberto!">
+                <label class="ui-toggle-inline">
+                    <input type="checkbox"onclick="toggle_visibility('quarta')" name="toggleShow" >
+                    <span></span>
+                </label>
+            </a>
+        </div>
+        <div id="quarta" style="display:none;">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Abertura" id="abertura-quarta">
+            </div>
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Fechamento" id="fechamento-quarta">
+            </div>
+        </div>
+        <h4>Quinta</h4>
+        <div class="ui-toggle ui-toggle-primary mb15">
+            <a href="j:;" tooltip-placement="left" tooltip="Ativar se o estabelecimento for aberto!">
+                <label class="ui-toggle-inline">
+                    <input type="checkbox"onclick="toggle_visibility('quinta')" name="toggleShow" >
+                    <span></span>
+                </label>
+            </a>
+        </div>
+        <div id="quinta" style="display:none;">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Abertura" id="abertura-quinta">
+            </div>
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Fechamento" id="fechamento-quinta">
+            </div>
+        </div>
+        <h4>Sexta</h4>
+        <div class="ui-toggle ui-toggle-primary mb15">
+            <a href="j:;" tooltip-placement="left" tooltip="Ativar se o estabelecimento for aberto!">
+                <label class="ui-toggle-inline">
+                    <input type="checkbox"onclick="toggle_visibility('sexta')" name="toggleShow" >
+                    <span></span>
+                </label>
+            </a>
+        </div>
+        <div id="sexta" style="display:none;">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Abertura" id="abertura-sexta">
+            </div>
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Fechamento" id="fechamento-sexta">
+            </div>
+        </div>
+        <h4>Sábado</h4>
+        <div class="ui-toggle ui-toggle-primary mb15">
+            <a href="j:;" tooltip-placement="left" tooltip="Ativar se o estabelecimento for aberto!">
+                <label class="ui-toggle-inline">
+                    <input type="checkbox"onclick="toggle_visibility('sabado')" name="toggleShow" >
+                    <span></span>
+                </label>
+            </a>
+        </div>
+        <div id="sabado" style="display:none;">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Abertura" id="abertura-sabado">
+            </div>
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Fechamento" id="fechamento-sabado">
+            </div>
+        </div>
+        <h4>Domingo</h4>
+        <div class="ui-toggle ui-toggle-primary mb15">
+            <a href="j:;" tooltip-placement="left" tooltip="Ativar se o estabelecimento for aberto!">
+                <label class="ui-toggle-inline">
+                    <input type="checkbox"onclick="toggle_visibility('domingo')" name="toggleShow" >
+                    <span></span>
+                </label>
+            </a>
+        </div>
+        <div id="domingo" style="display:none;">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Abertura" id="abertura-domingo">
+            </div>
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Fechamento" id="fechamento-domingo">
+            </div>
+        </div>
+        <hr>
+        <h4>Fechamos para horario de almoço</h4>
+        <div class="ui-toggle ui-toggle-primary mb15">
+            <a href="j:;" tooltip-placement="left" tooltip="Ativar se o estabelecimento for aberto!">
+                <label class="ui-toggle-inline">
+                    <input type="checkbox"onclick="toggle_visibility('almocoShow')" name="toggleShow" >
+                    <span></span>
+                </label>
+            </a>
+        </div>
+        <div id="almocoShow" style="display:none;">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Horario de fechamento" id="fechamento-almoco">
+            </div>
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Horario de retorno" id="retorno-almoco">
+            </div>
+        </div>
+    </div>
+
+    <div class="clearfix">
+        <button type="button" class="btn btn-primary mr5" ng-click="stepNext(0)">Voltar</button>
+        <button type="submit" class="btn btn-primary" ng-click="stepNext(2)">Próximo</button>
+    </div>
+</form>
+<!-- #end step 2 -->
+
+
+
+<!-- step 3 -->
+<div class="wizard-complete-msg text-center col-lg-8 col-lg-offset-2" ng-show="steps[2]">
+    <h3 class="text-light">Restaurante Adicionado!</h3>
+    <p> O restaurante <p id="restaurante_nome"> [nome do restaurante] </p> foi adicionado a sua lista de restaurantes, para adicionar produtos
+        vá até a guia Meus Produtos e depois Adicionar Produtos.</p>
+
+    <button type="button" class="btn btn-primary" ng-click="stepReset()">Adicionar Outro!</button>
 </div>
+<!-- #end step 3 -->
+
+
+</div>
+</div>
+<!-- #end form wizard -->
+</div>
+</div>
+<!-- #end row -->
+</div>
+<!-- #end page-wrap -->
+</div>
+
+
+<script>
+
+    var restaurante_nome = ''; //Essa variavel é só para persitir o nome do restaurante#
+
+    //Responsavel por Cadastrar o Restaurante
+    $("#addRestaurante").submit( function (event) {
+        var URL = 'http://localhost/foodis-restaurante/public/add/restaurante';
+        var nomeRestaurante = document.getElementById('nome-restaurante').value;
+        restaurante_nome = nomeRestaurante;
+        var endereco = document.getElementById('endereco-restaurante').value;
+        var cep = document.getElementById('cep').value;
+        var cidade = document.getElementById('cidade-restaurante').value;
+        var telefone_estabelecimento = document.getElementById('telefone-estabelecimento').value;
+        var taxaEntrega = document.getElementById('taxa-entrega').value;
+
+        var date = {
+            'nome_restaurante' : nomeRestaurante,
+            'endereco_restaurante' : endereco,
+            'cep' : cep,
+            'cidade': cidade,
+            'telefone_estabelecimento' : telefone_estabelecimento,
+            'taxa_entrega': taxaEntrega
+        }
+
+        $.ajax({
+            url: URL,
+            type: "POST",
+            data: JSON.stringify(date),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (result) {
+                //Tratamento caso ocorra tudo bem
+            }
+        });
+    });
+
+    //Responsavel por Cadastrar o Horario de Funcionamento do Restaurante
+    $("#addFuncionamento").submit(function (event) {
+        var URL = 'http://localhost/foodis-restaurante/public/add/horario';
+
+        /* Segunda- Feira */
+        var abertura_segunda = document.getElementById('abertura-segunda').value;
+        var fechamento_segunda = document.getElementById('fechamento-segunda').value;
+
+        /* Terça-Feira */
+        var abertura_terca = document.getElementById('abertura-terca').value;
+        var fechamento_terca = document.getElementById('fechamento-terca').value;
+
+        /* Quarta-Feira */
+        var abertura_quarta = document.getElementById('abertura-quarta').value;
+        var fechamento_quarta = document.getElementById('fechamento-quarta').value;
+
+        /* Quinta-Feira */
+        var abertura_quinta = document.getElementById('abertura-quinta').value;
+        var fechamento_quinta = document.getElementById('fechamento-quinta').value;
+
+        /* Sexta-Feira */
+        var abertura_sexta = document.getElementById('abertura-sexta').value;
+        var fechamento_sexta = document.getElementById('fechamento-sexta').value;
+
+        /* Sabado */
+        var abertura_sabado = document.getElementById('abertura-sabado').value;
+        var fechamento_sabado = document.getElementById('fechamento-sabado').value;
+
+        /* Domingo */
+        var abertura_domingo = document.getElementById('abertura-domingo').value;
+        var fechamento_domingo = document.getElementById('fechamento-domingo').value;
+
+        /* Horario de Almoço */
+        var fechamento_almoco = document.getElementById('fechamento-almoco').value;
+        var abertura_almoco = document.getElementById('retorno-almoco').value;
+
+        /* Array com todas as informações */
+        var data = {
+
+            'segunda' : [{
+                'abertura' : abertura_segunda,
+                'fechamento' : fechamento_segunda
+            }],
+
+            'terca' : [{
+                'abertura' : abertura_terca,
+                'fechamento' : fechamento_terca
+            }]
+        };
+
+        $.ajax({
+            url: URL,
+            type: "POST",
+            data: JSON.stringify(data),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (result) {
+                var restaurante = document.getElementById("restaurante_nome");
+                restaurante.innerText = restaurante_nome;
+            }
+        })});
+
+
+</script>

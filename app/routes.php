@@ -15,8 +15,25 @@ Route::get('/', function()
 {
 	return View::make('login');
 });
+
 Route::get('/login', function(){
    return View::make('login');
 });
+
+Route::post('/add/restaurante', function(){
+    $data = Input::all();
+    echo json_encode($data);
+});
+
+Route::post('/add/horario', function(){
+    $data = Input::all();
+    echo json_encode($data);
+});
+
+Route::post('/add/funcionario', function(){
+    $data = Input::all();
+    echo json_encode($data);
+});
+
 Route::post('/logar','AutenticacaoController@logar');
 Route::get('/dashboard','HomeController@dashboard');
