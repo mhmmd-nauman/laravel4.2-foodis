@@ -1,0 +1,68 @@
+<div class="page page-table-static clearfix">
+
+	<ol class="breadcrumb breadcrumb-small">
+		<li>Financeiro</li>
+		<li class="active"><a href="#/tables/static-table">Taxas</a></li>
+	</ol>
+
+	<div class="page-wrap">
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="panel panel-lined mb30 table-responsive">
+					<div class="panel-heading"><i>Taxas do Aplicativo</i></div>
+					<div class="panel-body">
+						<div class="row">
+							<div class="col-lg-6 left">
+							</div>
+							<div class="col-lg-3 right">
+								<div class="input-group input-group-sm">
+									<input type="text" class="form-control" placeholder="Busca...">
+									<span class="input-group-btn">
+										<button type="button" class="btn btn-default">Go</button>
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<table class="table table-bordered table-striped table-condensed table-hover" >
+						<thead>
+							<tr>
+								<th>#</th>
+								<th>Data Gerado</th>
+								<th>Vencimento</th>
+								<th>Ações</th>
+								<th>Status</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>
+									1
+								</td>
+								<td>13/02/2015</td>
+								<td>15/02/2015</td>
+								<td>
+									<a href="#/financeiro/ordempagamento" >
+										<button type="button" class="btn btn-success btn-sm">Pagar</button>
+									</a>
+									<button type="button" class="btn btn-danger btn-sm">Rejeitar</button>
+								</td>
+								<td>
+									Aguardando Pagamento
+								</td>
+							</tr>
+						</tbody>
+					</table>
+
+					<div class="panel-footer clearfix">
+						<pagination boundary-links="true" total-items="60" ng-model="currentPage" class="pagination-xs right" 
+						previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></pagination>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+	</div>
+	<!-- #end page-wrap -->
+</div>

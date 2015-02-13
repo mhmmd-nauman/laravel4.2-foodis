@@ -48,7 +48,8 @@
 
 		var routes = [
 			"dashboard", "restaurante/adicionar", "restaurante/editar", "produto/adicionar", "produto/editar", "pedidos/aberto","pedidos/pedido",
-			"pedidos/andamento","pedidos/cancelado","pedidos/concluido","pedidos/rejeitado","funcionario/adicionar","funcionario/editar","funcionario/editar_info"
+			"pedidos/andamento","pedidos/cancelado","pedidos/concluido","pedidos/rejeitado","funcionario/adicionar","funcionario/editar","funcionario/editar_info",
+			"financeiro/estatisticas","financeiro/taxas","financeiro/ordempagamento"
 		];
 
 		function setRoutes(route) {
