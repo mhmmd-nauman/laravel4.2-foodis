@@ -15,6 +15,7 @@ class ProdutoController extends BaseController {
 
     public function adicionarPizza(){
         $input = Request::getContent();
+        echo $input;
         $array = json_decode($input);
     }
 

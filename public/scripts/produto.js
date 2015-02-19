@@ -63,7 +63,11 @@ function adicionarPizza(){
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (result) {
+            /* Exibo a mensagem de sucesso */
+            document.getElementById('mensagem-sucesso').style.display = 'block';
 
+            /* Faço o reload da página */
+            setTimeout(function() { window.location.reload(true); }, 1000);
         }
     })
 
@@ -110,7 +114,11 @@ function adicionarEsfiha(){
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (result) {
+            /* Exibo a mensagem de sucesso */
+            document.getElementById('mensagem-sucesso').style.display = 'block';
 
+            /* Faço o reload da página */
+            setTimeout(function() { window.location.reload(true); }, 1000);
         }
     })
 
@@ -141,7 +149,11 @@ function adicionarSalgado(){
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (result) {
+            /* Exibo a mensagem de sucesso */
+            document.getElementById('mensagem-sucesso').style.display = 'block';
 
+            /* Faço o reload da página */
+            setTimeout(function() { window.location.reload(true); }, 1000);
         }
     })
 
@@ -172,7 +184,11 @@ function adicionarSanduiche(){
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (result) {
+            /* Exibo a mensagem de sucesso */
+            document.getElementById('mensagem-sucesso').style.display = 'block';
 
+            /* Faço o reload da página */
+            setTimeout(function() { window.location.reload(true); }, 1000);
         }
     })
 
@@ -203,7 +219,11 @@ function adicionarMassas(){
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (result) {
+            /* Exibo a mensagem de sucesso */
+            document.getElementById('mensagem-sucesso').style.display = 'block';
 
+            /* Faço o reload da página */
+            setTimeout(function() { window.location.reload(true); }, 1000);
         }
     })
 }
@@ -213,15 +233,16 @@ function adicionarOutro(){
     var URL = 'http://localhost/foodis-restaurante/public/produto/massas/add';
 
     //Informações Relacionadas ao Produto
-    var nomeOutro = document.getElementById("nome-outros").value;
-    var precoOutro = document.getElementById("preco-outros").value;
+    var nomeOutro = document.getElementById("nome-outros");
+    var precoOutro = document.getElementById("preco-outros");
     var e = document.getElementById("categorias");
     var tipoOutro = e.options[e.selectedIndex].text;
+    var mensagem = document.getElementById("mensagem-sucesso");
 
     var data = {
-        'nome-produto' : nomeOutro,
+        'nome-produto' : nomeOutro.value,
         'tipo': tipoOutro,
-        'preco' : precoOutro
+        'preco' : precoOutro.value
     };
 
     //JSON Pronto para ser enviado como requisicao
@@ -234,7 +255,11 @@ function adicionarOutro(){
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (result) {
+            /* Exibo a mensagem de sucesso */
+            document.getElementById('mensagem-sucesso').style.display = 'block';
 
+            /* Faço o reload da página */
+            setTimeout(function() { window.location.reload(true); }, 1000);
         }
     })
 }

@@ -64,7 +64,7 @@
                         str = value.nome + "<br>";
                         console.log(" " + str);
                     });
-                    
+
                 }).
                 error(function(data, status, headers, config) {
                     // called asynchronously if an error occurs
