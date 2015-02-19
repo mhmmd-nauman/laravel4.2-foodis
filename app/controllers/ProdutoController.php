@@ -9,6 +9,10 @@
 
 class ProdutoController extends BaseController {
 
+    /*
+     * Rotas de SET
+     * */
+
     public function adicionarPizza(){
         $input = Request::getContent();
         $array = json_decode($input);
@@ -37,5 +41,27 @@ class ProdutoController extends BaseController {
     public function adicionarOutros(){
         $input = Request::getContent();
         echo $input;
+    }
+
+    /*
+     * Rotas de GET
+     * */
+
+    public function buscarPizza(){
+        $data = array(
+            "status" => 200,
+             "pizzas" => array(
+                 array(
+                     "id" => 3,
+                     "nome" => "Mussarela",
+                 ),
+                 array(
+                     "id" => 15,
+                     "nome" => "Calabresa",
+                 ),
+             )
+        );
+
+        echo json_encode($data);
     }
 } 

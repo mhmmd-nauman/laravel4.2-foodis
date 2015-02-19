@@ -1,588 +1,588 @@
 <div class="page page-profile clearfix" ng-controller="PageProfileCtrl">
 <ol class="breadcrumb breadcrumb-small">
-		<li>Meus Produtos</li>
-		<li class="active"><a href="#/forms/form-wizard">Editar Produto</a></li>
-	</ol>
-	<div class="page-wrap">
-		<div class="row">
-			<div class="col-lg-8">
-				<div class="panel panel-lined mb30">
-					<tabset class="tabs-lined fade-tabs-content">
-						<tab heading="Pizzas">
-							<div class="row">
-										<div class="col-lg-12">
-											<div class="panel panel-lined table-responsive mb30"  ng-controller="DataTableCtrl">
-												<div class="panel-body">
-													<div class="small text-bold left mt5">
-									                        Mostrar&nbsp;
-									                        <select data-ng-model="numPerPage"
-									                                data-ng-options="num for num in numPerPageOpts"
-									                                data-ng-change="onNumPerPageChange()">
-									                        </select> 
-									                        &nbsp;entradas
-									                </div>
+    <li>Meus Produtos</li>
+    <li class="active"><a href="#/forms/form-wizard">Editar Produto</a></li>
+</ol>
+<div class="page-wrap">
+<div class="row">
+<div class="col-lg-8">
+<div class="panel panel-lined mb30">
+<tabset class="tabs-lined fade-tabs-content">
+<tab heading="Pizzas">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-lined table-responsive mb30"  ng-controller="DataTablePizza">
+                <div class="panel-body">
+                    <div class="small text-bold left mt5">
+                        Mostrar&nbsp;
+                        <select data-ng-model="numPerPage"
+                                data-ng-options="num for num in numPerPageOpts"
+                                data-ng-change="onNumPerPageChange()">
+                        </select>
+                        &nbsp;entradas
+                    </div>
 
-									                <form class="form-horizontal right col-lg-4">
-														<input type="text" class="form-control input-sm" placeholder="Digite o nome do produto..." data-ng-model="searchKeywords" data-ng-keyup="search()">
-									                </form>
-												</div>
-												<!-- data table -->
-												<table class="table table-bordered table-striped">
-													<thead>
-														<tr>
-															<th>
-																Nome
-																<div class="th">
-																	<i class="fa fa-caret-up icon-up"
-																		ng-click=" order('engine') "
-							                              				ng-class="{active: row == 'engine'}"></i>
-																	<i class="fa fa-caret-down icon-down"
-																		ng-click=" order('-engine') "
-							                              				ng-class="{active: row == '-engine'}"></i>
-																</div>
-															</th>
-															<th>
-																Ingredientes
-																<div class="th">
-																	<i class="fa fa-caret-up icon-up"
-																		ng-click=" order('browser') "
-							                              				ng-class="{active: row == 'browser'}"></i>
-																	<i class="fa fa-caret-down icon-down"
-																		ng-click=" order('-browser') "
-							                              				ng-class="{active: row == '-browser'}"></i>
-																</div>
-															</th>
-															<th>
-																Opções
-																<div class="th">
-																	<i class="fa fa-caret-up icon-up"
-																		ng-click=" order('platform') "
-							                              				ng-class="{active: row == 'platform'}"></i>
-																	<i class="fa fa-caret-down icon-down"
-																		ng-click=" order('-platform') "
-							                              				ng-class="{active: row == '-platform'}"></i>
-																</div>
-															</th>
-															<th>
-																Ativo
-																<div class="th">
-																	<i class="fa fa-caret-up icon-up"
-																		ng-click=" order('grade') "
-							                              				ng-class="{active: row == 'grade'}"></i>
-																	<i class="fa fa-caret-down icon-down"
-																		ng-click=" order('-grade') "
-							                              				ng-class="{active: row == '-grade'}"></i>
-																</div>
-															</th>
-														</tr>
-													</thead>
-													<tbody>
-														<tr ng-repeat="data in currentPageStores track by $index">
-															<td>{{data.engine}}</td>
-															<td><a href="#"><button type="button" class="btn btn-info btn-sm">{{data.browser}}</button></a></td>
-															<td>
-																<a href="#"><button type="button" class="btn btn-success btn-sm">Editar</button></a>
-																<a href="#"><button type="button" class="btn btn-danger btn-sm">Desativar</button></a>
-															</td>
-															<td>{{data.grade}}</td>
-														</tr>
-													</tbody>
-												</table>
-												<!-- #end data table -->	
+                    <form class="form-horizontal right col-lg-4">
+                        <input type="text" class="form-control input-sm" placeholder="Digite o nome do produto..." data-ng-model="searchKeywords" data-ng-keyup="search()">
+                    </form>
+                </div>
+                <!-- data table -->
+                <table class="table table-bordered table-striped">
+                    <thead>
+                    <tr>
+                        <th>
+                            Nome
+                            <div class="th">
+                                <i class="fa fa-caret-up icon-up"
+                                   ng-click=" order('engine') "
+                                   ng-class="{active: row == 'engine'}"></i>
+                                <i class="fa fa-caret-down icon-down"
+                                   ng-click=" order('-engine') "
+                                   ng-class="{active: row == '-engine'}"></i>
+                            </div>
+                        </th>
+                        <th>
+                            Ingredientes
+                            <div class="th">
+                                <i class="fa fa-caret-up icon-up"
+                                   ng-click=" order('browser') "
+                                   ng-class="{active: row == 'browser'}"></i>
+                                <i class="fa fa-caret-down icon-down"
+                                   ng-click=" order('-browser') "
+                                   ng-class="{active: row == '-browser'}"></i>
+                            </div>
+                        </th>
+                        <th>
+                            Opções
+                            <div class="th">
+                                <i class="fa fa-caret-up icon-up"
+                                   ng-click=" order('platform') "
+                                   ng-class="{active: row == 'platform'}"></i>
+                                <i class="fa fa-caret-down icon-down"
+                                   ng-click=" order('-platform') "
+                                   ng-class="{active: row == '-platform'}"></i>
+                            </div>
+                        </th>
+                        <th>
+                            Ativo
+                            <div class="th">
+                                <i class="fa fa-caret-up icon-up"
+                                   ng-click=" order('grade') "
+                                   ng-class="{active: row == 'grade'}"></i>
+                                <i class="fa fa-caret-down icon-down"
+                                   ng-click=" order('-grade') "
+                                   ng-class="{active: row == '-grade'}"></i>
+                            </div>
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="data in currentPageStores track by $index">
+                        <td>{{data.engine}}</td>
+                        <td><a href="#"><button type="button" class="btn btn-info btn-sm">{{data.browser}}</button></a></td>
+                        <td>
+                            <a href="#"><button type="button" class="btn btn-success btn-sm">Editar</button></a>
+                            <a href="#"><button type="button" class="btn btn-danger btn-sm">Desativar</button></a>
+                        </td>
+                        <td>{{data.grade}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <!-- #end data table -->
 
-												<div class="panel-footer clearfix">
-													<p class="left mt15 small">
-														Mostrando {{currentPageStores.length*(currentPage - 1) + 1}} até {{currentPageStores.length*currentPage}} de {{datas.length}} entradas.
-													</p>
-													<pagination boundary-links="true" total-items="filteredData.length" ng-model="currentPage" class="pagination-sm right" 
-														max-size="5" ng-change="select(currentPage)" items-per-page="numPerPage" rotate="false"
-														previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></pagination>
-												</div>
-											</div>
-										</div>
-									</div>
+                <div class="panel-footer clearfix">
+                    <p class="left mt15 small">
+                        Mostrando {{currentPageStores.length*(currentPage - 1) + 1}} até {{currentPageStores.length*currentPage}} de {{datas.length}} entradas.
+                    </p>
+                    <pagination boundary-links="true" total-items="filteredData.length" ng-model="currentPage" class="pagination-sm right"
+                                max-size="5" ng-change="select(currentPage)" items-per-page="numPerPage" rotate="false"
+                                previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></pagination>
+                </div>
+            </div>
+        </div>
+    </div>
 
-						</tab>
-						<tab heading="Esfihas" class="style-me">
-							<div class="row">
-										<div class="col-lg-12">
-											<div class="panel panel-lined table-responsive mb30"  ng-controller="DataTableCtrl">
-												<div class="panel-body">
-													<div class="small text-bold left mt5">
-									                        Mostrar&nbsp;
-									                        <select data-ng-model="numPerPage"
-									                                data-ng-options="num for num in numPerPageOpts"
-									                                data-ng-change="onNumPerPageChange()">
-									                        </select> 
-									                        &nbsp;entradas
-									                </div>
+</tab>
+<tab heading="Esfihas" class="style-me">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-lined table-responsive mb30"  ng-controller="DataTableCtrl">
+                <div class="panel-body">
+                    <div class="small text-bold left mt5">
+                        Mostrar&nbsp;
+                        <select data-ng-model="numPerPage"
+                                data-ng-options="num for num in numPerPageOpts"
+                                data-ng-change="onNumPerPageChange()">
+                        </select>
+                        &nbsp;entradas
+                    </div>
 
-									                <form class="form-horizontal right col-lg-4">
-														<input type="text" class="form-control input-sm" placeholder="Digite o nome do produto..." data-ng-model="searchKeywords" data-ng-keyup="search()">
-									                </form>
-												</div>
-												<!-- data table -->
-												<table class="table table-bordered table-striped">
-													<thead>
-														<tr>
-															<th>
-																Nome
-																<div class="th">
-																	<i class="fa fa-caret-up icon-up"
-																		ng-click=" order('engine') "
-							                              				ng-class="{active: row == 'engine'}"></i>
-																	<i class="fa fa-caret-down icon-down"
-																		ng-click=" order('-engine') "
-							                              				ng-class="{active: row == '-engine'}"></i>
-																</div>
-															</th>
-															<th>
-																Ingredientes
-																<div class="th">
-																	<i class="fa fa-caret-up icon-up"
-																		ng-click=" order('browser') "
-							                              				ng-class="{active: row == 'browser'}"></i>
-																	<i class="fa fa-caret-down icon-down"
-																		ng-click=" order('-browser') "
-							                              				ng-class="{active: row == '-browser'}"></i>
-																</div>
-															</th>
-															<th>
-																Opções
-																<div class="th">
-																	<i class="fa fa-caret-up icon-up"
-																		ng-click=" order('platform') "
-							                              				ng-class="{active: row == 'platform'}"></i>
-																	<i class="fa fa-caret-down icon-down"
-																		ng-click=" order('-platform') "
-							                              				ng-class="{active: row == '-platform'}"></i>
-																</div>
-															</th>
-															<th>
-																Ativo
-																<div class="th">
-																	<i class="fa fa-caret-up icon-up"
-																		ng-click=" order('grade') "
-							                              				ng-class="{active: row == 'grade'}"></i>
-																	<i class="fa fa-caret-down icon-down"
-																		ng-click=" order('-grade') "
-							                              				ng-class="{active: row == '-grade'}"></i>
-																</div>
-															</th>
-														</tr>
-													</thead>
-													<tbody>
-														<tr ng-repeat="data in currentPageStores track by $index">
-															<td>{{data.engine}}</td>
-															<td><a href="#"><button type="button" class="btn btn-info btn-sm">{{data.browser}}</button></a></td>
-															<td>
-																<a href="#"><button type="button" class="btn btn-success btn-sm">Editar</button></a>
-																<a href="#"><button type="button" class="btn btn-danger btn-sm">Desativar</button></a>
-															</td>
-															<td>{{data.grade}}</td>
-														</tr>
-													</tbody>
-												</table>
-												<!-- #end data table -->	
+                    <form class="form-horizontal right col-lg-4">
+                        <input type="text" class="form-control input-sm" placeholder="Digite o nome do produto..." data-ng-model="searchKeywords" data-ng-keyup="search()">
+                    </form>
+                </div>
+                <!-- data table -->
+                <table class="table table-bordered table-striped">
+                    <thead>
+                    <tr>
+                        <th>
+                            Nome
+                            <div class="th">
+                                <i class="fa fa-caret-up icon-up"
+                                   ng-click=" order('engine') "
+                                   ng-class="{active: row == 'engine'}"></i>
+                                <i class="fa fa-caret-down icon-down"
+                                   ng-click=" order('-engine') "
+                                   ng-class="{active: row == '-engine'}"></i>
+                            </div>
+                        </th>
+                        <th>
+                            Ingredientes
+                            <div class="th">
+                                <i class="fa fa-caret-up icon-up"
+                                   ng-click=" order('browser') "
+                                   ng-class="{active: row == 'browser'}"></i>
+                                <i class="fa fa-caret-down icon-down"
+                                   ng-click=" order('-browser') "
+                                   ng-class="{active: row == '-browser'}"></i>
+                            </div>
+                        </th>
+                        <th>
+                            Opções
+                            <div class="th">
+                                <i class="fa fa-caret-up icon-up"
+                                   ng-click=" order('platform') "
+                                   ng-class="{active: row == 'platform'}"></i>
+                                <i class="fa fa-caret-down icon-down"
+                                   ng-click=" order('-platform') "
+                                   ng-class="{active: row == '-platform'}"></i>
+                            </div>
+                        </th>
+                        <th>
+                            Ativo
+                            <div class="th">
+                                <i class="fa fa-caret-up icon-up"
+                                   ng-click=" order('grade') "
+                                   ng-class="{active: row == 'grade'}"></i>
+                                <i class="fa fa-caret-down icon-down"
+                                   ng-click=" order('-grade') "
+                                   ng-class="{active: row == '-grade'}"></i>
+                            </div>
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="data in currentPageStores track by $index">
+                        <td>{{data.engine}}</td>
+                        <td><a href="#"><button type="button" class="btn btn-info btn-sm">{{data.browser}}</button></a></td>
+                        <td>
+                            <a href="#"><button type="button" class="btn btn-success btn-sm">Editar</button></a>
+                            <a href="#"><button type="button" class="btn btn-danger btn-sm">Desativar</button></a>
+                        </td>
+                        <td>{{data.grade}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <!-- #end data table -->
 
-												<div class="panel-footer clearfix">
-													<p class="left mt15 small">
-														Mostrando {{currentPageStores.length*(currentPage - 1) + 1}} até {{currentPageStores.length*currentPage}} de {{datas.length}} entradas.
-													</p>
-													<pagination boundary-links="true" total-items="filteredData.length" ng-model="currentPage" class="pagination-sm right" 
-														max-size="5" ng-change="select(currentPage)" items-per-page="numPerPage" rotate="false"
-														previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></pagination>
-												</div>
-											</div>
-										</div>
-									</div>
-						</tab>
-						<tab heading="Salgados">
-							<div class="row">
-										<div class="col-lg-12">
-											<div class="panel panel-lined table-responsive mb30"  ng-controller="DataTableCtrl">
-												<div class="panel-body">
-													<div class="small text-bold left mt5">
-									                        Mostrar&nbsp;
-									                        <select data-ng-model="numPerPage"
-									                                data-ng-options="num for num in numPerPageOpts"
-									                                data-ng-change="onNumPerPageChange()">
-									                        </select> 
-									                        &nbsp;entradas
-									                </div>
+                <div class="panel-footer clearfix">
+                    <p class="left mt15 small">
+                        Mostrando {{currentPageStores.length*(currentPage - 1) + 1}} até {{currentPageStores.length*currentPage}} de {{datas.length}} entradas.
+                    </p>
+                    <pagination boundary-links="true" total-items="filteredData.length" ng-model="currentPage" class="pagination-sm right"
+                                max-size="5" ng-change="select(currentPage)" items-per-page="numPerPage" rotate="false"
+                                previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></pagination>
+                </div>
+            </div>
+        </div>
+    </div>
+</tab>
+<tab heading="Salgados">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-lined table-responsive mb30"  ng-controller="DataTableCtrl">
+                <div class="panel-body">
+                    <div class="small text-bold left mt5">
+                        Mostrar&nbsp;
+                        <select data-ng-model="numPerPage"
+                                data-ng-options="num for num in numPerPageOpts"
+                                data-ng-change="onNumPerPageChange()">
+                        </select>
+                        &nbsp;entradas
+                    </div>
 
-									                <form class="form-horizontal right col-lg-4">
-														<input type="text" class="form-control input-sm" placeholder="Digite o nome do produto..." data-ng-model="searchKeywords" data-ng-keyup="search()">
-									                </form>
-												</div>
-												<!-- data table -->
-												<table class="table table-bordered table-striped">
-													<thead>
-														<tr>
-															<th>
-																Nome
-																<div class="th">
-																	<i class="fa fa-caret-up icon-up"
-																		ng-click=" order('engine') "
-							                              				ng-class="{active: row == 'engine'}"></i>
-																	<i class="fa fa-caret-down icon-down"
-																		ng-click=" order('-engine') "
-							                              				ng-class="{active: row == '-engine'}"></i>
-																</div>
-															</th>
-															<th>
-																Ingredientes
-																<div class="th">
-																	<i class="fa fa-caret-up icon-up"
-																		ng-click=" order('browser') "
-							                              				ng-class="{active: row == 'browser'}"></i>
-																	<i class="fa fa-caret-down icon-down"
-																		ng-click=" order('-browser') "
-							                              				ng-class="{active: row == '-browser'}"></i>
-																</div>
-															</th>
-															<th>
-																Opções
-																<div class="th">
-																	<i class="fa fa-caret-up icon-up"
-																		ng-click=" order('platform') "
-							                              				ng-class="{active: row == 'platform'}"></i>
-																	<i class="fa fa-caret-down icon-down"
-																		ng-click=" order('-platform') "
-							                              				ng-class="{active: row == '-platform'}"></i>
-																</div>
-															</th>
-															<th>
-																Ativo
-																<div class="th">
-																	<i class="fa fa-caret-up icon-up"
-																		ng-click=" order('grade') "
-							                              				ng-class="{active: row == 'grade'}"></i>
-																	<i class="fa fa-caret-down icon-down"
-																		ng-click=" order('-grade') "
-							                              				ng-class="{active: row == '-grade'}"></i>
-																</div>
-															</th>
-														</tr>
-													</thead>
-													<tbody>
-														<tr ng-repeat="data in currentPageStores track by $index">
-															<td>{{data.engine}}</td>
-															<td><a href="#"><button type="button" class="btn btn-info btn-sm">{{data.browser}}</button></a></td>
-															<td>
-																<a href="#"><button type="button" class="btn btn-success btn-sm">Editar</button></a>
-																<a href="#"><button type="button" class="btn btn-danger btn-sm">Desativar</button></a>
-															</td>
-															<td>{{data.grade}}</td>
-														</tr>
-													</tbody>
-												</table>
-												<!-- #end data table -->	
+                    <form class="form-horizontal right col-lg-4">
+                        <input type="text" class="form-control input-sm" placeholder="Digite o nome do produto..." data-ng-model="searchKeywords" data-ng-keyup="search()">
+                    </form>
+                </div>
+                <!-- data table -->
+                <table class="table table-bordered table-striped">
+                    <thead>
+                    <tr>
+                        <th>
+                            Nome
+                            <div class="th">
+                                <i class="fa fa-caret-up icon-up"
+                                   ng-click=" order('engine') "
+                                   ng-class="{active: row == 'engine'}"></i>
+                                <i class="fa fa-caret-down icon-down"
+                                   ng-click=" order('-engine') "
+                                   ng-class="{active: row == '-engine'}"></i>
+                            </div>
+                        </th>
+                        <th>
+                            Ingredientes
+                            <div class="th">
+                                <i class="fa fa-caret-up icon-up"
+                                   ng-click=" order('browser') "
+                                   ng-class="{active: row == 'browser'}"></i>
+                                <i class="fa fa-caret-down icon-down"
+                                   ng-click=" order('-browser') "
+                                   ng-class="{active: row == '-browser'}"></i>
+                            </div>
+                        </th>
+                        <th>
+                            Opções
+                            <div class="th">
+                                <i class="fa fa-caret-up icon-up"
+                                   ng-click=" order('platform') "
+                                   ng-class="{active: row == 'platform'}"></i>
+                                <i class="fa fa-caret-down icon-down"
+                                   ng-click=" order('-platform') "
+                                   ng-class="{active: row == '-platform'}"></i>
+                            </div>
+                        </th>
+                        <th>
+                            Ativo
+                            <div class="th">
+                                <i class="fa fa-caret-up icon-up"
+                                   ng-click=" order('grade') "
+                                   ng-class="{active: row == 'grade'}"></i>
+                                <i class="fa fa-caret-down icon-down"
+                                   ng-click=" order('-grade') "
+                                   ng-class="{active: row == '-grade'}"></i>
+                            </div>
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="data in currentPageStores track by $index">
+                        <td>{{data.engine}}</td>
+                        <td><a href="#"><button type="button" class="btn btn-info btn-sm">{{data.browser}}</button></a></td>
+                        <td>
+                            <a href="#"><button type="button" class="btn btn-success btn-sm">Editar</button></a>
+                            <a href="#"><button type="button" class="btn btn-danger btn-sm">Desativar</button></a>
+                        </td>
+                        <td>{{data.grade}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <!-- #end data table -->
 
-												<div class="panel-footer clearfix">
-													<p class="left mt15 small">
-														Mostrando {{currentPageStores.length*(currentPage - 1) + 1}} até {{currentPageStores.length*currentPage}} de {{datas.length}} entradas.
-													</p>
-													<pagination boundary-links="true" total-items="filteredData.length" ng-model="currentPage" class="pagination-sm right" 
-														max-size="5" ng-change="select(currentPage)" items-per-page="numPerPage" rotate="false"
-														previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></pagination>
-												</div>
-											</div>
-										</div>
-									</div>
-						</tab>
-						<tab heading="Sanduiches">
-							<div class="row">
-										<div class="col-lg-12">
-											<div class="panel panel-lined table-responsive mb30"  ng-controller="DataTableCtrl">
-												<div class="panel-body">
-													<div class="small text-bold left mt5">
-									                        Mostrar&nbsp;
-									                        <select data-ng-model="numPerPage"
-									                                data-ng-options="num for num in numPerPageOpts"
-									                                data-ng-change="onNumPerPageChange()">
-									                        </select> 
-									                        &nbsp;entradas
-									                </div>
+                <div class="panel-footer clearfix">
+                    <p class="left mt15 small">
+                        Mostrando {{currentPageStores.length*(currentPage - 1) + 1}} até {{currentPageStores.length*currentPage}} de {{datas.length}} entradas.
+                    </p>
+                    <pagination boundary-links="true" total-items="filteredData.length" ng-model="currentPage" class="pagination-sm right"
+                                max-size="5" ng-change="select(currentPage)" items-per-page="numPerPage" rotate="false"
+                                previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></pagination>
+                </div>
+            </div>
+        </div>
+    </div>
+</tab>
+<tab heading="Sanduiches">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-lined table-responsive mb30"  ng-controller="DataTableCtrl">
+                <div class="panel-body">
+                    <div class="small text-bold left mt5">
+                        Mostrar&nbsp;
+                        <select data-ng-model="numPerPage"
+                                data-ng-options="num for num in numPerPageOpts"
+                                data-ng-change="onNumPerPageChange()">
+                        </select>
+                        &nbsp;entradas
+                    </div>
 
-									                <form class="form-horizontal right col-lg-4">
-														<input type="text" class="form-control input-sm" placeholder="Digite o nome do produto..." data-ng-model="searchKeywords" data-ng-keyup="search()">
-									                </form>
-												</div>
-												<!-- data table -->
-												<table class="table table-bordered table-striped">
-													<thead>
-														<tr>
-															<th>
-																Nome
-																<div class="th">
-																	<i class="fa fa-caret-up icon-up"
-																		ng-click=" order('engine') "
-							                              				ng-class="{active: row == 'engine'}"></i>
-																	<i class="fa fa-caret-down icon-down"
-																		ng-click=" order('-engine') "
-							                              				ng-class="{active: row == '-engine'}"></i>
-																</div>
-															</th>
-															<th>
-																Ingredientes
-																<div class="th">
-																	<i class="fa fa-caret-up icon-up"
-																		ng-click=" order('browser') "
-							                              				ng-class="{active: row == 'browser'}"></i>
-																	<i class="fa fa-caret-down icon-down"
-																		ng-click=" order('-browser') "
-							                              				ng-class="{active: row == '-browser'}"></i>
-																</div>
-															</th>
-															<th>
-																Opções
-																<div class="th">
-																	<i class="fa fa-caret-up icon-up"
-																		ng-click=" order('platform') "
-							                              				ng-class="{active: row == 'platform'}"></i>
-																	<i class="fa fa-caret-down icon-down"
-																		ng-click=" order('-platform') "
-							                              				ng-class="{active: row == '-platform'}"></i>
-																</div>
-															</th>
-															<th>
-																Ativo
-																<div class="th">
-																	<i class="fa fa-caret-up icon-up"
-																		ng-click=" order('grade') "
-							                              				ng-class="{active: row == 'grade'}"></i>
-																	<i class="fa fa-caret-down icon-down"
-																		ng-click=" order('-grade') "
-							                              				ng-class="{active: row == '-grade'}"></i>
-																</div>
-															</th>
-														</tr>
-													</thead>
-													<tbody>
-														<tr ng-repeat="data in currentPageStores track by $index">
-															<td>{{data.engine}}</td>
-															<td><a href="#"><button type="button" class="btn btn-info btn-sm">{{data.browser}}</button></a></td>
-															<td>
-																<a href="#"><button type="button" class="btn btn-success btn-sm">Editar</button></a>
-																<a href="#"><button type="button" class="btn btn-danger btn-sm">Desativar</button></a>
-															</td>
-															<td>{{data.grade}}</td>
-														</tr>
-													</tbody>
-												</table>
-												<!-- #end data table -->	
+                    <form class="form-horizontal right col-lg-4">
+                        <input type="text" class="form-control input-sm" placeholder="Digite o nome do produto..." data-ng-model="searchKeywords" data-ng-keyup="search()">
+                    </form>
+                </div>
+                <!-- data table -->
+                <table class="table table-bordered table-striped">
+                    <thead>
+                    <tr>
+                        <th>
+                            Nome
+                            <div class="th">
+                                <i class="fa fa-caret-up icon-up"
+                                   ng-click=" order('engine') "
+                                   ng-class="{active: row == 'engine'}"></i>
+                                <i class="fa fa-caret-down icon-down"
+                                   ng-click=" order('-engine') "
+                                   ng-class="{active: row == '-engine'}"></i>
+                            </div>
+                        </th>
+                        <th>
+                            Ingredientes
+                            <div class="th">
+                                <i class="fa fa-caret-up icon-up"
+                                   ng-click=" order('browser') "
+                                   ng-class="{active: row == 'browser'}"></i>
+                                <i class="fa fa-caret-down icon-down"
+                                   ng-click=" order('-browser') "
+                                   ng-class="{active: row == '-browser'}"></i>
+                            </div>
+                        </th>
+                        <th>
+                            Opções
+                            <div class="th">
+                                <i class="fa fa-caret-up icon-up"
+                                   ng-click=" order('platform') "
+                                   ng-class="{active: row == 'platform'}"></i>
+                                <i class="fa fa-caret-down icon-down"
+                                   ng-click=" order('-platform') "
+                                   ng-class="{active: row == '-platform'}"></i>
+                            </div>
+                        </th>
+                        <th>
+                            Ativo
+                            <div class="th">
+                                <i class="fa fa-caret-up icon-up"
+                                   ng-click=" order('grade') "
+                                   ng-class="{active: row == 'grade'}"></i>
+                                <i class="fa fa-caret-down icon-down"
+                                   ng-click=" order('-grade') "
+                                   ng-class="{active: row == '-grade'}"></i>
+                            </div>
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="data in currentPageStores track by $index">
+                        <td>{{data.engine}}</td>
+                        <td><a href="#"><button type="button" class="btn btn-info btn-sm">{{data.browser}}</button></a></td>
+                        <td>
+                            <a href="#"><button type="button" class="btn btn-success btn-sm">Editar</button></a>
+                            <a href="#"><button type="button" class="btn btn-danger btn-sm">Desativar</button></a>
+                        </td>
+                        <td>{{data.grade}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <!-- #end data table -->
 
-												<div class="panel-footer clearfix">
-													<p class="left mt15 small">
-														Mostrando {{currentPageStores.length*(currentPage - 1) + 1}} até {{currentPageStores.length*currentPage}} de {{datas.length}} entradas.
-													</p>
-													<pagination boundary-links="true" total-items="filteredData.length" ng-model="currentPage" class="pagination-sm right" 
-														max-size="5" ng-change="select(currentPage)" items-per-page="numPerPage" rotate="false"
-														previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></pagination>
-												</div>
-											</div>
-										</div>
-									</div>
-						</tab>
-						<tab heading="Massas">
-							<div class="row">
-										<div class="col-lg-12">
-											<div class="panel panel-lined table-responsive mb30"  ng-controller="DataTableCtrl">
-												<div class="panel-body">
-													<div class="small text-bold left mt5">
-									                        Mostrar&nbsp;
-									                        <select data-ng-model="numPerPage"
-									                                data-ng-options="num for num in numPerPageOpts"
-									                                data-ng-change="onNumPerPageChange()">
-									                        </select> 
-									                        &nbsp;entradas
-									                </div>
+                <div class="panel-footer clearfix">
+                    <p class="left mt15 small">
+                        Mostrando {{currentPageStores.length*(currentPage - 1) + 1}} até {{currentPageStores.length*currentPage}} de {{datas.length}} entradas.
+                    </p>
+                    <pagination boundary-links="true" total-items="filteredData.length" ng-model="currentPage" class="pagination-sm right"
+                                max-size="5" ng-change="select(currentPage)" items-per-page="numPerPage" rotate="false"
+                                previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></pagination>
+                </div>
+            </div>
+        </div>
+    </div>
+</tab>
+<tab heading="Massas">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-lined table-responsive mb30"  ng-controller="DataTableCtrl">
+                <div class="panel-body">
+                    <div class="small text-bold left mt5">
+                        Mostrar&nbsp;
+                        <select data-ng-model="numPerPage"
+                                data-ng-options="num for num in numPerPageOpts"
+                                data-ng-change="onNumPerPageChange()">
+                        </select>
+                        &nbsp;entradas
+                    </div>
 
-									                <form class="form-horizontal right col-lg-4">
-														<input type="text" class="form-control input-sm" placeholder="Digite o nome do produto..." data-ng-model="searchKeywords" data-ng-keyup="search()">
-									                </form>
-												</div>
-												<!-- data table -->
-												<table class="table table-bordered table-striped">
-													<thead>
-														<tr>
-															<th>
-																Nome
-																<div class="th">
-																	<i class="fa fa-caret-up icon-up"
-																		ng-click=" order('engine') "
-							                              				ng-class="{active: row == 'engine'}"></i>
-																	<i class="fa fa-caret-down icon-down"
-																		ng-click=" order('-engine') "
-							                              				ng-class="{active: row == '-engine'}"></i>
-																</div>
-															</th>
-															<th>
-																Ingredientes
-																<div class="th">
-																	<i class="fa fa-caret-up icon-up"
-																		ng-click=" order('browser') "
-							                              				ng-class="{active: row == 'browser'}"></i>
-																	<i class="fa fa-caret-down icon-down"
-																		ng-click=" order('-browser') "
-							                              				ng-class="{active: row == '-browser'}"></i>
-																</div>
-															</th>
-															<th>
-																Opções
-																<div class="th">
-																	<i class="fa fa-caret-up icon-up"
-																		ng-click=" order('platform') "
-							                              				ng-class="{active: row == 'platform'}"></i>
-																	<i class="fa fa-caret-down icon-down"
-																		ng-click=" order('-platform') "
-							                              				ng-class="{active: row == '-platform'}"></i>
-																</div>
-															</th>
-															<th>
-																Ativo
-																<div class="th">
-																	<i class="fa fa-caret-up icon-up"
-																		ng-click=" order('grade') "
-							                              				ng-class="{active: row == 'grade'}"></i>
-																	<i class="fa fa-caret-down icon-down"
-																		ng-click=" order('-grade') "
-							                              				ng-class="{active: row == '-grade'}"></i>
-																</div>
-															</th>
-														</tr>
-													</thead>
-													<tbody>
-														<tr ng-repeat="data in currentPageStores track by $index">
-															<td>{{data.engine}}</td>
-															<td><a href="#"><button type="button" class="btn btn-info btn-sm">{{data.browser}}</button></a></td>
-															<td>
-																<a href="#"><button type="button" class="btn btn-success btn-sm">Editar</button></a>
-																<a href="#"><button type="button" class="btn btn-danger btn-sm">Desativar</button></a>
-															</td>
-															<td>{{data.grade}}</td>
-														</tr>
-													</tbody>
-												</table>
-												<!-- #end data table -->	
+                    <form class="form-horizontal right col-lg-4">
+                        <input type="text" class="form-control input-sm" placeholder="Digite o nome do produto..." data-ng-model="searchKeywords" data-ng-keyup="search()">
+                    </form>
+                </div>
+                <!-- data table -->
+                <table class="table table-bordered table-striped">
+                    <thead>
+                    <tr>
+                        <th>
+                            Nome
+                            <div class="th">
+                                <i class="fa fa-caret-up icon-up"
+                                   ng-click=" order('engine') "
+                                   ng-class="{active: row == 'engine'}"></i>
+                                <i class="fa fa-caret-down icon-down"
+                                   ng-click=" order('-engine') "
+                                   ng-class="{active: row == '-engine'}"></i>
+                            </div>
+                        </th>
+                        <th>
+                            Ingredientes
+                            <div class="th">
+                                <i class="fa fa-caret-up icon-up"
+                                   ng-click=" order('browser') "
+                                   ng-class="{active: row == 'browser'}"></i>
+                                <i class="fa fa-caret-down icon-down"
+                                   ng-click=" order('-browser') "
+                                   ng-class="{active: row == '-browser'}"></i>
+                            </div>
+                        </th>
+                        <th>
+                            Opções
+                            <div class="th">
+                                <i class="fa fa-caret-up icon-up"
+                                   ng-click=" order('platform') "
+                                   ng-class="{active: row == 'platform'}"></i>
+                                <i class="fa fa-caret-down icon-down"
+                                   ng-click=" order('-platform') "
+                                   ng-class="{active: row == '-platform'}"></i>
+                            </div>
+                        </th>
+                        <th>
+                            Ativo
+                            <div class="th">
+                                <i class="fa fa-caret-up icon-up"
+                                   ng-click=" order('grade') "
+                                   ng-class="{active: row == 'grade'}"></i>
+                                <i class="fa fa-caret-down icon-down"
+                                   ng-click=" order('-grade') "
+                                   ng-class="{active: row == '-grade'}"></i>
+                            </div>
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="data in currentPageStores track by $index">
+                        <td>{{data.engine}}</td>
+                        <td><a href="#"><button type="button" class="btn btn-info btn-sm">{{data.browser}}</button></a></td>
+                        <td>
+                            <a href="#"><button type="button" class="btn btn-success btn-sm">Editar</button></a>
+                            <a href="#"><button type="button" class="btn btn-danger btn-sm">Desativar</button></a>
+                        </td>
+                        <td>{{data.grade}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <!-- #end data table -->
 
-												<div class="panel-footer clearfix">
-													<p class="left mt15 small">
-														Mostrando {{currentPageStores.length*(currentPage - 1) + 1}} até {{currentPageStores.length*currentPage}} de {{datas.length}} entradas.
-													</p>
-													<pagination boundary-links="true" total-items="filteredData.length" ng-model="currentPage" class="pagination-sm right" 
-														max-size="5" ng-change="select(currentPage)" items-per-page="numPerPage" rotate="false"
-														previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></pagination>
-												</div>
-											</div>
-										</div>
-									</div>
-						</tab>
-						
-						<tab heading="Outros">
-							<div class="row">
-										<div class="col-lg-12">
-											<div class="panel panel-lined table-responsive mb30"  ng-controller="DataTableCtrl">
-												<div class="panel-body">
-													<div class="small text-bold left mt5">
-									                        Mostrar&nbsp;
-									                        <select data-ng-model="numPerPage"
-									                                data-ng-options="num for num in numPerPageOpts"
-									                                data-ng-change="onNumPerPageChange()">
-									                        </select> 
-									                        &nbsp;entradas
-									                </div>
+                <div class="panel-footer clearfix">
+                    <p class="left mt15 small">
+                        Mostrando {{currentPageStores.length*(currentPage - 1) + 1}} até {{currentPageStores.length*currentPage}} de {{datas.length}} entradas.
+                    </p>
+                    <pagination boundary-links="true" total-items="filteredData.length" ng-model="currentPage" class="pagination-sm right"
+                                max-size="5" ng-change="select(currentPage)" items-per-page="numPerPage" rotate="false"
+                                previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></pagination>
+                </div>
+            </div>
+        </div>
+    </div>
+</tab>
 
-									                <form class="form-horizontal right col-lg-4">
-														<input type="text" class="form-control input-sm" placeholder="Digite o nome do produto..." data-ng-model="searchKeywords" data-ng-keyup="search()">
-									                </form>
-												</div>
-												<!-- data table -->
-												<table class="table table-bordered table-striped">
-													<thead>
-														<tr>
-															<th>
-																Nome
-																<div class="th">
-																	<i class="fa fa-caret-up icon-up"
-																		ng-click=" order('engine') "
-							                              				ng-class="{active: row == 'engine'}"></i>
-																	<i class="fa fa-caret-down icon-down"
-																		ng-click=" order('-engine') "
-							                              				ng-class="{active: row == '-engine'}"></i>
-																</div>
-															</th>
-															<th>
-																Ingredientes
-																<div class="th">
-																	<i class="fa fa-caret-up icon-up"
-																		ng-click=" order('browser') "
-							                              				ng-class="{active: row == 'browser'}"></i>
-																	<i class="fa fa-caret-down icon-down"
-																		ng-click=" order('-browser') "
-							                              				ng-class="{active: row == '-browser'}"></i>
-																</div>
-															</th>
-															<th>
-																Opções
-																<div class="th">
-																	<i class="fa fa-caret-up icon-up"
-																		ng-click=" order('platform') "
-							                              				ng-class="{active: row == 'platform'}"></i>
-																	<i class="fa fa-caret-down icon-down"
-																		ng-click=" order('-platform') "
-							                              				ng-class="{active: row == '-platform'}"></i>
-																</div>
-															</th>
-															<th>
-																Ativo
-																<div class="th">
-																	<i class="fa fa-caret-up icon-up"
-																		ng-click=" order('grade') "
-							                              				ng-class="{active: row == 'grade'}"></i>
-																	<i class="fa fa-caret-down icon-down"
-																		ng-click=" order('-grade') "
-							                              				ng-class="{active: row == '-grade'}"></i>
-																</div>
-															</th>
-														</tr>
-													</thead>
-													<tbody>
-														<tr ng-repeat="data in currentPageStores track by $index">
-															<td>{{data.engine}}</td>
-															<td><a href="#"><button type="button" class="btn btn-info btn-sm">{{data.browser}}</button></a></td>
-															<td>
-																<a href="#"><button type="button" class="btn btn-success btn-sm">Editar</button></a>
-																<a href="#"><button type="button" class="btn btn-danger btn-sm">Desativar</button></a>
-															</td>
-															<td>{{data.grade}}</td>
-														</tr>
-													</tbody>
-												</table>
-												<!-- #end data table -->	
+<tab heading="Outros">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-lined table-responsive mb30"  ng-controller="DataTableCtrl">
+                <div class="panel-body">
+                    <div class="small text-bold left mt5">
+                        Mostrar&nbsp;
+                        <select data-ng-model="numPerPage"
+                                data-ng-options="num for num in numPerPageOpts"
+                                data-ng-change="onNumPerPageChange()">
+                        </select>
+                        &nbsp;entradas
+                    </div>
 
-												<div class="panel-footer clearfix">
-													<p class="left mt15 small">
-														Mostrando {{currentPageStores.length*(currentPage - 1) + 1}} até {{currentPageStores.length*currentPage}} de {{datas.length}} entradas.
-													</p>
-													<pagination boundary-links="true" total-items="filteredData.length" ng-model="currentPage" class="pagination-sm right" 
-														max-size="5" ng-change="select(currentPage)" items-per-page="numPerPage" rotate="false"
-														previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></pagination>
-												</div>
-											</div>
-										</div>
-									</div>
-						</tab>
-					</tabset>
-				<!-- Form wizard -->
-				<!-- #end form wizard -->
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- #end row -->
-	</div>
-	<!-- #end page-wrap -->
+                    <form class="form-horizontal right col-lg-4">
+                        <input type="text" class="form-control input-sm" placeholder="Digite o nome do produto..." data-ng-model="searchKeywords" data-ng-keyup="search()">
+                    </form>
+                </div>
+                <!-- data table -->
+                <table class="table table-bordered table-striped">
+                    <thead>
+                    <tr>
+                        <th>
+                            Nome
+                            <div class="th">
+                                <i class="fa fa-caret-up icon-up"
+                                   ng-click=" order('engine') "
+                                   ng-class="{active: row == 'engine'}"></i>
+                                <i class="fa fa-caret-down icon-down"
+                                   ng-click=" order('-engine') "
+                                   ng-class="{active: row == '-engine'}"></i>
+                            </div>
+                        </th>
+                        <th>
+                            Ingredientes
+                            <div class="th">
+                                <i class="fa fa-caret-up icon-up"
+                                   ng-click=" order('browser') "
+                                   ng-class="{active: row == 'browser'}"></i>
+                                <i class="fa fa-caret-down icon-down"
+                                   ng-click=" order('-browser') "
+                                   ng-class="{active: row == '-browser'}"></i>
+                            </div>
+                        </th>
+                        <th>
+                            Opções
+                            <div class="th">
+                                <i class="fa fa-caret-up icon-up"
+                                   ng-click=" order('platform') "
+                                   ng-class="{active: row == 'platform'}"></i>
+                                <i class="fa fa-caret-down icon-down"
+                                   ng-click=" order('-platform') "
+                                   ng-class="{active: row == '-platform'}"></i>
+                            </div>
+                        </th>
+                        <th>
+                            Ativo
+                            <div class="th">
+                                <i class="fa fa-caret-up icon-up"
+                                   ng-click=" order('grade') "
+                                   ng-class="{active: row == 'grade'}"></i>
+                                <i class="fa fa-caret-down icon-down"
+                                   ng-click=" order('-grade') "
+                                   ng-class="{active: row == '-grade'}"></i>
+                            </div>
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="data in currentPageStores track by $index">
+                        <td>{{data.engine}}</td>
+                        <td><a href="#"><button type="button" class="btn btn-info btn-sm">{{data.browser}}</button></a></td>
+                        <td>
+                            <a href="#"><button type="button" class="btn btn-success btn-sm">Editar</button></a>
+                            <a href="#"><button type="button" class="btn btn-danger btn-sm">Desativar</button></a>
+                        </td>
+                        <td>{{data.grade}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <!-- #end data table -->
+
+                <div class="panel-footer clearfix">
+                    <p class="left mt15 small">
+                        Mostrando {{currentPageStores.length*(currentPage - 1) + 1}} até {{currentPageStores.length*currentPage}} de {{datas.length}} entradas.
+                    </p>
+                    <pagination boundary-links="true" total-items="filteredData.length" ng-model="currentPage" class="pagination-sm right"
+                                max-size="5" ng-change="select(currentPage)" items-per-page="numPerPage" rotate="false"
+                                previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></pagination>
+                </div>
+            </div>
+        </div>
+    </div>
+</tab>
+</tabset>
+<!-- Form wizard -->
+<!-- #end form wizard -->
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- #end row -->
+</div>
+<!-- #end page-wrap -->
 </div>

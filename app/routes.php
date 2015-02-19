@@ -46,3 +46,5 @@ Route::post('/produto/salgado/add','ProdutoController@adicionarSalgado'); //Adic
 Route::post('/produto/sanduiche/add','ProdutoController@adicionarSanduiche'); //Adicionar Sanduiche
 Route::post('/produto/massas/add','ProdutoController@adicionarMassas'); //Adicionar Massas
 Route::post('/produto/outros/add','ProdutoController@adicionarOutros'); //Adicionar Massas
+
+Route::get('/produto/pizza/get', 'ProdutoController@buscarPizza');
