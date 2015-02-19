@@ -37,3 +37,12 @@ Route::post('/add/funcionario', function(){
 
 Route::post('/logar','AutenticacaoController@logar');
 Route::get('/dashboard','HomeController@dashboard');
+
+/* Rotas dos Produtos */
+
+Route::post('/produto/pizza/add','ProdutoController@adicionarPizza'); //Adicionar Pizza
+Route::post('/produto/esfiha/add','ProdutoController@adicionarEsfiha'); //Adicionar Esfiha
+Route::post('/produto/salgado/add','ProdutoController@adicionarSalgado'); //Adicionar Salgado
+Route::post('/produto/sanduiche/add','ProdutoController@adicionarSanduiche'); //Adicionar Sanduiche
+Route::post('/produto/massas/add','ProdutoController@adicionarMassas'); //Adicionar Massas
+Route::post('/produto/outros/add','ProdutoController@adicionarOutros'); //Adicionar Massas

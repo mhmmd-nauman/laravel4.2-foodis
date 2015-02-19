@@ -33,6 +33,7 @@
 
 	<!-- Vendors -->
 	<script src="scripts/vendors/jquery.min.js"></script> <!-- load before angular -->
+    <script src="scripts/produto.js"></script>
 	<script src="scripts/vendors/angular.min.js"></script>
 
 	<!--angularstrap-->
@@ -70,6 +71,7 @@
 	<script src="scripts/todo/app.todo.js"></script>
 	<script src="scripts/email/app.email.ctrls.js"></script>
 	<script src="scripts/ui/app.ui.timepicker.directives.js"></script>
+
 	
 
 	<!-- Set this in dist index.html after removing above scripts-->

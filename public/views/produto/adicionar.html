@@ -13,30 +13,31 @@
 					<tabset class="tabs-lined fade-tabs-content">
 						<tab heading="Pizzas">
 							<div class="clearfix">
-								<form role="form1" id="addPizza" method="post" novalidate>
+
+                                <form role="form1">
 										<div class="form-group">
 											<label class="text-uppercase small text-bold">Nome do Sabor:</label>
-											<input type="text" class="form-control" placeholder="Mussarela">
+											<input type="text" class="form-control" id="sabor-pizza" name="sabor-pizza" placeholder="Mussarela">
 										</div>
 										
 										<div class="form-group">
 											<label class="text-uppercase small text-bold">Ingredientes:</label>
-											<textarea rows="5" class="form-control resize-v" placeholder="Separe por vírgula"></textarea>
+											<textarea rows="5" id="ingredientes-pizza" name="ingredientes-pizza" class="form-control resize-v" placeholder="Adicione os ingredientes separados por uma quebra de linha"></textarea>
 										</div>
 
 										<div class="form-group">
 											<label class="text-uppercase small text-bold">Tamanhos:</label>
 											<div class="ui-checkbox ui-checkbox-danger">
 												<label>
-													<input type="checkbox" onclick="toggle_visibility('pizzapeq')" > 
+													<input type="checkbox" id="pizza-pequena" onclick="toggle_visibility('pizzapeq')" >
 													<span>Pequeno</span>
 												</label>
 												<label>
-													<input type="checkbox" onclick="toggle_visibility('pizzamed')" > 
+													<input type="checkbox" id="pizza-media" onclick="toggle_visibility('pizzamed')" >
 													<span>Médio</span>
 												</label>
 												<label>
-													<input type="checkbox" onclick="toggle_visibility('pizzagd')" > 
+													<input type="checkbox" id="pizza-grande" onclick="toggle_visibility('pizzagd')" >
 													<span>Grande</span>
 												</label>
 											</div>
@@ -44,20 +45,20 @@
 
 										<div class="form-group"  id="pizzapeq" style="display:none;">
 											<label class="text-uppercase small text-bold">Valor Pequena:</label>
-											<input type="number" class="form-control" min="0" max="999" ng-model="fv.number" placeholder="20,00">
+											<input type="number" id="valor-pequena" name="valor-pequena" class="form-control" min="0" max="999" placeholder="20,00">
 										</div>
 
 										<div class="form-group"  id="pizzamed" style="display:none;">
 											<label class="text-uppercase small text-bold">Valor Media:</label>
-											<input type="number" class="form-control" min="0" max="999" ng-model="fv.number" placeholder="20,00">
+											<input type="number" id="valor-media" name="valor-media" class="form-control" min="0" max="999" placeholder="20,00">
 										</div>
 
 										<div class="form-group"  id="pizzagd" style="display:none;">
 											<label class="text-uppercase small text-bold">Valor Grande:</label>
-											<input type="number" class="form-control" min="0" max="999" ng-model="fv.number" placeholder="20,00">
+											<input type="number" id="valor-grande" name="valor-grande" class="form-control" min="0" max="999" placeholder="20,00">
 										</div>
 
-										<button type="submit" class="btn clearfix btn-info right">Adicionar</button>
+										<button type="submit" class="btn clearfix btn-info right" onclick="adicionarPizza()" name="botaoadicionar">Adicionar</button>
 									</form>
 							</div>
 						</tab>
@@ -65,145 +66,109 @@
 							<form role="form2">
 										<div class="form-group">
 											<label class="text-uppercase small text-bold">Nome do Sabor:</label>
-											<input type="text" class="form-control" placeholder="Mussarela">
+											<input type="text" id="sabor-esfiha" class="form-control" placeholder="Mussarela">
 										</div>
 										<div class="form-group">
 											<label class="text-uppercase small text-bold">Ingredientes:</label>
-											<textarea rows="5" class="form-control resize-v" placeholder"Separe por vírgula"></textarea>
+											<textarea rows="5" id="ingredientes-esfiha" class="form-control resize-v" placeholder="Separe os ingredientes por quebra de linhaa"></textarea>
 										</div>
 										<div class="form-group">
 											<label class="text-uppercase small text-bold">Tipos:</label>
 											<div class="ui-checkbox ui-checkbox-danger">
 												<label>
-													<input type="checkbox" checked> 
+													<input type="radio" name="tipo-esfira" id="esfira-aberta" value="1">
 													<span>Aberta</span>
 												</label>
 												<label>
-													<input type="checkbox" checked> 
+													<input type="radio" name="tipo-esfira" id="esfira-fechada" value="0">
 													<span>Fechada</span>
 												</label>
 											</div>
 										</div>
 										<div class="form-group">
 											<label class="text-uppercase small text-bold">Valor:</label>
-											<input type="number" class="form-control" min="0" max="999" ng-model="fv.number" placeholder="20,00"required>
+											<input type="number" id="valor-esfiha" class="form-control" min="0" max="999"  placeholder="20,00" required>
 										</div>
-										<button type="submit" class="btn clearfix btn-info right">Adicionar</button>
+										<button type="submit" class="btn clearfix btn-info right" onclick="adicionarEsfiha()">Adicionar</button>
 							</form>							
 						</tab>
 						<tab heading="Salgados">
 							<form role="form3">
 										<div class="form-group">
 											<label class="text-uppercase small text-bold">Nome:</label>
-											<input type="text" class="form-control" placeholder="Coxinha">
+											<input type="text" id="nome-salgado" class="form-control" placeholder="Coxinha">
 										</div>
 										<div class="form-group">
 											<label class="text-uppercase small text-bold">Ingredientes:</label>
-											<textarea rows="5" class="form-control resize-v" placeholder"Separe por vírgula"></textarea>
+											<textarea rows="5" id="ingredientes-salgado" class="form-control resize-v" placeholder="Separe os ingredientes por quebra de linha"></textarea>
 										</div>
 										<div class="form-group">
 											<label class="text-uppercase small text-bold">Valor:</label>
-											<input type="number" class="form-control" min="0" max="999" ng-model="fv.number" placeholder="20,00"required>
+											<input type="number" id="preco-salgado" class="form-control" min="0" max="999"  placeholder="20,00" required>
 										</div>
-										<button type="submit" class="btn clearfix btn-info right">Adicionar</button>
+										<button type="submit" class="btn clearfix btn-info right" onclick="adicionarSalgado()">Adicionar</button>
 							</form>
 						</tab>
 						<tab heading="Sanduiches">
 							<form role="form4">
 										<div class="form-group">
 											<label class="text-uppercase small text-bold">Nome:</label>
-											<input type="text" class="form-control" placeholder="X-Tudo">
+											<input type="text" id="sabor-sanduiche" class="form-control" placeholder="X-Tudo">
 										</div>
 										<div class="form-group">
 											<label class="text-uppercase small text-bold">Ingredientes:</label>
-											<textarea rows="5" class="form-control resize-v" placeholder"Separe por vírgula"></textarea>
+											<textarea rows="5" id="ingredientes-sanduiche" class="form-control resize-v" placeholder="Separe os ingredientes por quebra de linha"></textarea>
 										</div>
 										<div class="form-group">
 											<label class="text-uppercase small text-bold">Valor:</label>
-											<input type="number" class="form-control" min="0" max="999" ng-model="fv.number" placeholder="20,00"required>
+											<input type="number" id="preco-sanduiche" class="form-control" min="0" max="999"  placeholder="20,00" required>
 										</div>
-										<button type="submit" class="btn clearfix btn-info right">Adicionar</button>
+										<button type="submit" class="btn clearfix btn-info right" onclick="adicionarSanduiche()">Adicionar</button>
 									</form>
 						</tab>
 						<tab heading="Massas">
 									<form role="form5">
 										<div class="form-group">
 											<label class="text-uppercase small text-bold">Nome:</label>
-											<input type="text" class="form-control" placeholder="Macarrão ao Vivo">
+											<input type="text" id="sabor-massas" class="form-control" placeholder="Macarrão ao Vivo">
 										</div>
 										<div class="form-group">
 											<label class="text-uppercase small text-bold">Ingredientes:</label>
-											<textarea rows="5" class="form-control resize-v" placeholder"Separe por vírgula"></textarea>
+											<textarea rows="5" id="ingredientes-massas" class="form-control resize-v" placeholder"Separe por vírgula"></textarea>
 										</div>
 										<div class="form-group">
 											<label class="text-uppercase small text-bold">Valor:</label>
-											<input type="number" class="form-control" min="0" max="999" ng-model="fv.number" placeholder="20,00"required>
+											<input type="number" id="preco-massas" class="form-control" min="0" max="999" laceholder="20,00"required>
 										</div>
-										<button type="submit" class="btn clearfix btn-info right">Adicionar</button>
+										<button type="submit" class="btn clearfix btn-info right" onclick="adicionarMassas()">Adicionar</button>
 									</form>							
 						</tab>
-						<tab heading="Bebidas">
-									<form role="form6">
-										<div class="form-group">
-											<label class="text-uppercase small text-bold">Nome:</label>
-											<input type="text" class="form-control" placeholder="Coca-Cola">
-										</div>
-										<div class="form-group">
-											<label class="text-uppercase small text-bold">Tipos Disponíveis:</label>
-											<div class="ui-checkbox ui-checkbox-danger">
-												<label>
-													<input type="checkbox" checked> 
-													<span>Lata 350ml</span>
-												</label>
-												<label>
-													<input type="checkbox" checked> 
-													<span>1 litro</span>
-												</label>
-												<label>
-													<input type="checkbox" checked> 
-													<span>2 litros</span>
-												</label>
-											</div>
-										</div>
-										<div class="form-group">
-											<label class="text-uppercase small text-bold">Valor:</label>
-											<input type="number" class="form-control" min="0" max="999" ng-model="fv.number" placeholder="20,00"required>
-										</div>
-										<button type="submit" class="btn clearfix btn-info right">Adicionar</button>
-									</form>
-						</tab>
-						<tab heading="Pratos">
-									<form role="form7">
-										<div class="form-group">
-											<label class="text-uppercase small text-bold">Nome:</label>
-											<input type="text" class="form-control" placeholder="Executivo">
-										</div>
-										<div class="form-group">
-											<label class="text-uppercase small text-bold">Ingredientes:</label>
-											<textarea rows="5" class="form-control resize-v" placeholder"Separe por vírgula"></textarea>
-										</div>
-										<div class="form-group">
-											<label class="text-uppercase small text-bold">Valor:</label>
-											<input type="number" class="form-control" min="0" max="999" ng-model="fv.number" placeholder="20,00"required>
-										</div>
-										<button type="submit" class="btn clearfix btn-info right">Adicionar</button>
-									</form>		
-						</tab>
+
 						<tab heading="Outros">
 									<form role="form8" id="addOutros">
-										<div class="form-group">
+
+                                        <div class="form-group">
 											<label class="text-uppercase small text-bold">Nome:</label>
-											<input type="text" class="form-control" placeholder="Batata Frita">
+											<input type="text" id="nome-outros" class="form-control" placeholder="Batata Frita">
 										</div>
-										<div class="form-group">
-											<label class="text-uppercase small text-bold">Ingredientes:</label>
-											<textarea rows="5" class="form-control resize-v" placeholder"Separe por vírgula"></textarea>
-										</div>
+
+                                        <div class="form-group">
+                                            <label class="text-uppercase small text-bold">Tipo:</label> <br/>
+                                        <select id="categorias" form="addOutros">
+                                            <option value="Bebida">Bebida</option>
+                                            <option value="Adicionais">Adicionais</option>
+                                            <option value="Prato Executivo">Prato Executivo</option>
+                                            <option value="Outros">Outros</option>
+                                        </select>
+
+                                        </div>
+
 										<div class="form-group">
 											<label class="text-uppercase small text-bold">Valor:</label>
-											<input type="number" class="form-control" min="0" max="999" ng-model="fv.number" placeholder="20,00"required>
+											<input type="number" id="preco-outros" class="form-control" min="0" max="999" placeholder="20,00"required>
 										</div>
-										<button type="submit" class="btn clearfix btn-info right">Adicionar</button>
+
+										<button type="submit" class="btn clearfix btn-info right" onclick="adicionarOutro()">Adicionar</button>
 									</form>		
 						</tab>
 					</tabset>
@@ -218,19 +183,6 @@
 	</div>
 	<!-- #end page-wrap -->
 </div>
-<script>
-   /* $('#addPizza').submit(function (event){
-        var pizza = document.getElementById('sabor-pizza').value;
-        var ingredientes_pizza = document.getElementById('ingredientes-pizza').value;
-        var tamanho_pequena = document.getElementById('pizza-pequena').value;
-        var tamanho_media = document.getElementById('pizza-media').value;
-        var tamanho_grande = document.getElementById('pizza-grande').value;
-        
- 
-        alert("Olá mundo");
- 
-    });*/
- $('#addPizza').submit(function(){
-    alert('teste');
-});
-</script>
+
+
+
