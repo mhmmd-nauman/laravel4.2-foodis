@@ -10,7 +10,7 @@
 						<div class="panel-body">
 							<div class="row">
 										<div class="col-lg-12">
-											<div class="panel panel-lined table-responsive mb30"  ng-controller="DataTableCtrl">
+											<div class="panel panel-lined table-responsive mb30"  ng-controller="DataTableFuncionarios">
 												<div class="panel-body">
 													<div class="small text-bold left mt5">
 									                        Mostrar&nbsp;
@@ -51,6 +51,18 @@
 							                              				ng-class="{active: row == '-browser'}"></i>
 																</div>
 															</th>
+                                                            <th>
+                                                                Nivel
+                                                                <div class="th">
+                                                                    <i class="fa fa-caret-up icon-up"
+                                                                       ng-click=" order('browser') "
+                                                                       ng-class="{active: row == 'browser'}"></i>
+                                                                    <i class="fa fa-caret-down icon-down"
+                                                                       ng-click=" order('-browser') "
+                                                                       ng-class="{active: row == '-browser'}"></i>
+                                                                </div>
+                                                            </th>
+
 															<th>
 																Opções
 																<div class="th">
@@ -63,7 +75,7 @@
 																</div>
 															</th>
 															<th>
-																Ativo
+																STATUS
 																<div class="th">
 																	<i class="fa fa-caret-up icon-up"
 																		ng-click=" order('grade') "
@@ -76,14 +88,15 @@
 														</tr>
 													</thead>
 													<tbody>
-														<tr ng-repeat="data in currentPageStores track by $index">
-															<td>{{data.engine}}</td>
-															<td>atendente01</td>
+														<tr ng-repeat="data in currentPageStores">
+															<td>{{data.nome}}</td>
+															<td>{{data.username}}</td>
+                                                            <td>{{data.nivel}} </td>
 															<td>
 																<a href="#/funcionario/editar_info"><button type="button" class="btn btn-success btn-sm">Editar</button></a>
 																<a href="#"><button type="button" class="btn btn-danger btn-sm">Desativar</button></a>
 															</td>
-															<td>{{data.grade}}</td>
+															<td>ATIVO</td>
 														</tr>
 													</tbody>
 												</table>

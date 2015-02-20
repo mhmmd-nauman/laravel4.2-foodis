@@ -53,3 +53,8 @@ Route::get('/produto/salgado/get', 'ProdutoController@buscarSalgado');
 Route::get('/produto/sanduiche/get', 'ProdutoController@buscarSanduiche');
 Route::get('/produto/massas/get', 'ProdutoController@buscarMassas');
 Route::get('/produto/outros/get', 'ProdutoController@buscarOutros');
+
+
+/* Rotas dos Funcionarios */
+
+Route::get('/funcionario/get', 'FuncionarioController@get');
