@@ -5,7 +5,7 @@
 
 function adicionarPizza(){
     //URL Utilizada na Requisicao
-    var URL = 'http://localhost/foodis-restaurante/public/produto/pizza/add';
+        var URL = 'http://localhost/foodis-restaurante/public/produto/pizza/add';
 
     //Informações referente ao produto
     var saborPizza = document.getElementById("sabor-pizza").value;
