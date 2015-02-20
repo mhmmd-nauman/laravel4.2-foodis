@@ -51,6 +51,9 @@
             ];
         }])
 
+        /*
+        * Controller da Tabela de Pizzas em >> Editar Produto
+        * */
 
         .controller("DataTablePizza", ["$scope", "$filter" , "$http",  function($scope, $filter, $http) {
 
@@ -123,6 +126,9 @@
             
         }])
 
+        /*
+         * Controller da Tabela de Esfihas em >> Editar Produto
+         * */
 
         .controller("DataTableEsfira", ["$scope", "$filter" , "$http",  function($scope, $filter, $http) {
 
@@ -193,7 +199,9 @@
 
         }])
 
-
+        /*
+         * Controller da Tabela de Salgados em >> Editar Produto
+         * */
 
         .controller("DataTableSalgado", ["$scope", "$filter" , "$http",  function($scope, $filter, $http) {
 
@@ -264,6 +272,9 @@
 
         }])
 
+        /*
+         * Controller da Tabela de Sanduiches em >> Editar Produto
+         * */
 
         .controller("DataTableSanduiche", ["$scope", "$filter" , "$http",  function($scope, $filter, $http) {
 
@@ -334,6 +345,155 @@
 
         }])
 
+        /*
+         * Controller da Tabela de Massas em >> Editar Produto
+         * */
+
+
+        .controller("DataTableMassas", ["$scope", "$filter" , "$http",  function($scope, $filter, $http) {
+
+            $scope.pizzas = []
+
+
+            $http.get('http://localhost/foodis-restaurante/public/produto/massas/get').
+                success(function(data, status, headers, config) {
+                    $scope.pizzas = data.massas;
+                    var prelength = $scope.pizzas.length;
+
+                    $scope.searchKeywords = "";
+                    $scope.filteredData = [];
+                    $scope.row = "";
+
+
+                    $scope.numPerPageOpts = [5, 7, 10, 25, 50, 100];
+                    $scope.numPerPage = $scope.numPerPageOpts[1];
+                    $scope.currentPage = 1;
+                    $scope.currentPageStores = []; // data to hold per pagination
+
+
+                    $scope.select = function(page) {
+                        var start = (page - 1)*$scope.numPerPage,
+                            end = start + $scope.numPerPage;
+
+                        $scope.currentPageStores = $scope.filteredData.slice(start, end);
+                    }
+
+                    $scope.onFilterChange = function() {
+                        $scope.select(1);
+                        $scope.currentPage = 1;
+                        $scope.row = '';
+                    }
+
+                    $scope.onNumPerPageChange = function() {
+                        $scope.select(1);
+                        $scope.currentPage = 1;
+                    }
+
+                    $scope.onOrderChange = function() {
+                        $scope.select(1);
+                        $scope.currentPage = 1;
+                    }
+
+
+                    $scope.search = function() {
+                        $scope.filteredData = $filter("filter")($scope.pizzas, $scope.searchKeywords);
+                        $scope.onFilterChange();
+                    }
+
+                    $scope.order = function(rowName) {
+                        if($scope.row == rowName)
+                            return;
+                        $scope.row = rowName;
+                        $scope.filteredData = $filter('orderBy')($scope.pizzas, rowName);
+                        $scope.onOrderChange();
+                    }
+
+                    // init
+                    $scope.search();
+                    $scope.select($scope.currentPage);
+                }).
+                error(function(data, status, headers, config) {
+                    // called asynchronously if an error occurs
+                    // or server returns response with an error status.
+                });
+
+        }])
+
+
+
+        /*
+         * Controller da Tabela de Massas em >> Editar Produto
+         * */
+
+
+        .controller("DataTableOutros", ["$scope", "$filter" , "$http",  function($scope, $filter, $http) {
+
+            $scope.pizzas = []
+
+
+            $http.get('http://localhost/foodis-restaurante/public/produto/outros/get').
+                success(function(data, status, headers, config) {
+                    $scope.pizzas = data.outros;
+                    var prelength = $scope.pizzas.length;
+
+                    $scope.searchKeywords = "";
+                    $scope.filteredData = [];
+                    $scope.row = "";
+
+
+                    $scope.numPerPageOpts = [5, 7, 10, 25, 50, 100];
+                    $scope.numPerPage = $scope.numPerPageOpts[1];
+                    $scope.currentPage = 1;
+                    $scope.currentPageStores = []; // data to hold per pagination
+
+
+                    $scope.select = function(page) {
+                        var start = (page - 1)*$scope.numPerPage,
+                            end = start + $scope.numPerPage;
+
+                        $scope.currentPageStores = $scope.filteredData.slice(start, end);
+                    }
+
+                    $scope.onFilterChange = function() {
+                        $scope.select(1);
+                        $scope.currentPage = 1;
+                        $scope.row = '';
+                    }
+
+                    $scope.onNumPerPageChange = function() {
+                        $scope.select(1);
+                        $scope.currentPage = 1;
+                    }
+
+                    $scope.onOrderChange = function() {
+                        $scope.select(1);
+                        $scope.currentPage = 1;
+                    }
+
+
+                    $scope.search = function() {
+                        $scope.filteredData = $filter("filter")($scope.pizzas, $scope.searchKeywords);
+                        $scope.onFilterChange();
+                    }
+
+                    $scope.order = function(rowName) {
+                        if($scope.row == rowName)
+                            return;
+                        $scope.row = rowName;
+                        $scope.filteredData = $filter('orderBy')($scope.pizzas, rowName);
+                        $scope.onOrderChange();
+                    }
+
+                    // init
+                    $scope.search();
+                    $scope.select($scope.currentPage);
+                }).
+                error(function(data, status, headers, config) {
+                    // called asynchronously if an error occurs
+                    // or server returns response with an error status.
+                });
+
+        }])
 
 // Data Table
         .controller("DataTableCtrl", ["$scope", "$filter", function($scope, $filter) {

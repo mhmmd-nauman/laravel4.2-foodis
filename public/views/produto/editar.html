@@ -157,7 +157,7 @@
                             </div>
                         </th>
                         <th>
-                            Ativo
+                            Status
                             <div class="th">
                                 <i class="fa fa-caret-up icon-up"
                                    ng-click=" order('grade') "
@@ -358,14 +358,14 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr ng-repeat="data in currentPageStores track by $index">
+                    <tr ng-repeat="data in currentPageStores ">
                         <td>{{data.nome}}</td>
                         <td style="font-size:12px;"> R$ {{data.preco}}</td>
                         <td>
                             <a href="#"><button type="button" class="btn btn-success btn-sm">Editar</button></a>
                             <a href="#"><button type="button" class="btn btn-danger btn-sm">Desativar</button></a>
                         </td>
-                        <td>{{data.grade}}</td>
+                        <td>ATIVADO</td>
                     </tr>
                     </tbody>
                 </table>
@@ -386,7 +386,7 @@
 <tab heading="Massas">
     <div class="row">
         <div class="col-lg-12">
-            <div class="panel panel-lined table-responsive mb30"  ng-controller="DataTableCtrl">
+            <div class="panel panel-lined table-responsive mb30" ng-controller="DataTableMassas">
                 <div class="panel-body">
                     <div class="small text-bold left mt5">
                         Mostrar&nbsp;
@@ -417,7 +417,7 @@
                             </div>
                         </th>
                         <th>
-                            Ingredientes
+                            Preço
                             <div class="th">
                                 <i class="fa fa-caret-up icon-up"
                                    ng-click=" order('browser') "
@@ -439,7 +439,7 @@
                             </div>
                         </th>
                         <th>
-                            Ativo
+                            Status
                             <div class="th">
                                 <i class="fa fa-caret-up icon-up"
                                    ng-click=" order('grade') "
@@ -453,13 +453,13 @@
                     </thead>
                     <tbody>
                     <tr ng-repeat="data in currentPageStores track by $index">
-                        <td>{{data.engine}}</td>
-                        <td><a href="#"><button type="button" class="btn btn-info btn-sm">{{data.browser}}</button></a></td>
+                        <td>{{data.nome}}</td>
+                        <td style="font-size: 12px;">R$ {{ data.preco}} </td>
                         <td>
                             <a href="#"><button type="button" class="btn btn-success btn-sm">Editar</button></a>
                             <a href="#"><button type="button" class="btn btn-danger btn-sm">Desativar</button></a>
                         </td>
-                        <td>{{data.grade}}</td>
+                        <td>ATIVADO</td>
                     </tr>
                     </tbody>
                 </table>
@@ -481,7 +481,7 @@
 <tab heading="Outros">
     <div class="row">
         <div class="col-lg-12">
-            <div class="panel panel-lined table-responsive mb30"  ng-controller="DataTableCtrl">
+            <div class="panel panel-lined table-responsive mb30"  ng-controller="DataTableOutros">
                 <div class="panel-body">
                     <div class="small text-bold left mt5">
                         Mostrar&nbsp;
@@ -512,7 +512,7 @@
                             </div>
                         </th>
                         <th>
-                            Ingredientes
+                            Preço
                             <div class="th">
                                 <i class="fa fa-caret-up icon-up"
                                    ng-click=" order('browser') "
@@ -534,7 +534,7 @@
                             </div>
                         </th>
                         <th>
-                            Ativo
+                            Status
                             <div class="th">
                                 <i class="fa fa-caret-up icon-up"
                                    ng-click=" order('grade') "
@@ -547,14 +547,14 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr ng-repeat="data in currentPageStores track by $index">
-                        <td>{{data.engine}}</td>
-                        <td><a href="#"><button type="button" class="btn btn-info btn-sm">{{data.browser}}</button></a></td>
+                    <tr ng-repeat="data in currentPageStores">
+                        <td>{{data.nome}}</td>
+                        <td style="font-size: 12px;"> R$ {{ data.preco }}</td>
                         <td>
                             <a href="#"><button type="button" class="btn btn-success btn-sm">Editar</button></a>
                             <a href="#"><button type="button" class="btn btn-danger btn-sm">Desativar</button></a>
                         </td>
-                        <td>{{data.grade}}</td>
+                        <td> ATIVADO </td>
                     </tr>
                     </tbody>
                 </table>

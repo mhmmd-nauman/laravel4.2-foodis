@@ -51,3 +51,5 @@ Route::get('/produto/pizza/get', 'ProdutoController@buscarPizza');
 Route::get('/produto/esfiha/get', 'ProdutoController@buscarEsfiha');
 Route::get('/produto/salgado/get', 'ProdutoController@buscarSalgado');
 Route::get('/produto/sanduiche/get', 'ProdutoController@buscarSanduiche');
+Route::get('/produto/massas/get', 'ProdutoController@buscarMassas');
+Route::get('/produto/outros/get', 'ProdutoController@buscarOutros');

@@ -124,4 +124,44 @@ class ProdutoController extends BaseController {
 
         echo json_encode($data);
     }
+
+    public function buscarMassas(){
+        $data = array(
+            "status" => 200,
+            "massas" => array(
+                array(
+                    "id" => 3,
+                    "nome" => "Lazanha",
+                    "preco" => 25
+                ),
+                array(
+                    "id" => 15,
+                    "nome" => "Kebab",
+                    "preco" => 7
+                ),
+            )
+        );
+
+        echo json_encode($data);
+    }
+
+    public function buscarOutros(){
+        $data = array(
+            "status" => 200,
+            "outros" => array(
+                array(
+                    "id" => 3,
+                    "nome" => "Coca-Cola de 2 Litros",
+                    "preco" => 6
+                ),
+                array(
+                    "id" => 15,
+                    "nome" => "Fanta de 1 Litro",
+                    "preco" => 4
+                ),
+            )
+        );
+
+        echo json_encode($data);
+    }
 } 
