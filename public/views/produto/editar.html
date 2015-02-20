@@ -34,33 +34,17 @@
                             Nome
                             <div class="th">
                                 <i class="fa fa-caret-up icon-up"
-                                   ng-click=" order('engine') "
-                                   ng-class="{active: row == 'engine'}"></i>
+                                   ng-click=" order('nome') "
+                                   ng-class="{active: row == 'nome'}"></i>
                                 <i class="fa fa-caret-down icon-down"
-                                   ng-click=" order('-engine') "
-                                   ng-class="{active: row == '-engine'}"></i>
-                            </div>
-                        </th>
-                        <th>
-                            Ingredientes
-                            <div class="th">
-                                <i class="fa fa-caret-up icon-up"
-                                   ng-click=" order('browser') "
-                                   ng-class="{active: row == 'browser'}"></i>
-                                <i class="fa fa-caret-down icon-down"
-                                   ng-click=" order('-browser') "
-                                   ng-class="{active: row == '-browser'}"></i>
+                                   ng-click=" order('-nome') "
+                                   ng-class="{active: row == '-nome'}"></i>
                             </div>
                         </th>
                         <th>
                             Opções
                             <div class="th">
-                                <i class="fa fa-caret-up icon-up"
-                                   ng-click=" order('platform') "
-                                   ng-class="{active: row == 'platform'}"></i>
-                                <i class="fa fa-caret-down icon-down"
-                                   ng-click=" order('-platform') "
-                                   ng-class="{active: row == '-platform'}"></i>
+
                             </div>
                         </th>
                         <th>
@@ -77,14 +61,13 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr ng-repeat="data in currentPageStores track by $index">
-                        <td>{{data.engine}}</td>
-                        <td><a href="#"><button type="button" class="btn btn-info btn-sm">{{data.browser}}</button></a></td>
+                    <tr ng-repeat="data in currentPageStores">
+                        <td>{{data.nome}}</td>
                         <td>
                             <a href="#"><button type="button" class="btn btn-success btn-sm">Editar</button></a>
                             <a href="#"><button type="button" class="btn btn-danger btn-sm">Desativar</button></a>
                         </td>
-                        <td>{{data.grade}}</td>
+                        <td>zz</td>
                     </tr>
                     </tbody>
                 </table>
@@ -92,7 +75,7 @@
 
                 <div class="panel-footer clearfix">
                     <p class="left mt15 small">
-                        Mostrando {{currentPageStores.length*(currentPage - 1) + 1}} até {{currentPageStores.length*currentPage}} de {{datas.length}} entradas.
+                        Mostrando {{currentPageStores.length*(currentPage - 1) + 1}} até {{currentPageStores.length*currentPage}} de {{pizzas.length}} entradas.
                     </p>
                     <pagination boundary-links="true" total-items="filteredData.length" ng-model="currentPage" class="pagination-sm right"
                                 max-size="5" ng-change="select(currentPage)" items-per-page="numPerPage" rotate="false"
