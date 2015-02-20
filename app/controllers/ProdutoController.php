@@ -65,4 +65,63 @@ class ProdutoController extends BaseController {
 
         echo json_encode($data);
     }
+
+    public function buscarEsfiha(){
+        $data = array(
+            "status" => 200,
+            "esfiha" => array(
+                array(
+                    "id" => 3,
+                    "nome" => "Carne",
+                ),
+                array(
+                    "id" => 15,
+                    "nome" => "Queijo",
+                ),
+            )
+        );
+
+        echo json_encode($data);
+    }
+
+
+    public function buscarSalgado (){
+        $data = array(
+            "status" => 200,
+            "salgado" => array(
+                array(
+                    "id" => 3,
+                    "nome" => "Coxinha",
+                    "preco" => 5
+                ),
+                array(
+                    "id" => 15,
+                    "nome" => "Pastel de Carne",
+                    "preco" => 7
+                ),
+            )
+        );
+
+        echo json_encode($data);
+    }
+
+    public function buscarSanduiche(){
+        $data = array(
+            "status" => 200,
+            "sanduiche" => array(
+                array(
+                    "id" => 3,
+                    "nome" => "BIS Catupiry",
+                    "preco" => 5
+                ),
+                array(
+                    "id" => 15,
+                    "nome" => "BIS Cupim",
+                    "preco" => 7
+                ),
+            )
+        );
+
+        echo json_encode($data);
+    }
 } 

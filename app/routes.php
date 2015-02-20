@@ -48,3 +48,6 @@ Route::post('/produto/massas/add','ProdutoController@adicionarMassas'); //Adicio
 Route::post('/produto/outros/add','ProdutoController@adicionarOutros'); //Adicionar Massas
 
 Route::get('/produto/pizza/get', 'ProdutoController@buscarPizza');
+Route::get('/produto/esfiha/get', 'ProdutoController@buscarEsfiha');
+Route::get('/produto/salgado/get', 'ProdutoController@buscarSalgado');
+Route::get('/produto/sanduiche/get', 'ProdutoController@buscarSanduiche');
