@@ -422,7 +422,7 @@
 
 
         /*
-     * Controller da Tabela de Massas em >> Editar Produto
+     * Controller da Tabela de Outros em >> Editar Produto
      * */
 
 
@@ -498,7 +498,7 @@
 
 
         /*
-         * Controller da Tabela de Massas em >> Editar Produto
+         * Controller da Tabela de Funcionarios em >> Editar Funcionário
          * */
 
 
