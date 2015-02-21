@@ -164,4 +164,5 @@ class ProdutoController extends BaseController {
 
         echo json_encode($data);
     }
+
 } 

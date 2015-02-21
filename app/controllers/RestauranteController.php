@@ -58,4 +58,52 @@ class RestauranteController extends BaseController {
 
         echo json_encode($data, JSON_PRETTY_PRINT);
     }
+
+    /* Listo o Cardapio de um restaurante em especifico */
+
+    public function getMenu($id_restaurante){
+        $data = array(
+          "id_restaurante" => $id_restaurante,
+           "cardario" => array(
+               "pizza" =>
+               array(
+                   array(
+                       "id_produto" => 23,
+                       "nome" => "Pizza de Calabresa",
+                       "preco" => array(
+                           "pequena" => 16,
+                           "media" => 18.50,
+                           "grande" => 20,
+                       ),
+                   ),
+                   array(
+                       "id_produto" => 23,
+                       "nome" => "Pizza de Musarela",
+                       "preco" => array(
+                           "pequena" => 17,
+                           "media" => 19.50,
+                           "grande" => 22.40,
+                       ),
+                   )
+               ),
+
+               "esfihas" => array(
+                  array(
+                   "id_produto" => 23,
+                   "nome" => "Esfiha de Carne",
+                   "tipo" => "Aberta",
+                   "preco" => 10,
+                  ),array(
+                       "id_produto" => 23,
+                       "nome" => "Esfiha de Carne",
+                       "tipo" => "Fechada",
+                       "preco" => 15,
+                   )
+               )
+           ),
+        );
+
+
+        echo json_encode($data);
+    }
 }

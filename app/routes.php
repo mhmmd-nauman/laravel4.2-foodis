@@ -54,7 +54,6 @@ Route::get('/produto/sanduiche/get', 'ProdutoController@buscarSanduiche');
 Route::get('/produto/massas/get', 'ProdutoController@buscarMassas');
 Route::get('/produto/outros/get', 'ProdutoController@buscarOutros');
 
-
 /* Rotas dos Funcionarios */
 
 Route::get('/funcionario/get', 'FuncionarioController@get');
@@ -62,4 +61,5 @@ Route::get('/funcionario/get', 'FuncionarioController@get');
 
 /* Rotas dos Restaurantes */
 
-Route::get('/restaurante/open/{cidade}', 'RestauranteController@getOpen');
+Route::get('/restaurante/open/{cidade}', 'RestauranteController@getOpen'); //Consulto os Restaurantes abertos em uma detminada cidade
+Route::get('/restaurante/menu/{id_restaurante}', 'RestauranteController@getMenu'); //Consulto o cardapio de uma especifica cidade.
