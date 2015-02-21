@@ -60,7 +60,7 @@
     <div class="form-group">
         <label class="col-lg-4 control-label">Telefone Estabelecimento</label>
         <div class="col-lg-8">
-            <input type="tel" class="form-control" ng-pattern="/\d{2}-\d{4}-\d{4}$/" id="telefone-estabelecimento" ng-model="fv.phone" placeholder="88-8232-2323" required>
+            <input type="tel" class="form-control"  id="telefone-estabelecimento" ng-model="fv.phone" placeholder="(87) 8801-0102" required>
         </div>
     </div>
     <div class="form-group">
@@ -237,7 +237,7 @@
 <div class="wizard-complete-msg text-center col-lg-8 col-lg-offset-2" ng-show="steps[2]">
     <h3 class="text-light">Restaurante Adicionado!</h3>
     <p> O restaurante <p id="restaurante_nome"> [nome do restaurante] </p> foi adicionado a sua lista de restaurantes, para adicionar produtos
-        vá até a guia Meus Produtos e depois Adicionar Produtos.</p>
+        vá até a guia Meus Produtos e depois Cadastrar Produtos.</p>
 
     <button type="button" class="btn btn-primary" ng-click="stepReset()">Adicionar Outro!</button>
 </div>
@@ -256,6 +256,13 @@
 
 
 <script>
+
+    $(document).ready(function(){
+        $('#taxa-entrega').mask('99.99');
+        $('#telefone-estabelecimento').mask('(99) 9999-9999');
+        $('#cep').mask('99999-999');
+    });
+
 
     var restaurante_nome = ''; //Essa variavel é só para persitir o nome do restaurante#
 

@@ -20,8 +20,8 @@
 		</div>
 
 		<footer id="site-foot" class="site-foot clearfix">
-			<p class="left">&copy; Copyright 2014 <strong>APPBOARD</strong>, All rights reserved.</p>
-			<p class="right">v1.1</p>
+			<p class="left"><strong>Foodis</strong> - Seu delivery chegou! (2015) </p>
+            <p class="right">v1.1</p>
 		</footer>
 
 	</div>
@@ -56,6 +56,7 @@
 	<script src="scripts/plugins/angular-fullscreen.js"></script>
 	<script src="scripts/plugins/jquery.bpopup.min.js"></script>
 	<script src="scripts/plugins/ngDialog.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/0.9.0/jquery.mask.min.js"></script>
 	
 	<!-- Custom scripts -->
 	<script src="scripts/app.js"></script>
