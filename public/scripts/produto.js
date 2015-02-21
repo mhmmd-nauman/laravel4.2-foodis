@@ -118,7 +118,7 @@ function adicionarEsfiha(){
             document.getElementById('mensagem-sucesso').style.display = 'block';
 
             /* Faço o reload da página */
-            setTimeout(function() { window.location.reload(true); }, 1000);
+            setTimeout(function() { window.location.reload(true); }, 2000);
         }
     })
 

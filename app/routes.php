@@ -58,3 +58,8 @@ Route::get('/produto/outros/get', 'ProdutoController@buscarOutros');
 /* Rotas dos Funcionarios */
 
 Route::get('/funcionario/get', 'FuncionarioController@get');
+
+
+/* Rotas dos Restaurantes */
+
+Route::get('/restaurante/open/{cidade}', 'RestauranteController@getOpen');
