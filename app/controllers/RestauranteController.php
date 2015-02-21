@@ -65,7 +65,8 @@ class RestauranteController extends BaseController {
         $data = array(
           "id_restaurante" => $id_restaurante,
            "cardario" => array(
-               "pizza" =>
+
+           "pizza" =>
                array(
                    array(
                        "id_produto" => 23,
@@ -87,13 +88,14 @@ class RestauranteController extends BaseController {
                    )
                ),
 
-               "esfihas" => array(
+           "esfihas" => array(
                   array(
-                   "id_produto" => 23,
-                   "nome" => "Esfiha de Carne",
-                   "tipo" => "Aberta",
-                   "preco" => 10,
-                  ),array(
+                       "id_produto" => 23,
+                       "nome" => "Esfiha de Carne",
+                       "tipo" => "Aberta",
+                       "preco" => 10,
+                  ),
+                   array(
                        "id_produto" => 23,
                        "nome" => "Esfiha de Carne",
                        "tipo" => "Fechada",
