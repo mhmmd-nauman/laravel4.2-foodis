@@ -61,10 +61,21 @@ class ProdutoController extends BaseController {
 
     }
 
-
     /*
      * Rotas de GET
      * */
+
+    public function get($tipo_produto){
+        $categorias = UtilsController::getCategoriaProduto($tipo_produto);
+        foreach($categorias as $categoria){
+            $id_categoria = $categoria->id;
+        }
+
+        $produtos = UtilsController::getProdutos($id_categoria);
+        echo '<pre>';
+        print_r($produtos);
+
+    }
 
     public function buscarPizza(){
         $data = array(

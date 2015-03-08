@@ -41,10 +41,11 @@ Route::get('/dashboard','HomeController@dashboard');
 /* Rotas dos Produtos */
 
 Route::post('/produto/add','ProdutoController@add');
+Route::get('/produto/{tipo_produto}','ProdutoController@get');
 
 
 /* Rotas dos Funcionarios */
-
+Route::post('/funcionario/add', 'FuncionarioController@add');
 Route::get('/funcionario/get', 'FuncionarioController@get');
 
 
