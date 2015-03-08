@@ -3,10 +3,9 @@
  * Created by PhpStorm.
  * User: claudiohenrique
  * Date: 08/03/15
- * Time: 06:04
+ * Time: 06:27
  */
 
-class PedidoController extends BaseController {
-
+class Pedido extends Eloquent {
+    public $table = 'pedidos';
 }
-
