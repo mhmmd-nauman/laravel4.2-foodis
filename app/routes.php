@@ -40,19 +40,8 @@ Route::get('/dashboard','HomeController@dashboard');
 
 /* Rotas dos Produtos */
 
-Route::post('/produto/pizza/add','ProdutoController@adicionarPizza'); //Adicionar Pizza
-Route::post('/produto/esfiha/add','ProdutoController@adicionarEsfiha'); //Adicionar Esfiha
-Route::post('/produto/salgado/add','ProdutoController@adicionarSalgado'); //Adicionar Salgado
-Route::post('/produto/sanduiche/add','ProdutoController@adicionarSanduiche'); //Adicionar Sanduiche
-Route::post('/produto/massas/add','ProdutoController@adicionarMassas'); //Adicionar Massas
-Route::post('/produto/outros/add','ProdutoController@adicionarOutros'); //Adicionar Massas
+Route::post('/produto/add','ProdutoController@add');
 
-Route::get('/produto/pizza/get', 'ProdutoController@buscarPizza');
-Route::get('/produto/esfiha/get', 'ProdutoController@buscarEsfiha');
-Route::get('/produto/salgado/get', 'ProdutoController@buscarSalgado');
-Route::get('/produto/sanduiche/get', 'ProdutoController@buscarSanduiche');
-Route::get('/produto/massas/get', 'ProdutoController@buscarMassas');
-Route::get('/produto/outros/get', 'ProdutoController@buscarOutros');
 
 /* Rotas dos Funcionarios */
 
@@ -60,6 +49,16 @@ Route::get('/funcionario/get', 'FuncionarioController@get');
 
 
 /* Rotas dos Restaurantes */
-
+Route::post('/restaurante/add','RestauranteController@addRestaurante');
+Route::get('/restaurante/categoria/add/{categoria}','RestauranteController@addCategoria');
 Route::get('/restaurante/open/{cidade}', 'RestauranteController@getOpen'); //Consulto os Restaurantes abertos em uma detminada cidade
 Route::get('/restaurante/menu/{id_restaurante}', 'RestauranteController@getMenu'); //Consulto o cardapio de uma especifica cidade.
+Route::get('/pedido/sendPedido', 'RestauranteController@sendPedido');
+Route::get('/restaurante/calculo-pizza/{id_restaurante}','RestauranteController@getCalculoPizzaria');
+
+/* Rotas das Taxas */
+Route::get('/taxas/add/{valor_taxa}','TaxasController@setTaxa');
+
+/* Rota das Cidades*/
+
+Route::post('/cidade/add','CidadeController@add');

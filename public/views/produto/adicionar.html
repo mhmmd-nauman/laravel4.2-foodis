@@ -146,6 +146,44 @@
 									</form>							
 						</tab>
 
+                        <tab heading="Pratos" class="style-me">
+                            <form role="form2">
+                                <div class="form-group">
+                                    <label class="text-uppercase small text-bold">Nome do Prato:</label>
+                                    <input type="text" id="nome-prato" class="form-control" placeholder="Yakisoba">
+                                </div>
+                                <div class="form-group">
+                                    <label class="text-uppercase small text-bold">Ingredientes:</label>
+                                    <textarea rows="5" id="ingredientes-prato" class="form-control resize-v" placeholder="Separe os ingredientes por quebra de linhaa"></textarea>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="text-uppercase small text-bold">Valor:</label>
+                                    <input type="number" id="valor-prato" class="form-control" min="0" max="999"  placeholder="20,00" required>
+                                </div>
+                                <button type="submit" class="btn clearfix btn-info right" onclick="adicionarEsfiha()">Adicionar</button>
+                            </form>
+                        </tab>
+
+                        <tab heading="Comida Japonesa" class="style-me">
+                            <form role="form2">
+                                <div class="form-group">
+                                    <label class="text-uppercase small text-bold">Nome do Prato:</label>
+                                    <input type="text" id="nome-japonesa" class="form-control" placeholder="Yakisoba">
+                                </div>
+                                <div class="form-group">
+                                    <label class="text-uppercase small text-bold">Ingredientes:</label>
+                                    <textarea rows="5" id="ingredientes-japonesa" class="form-control resize-v" placeholder="Separe os ingredientes por quebra de linhaa"></textarea>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="text-uppercase small text-bold">Valor:</label>
+                                    <input type="number" id="valor-japonesa" class="form-control" min="0" max="999"  placeholder="20,00" required>
+                                </div>
+                                <button type="submit" class="btn clearfix btn-info right" onclick="adicionarEsfiha()">Adicionar</button>
+                            </form>
+                        </tab>
+
 						<tab heading="Outros">
 									<form role="form8" id="addOutros">
 

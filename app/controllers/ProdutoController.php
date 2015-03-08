@@ -13,36 +13,54 @@ class ProdutoController extends BaseController {
      * Rotas de SET
      * */
 
-    public function adicionarPizza(){
+    public function add(){
         $input = Request::getContent();
-        echo $input;
-        $array = json_decode($input);
+        $obj = json_decode($input);
+
+        /* Essas duas variaveis seram dinamicas */
+        $restaurante_id = 3;
+        $categoria_produto = 1;
+
+        /* Tratamento e Validações de Acordo com o tipo do produto */
+        if($obj->tipo == 'pizza'){
+            $nome_produto = $obj->sabor;
+            $precos = array(
+                "pequena" => $obj->precos->pequena,
+                "media" => $obj->precos->media,
+                "grande" => $obj->precos->grande,
+            );
+
+            $precos = json_encode($precos);
+
+            $ingredientes = $obj->ingredientes;
+            $tipo_produto = $obj->type;
+        }else{
+            $nome_produto = $obj->sabor;
+            $precos = $obj->preco;
+            $ingredientes = $obj->ingredientes;
+            $tipo_produto = $obj->tipo;
+        }
+
+        /* Insert do produto no Banco de Dados */
+        $produto = new Produto;
+        $produto->nome_produto = $nome_produto;
+        $produto->ingredientes = $ingredientes;
+        $produto->preco = $precos;
+        $produto->restaurantes_id = $restaurante_id;
+        $produto->tipo = $tipo_produto;
+        $produto->enabled = 1;
+        $produto->categoria_produto_id = $categoria_produto;
+        if($produto->save()){
+            echo json_encode(
+                array(
+                    "status" => 200,
+                    "message" => "Produto adicionado com sucesso",
+                )
+            );
+        }
+
     }
 
-    public function adicionarEsfiha(){
-        $input = Request::getContent();
-        echo $input;
-    }
-
-    public function adicionarSalgado(){
-        $input = Request::getContent();
-        echo $input;
-    }
-
-    public function adicionarSanduiche(){
-        $input = Request::getContent();
-        echo $input;
-    }
-
-    public function adicionarMassas(){
-        $input = Request::getContent();
-        echo $input;
-    }
-
-    public function adicionarOutros(){
-        $input = Request::getContent();
-        echo $input;
-    }
 
     /*
      * Rotas de GET

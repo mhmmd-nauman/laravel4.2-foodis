@@ -5,7 +5,7 @@
 
 function adicionarPizza(){
     //URL Utilizada na Requisicao
-        var URL = 'http://localhost/foodis-restaurante/public/produto/pizza/add';
+        var URL = 'http://localhost/foodis-restaurante/public/produto/add';
 
     //Informações referente ao produto
     var saborPizza = document.getElementById("sabor-pizza").value;
@@ -43,6 +43,7 @@ function adicionarPizza(){
        var data = {
            'sabor' : saborPizza,
            'ingredientes' : ingredientes,
+           'tipo': 'pizza',
             'precos' : {
                 'pequena' : preco[0].pequena,
                 'media' : preco[0].media,
@@ -65,9 +66,6 @@ function adicionarPizza(){
         success: function (result) {
             /* Exibo a mensagem de sucesso */
             document.getElementById('mensagem-sucesso').style.display = 'block';
-
-            /* Faço o reload da página */
-            setTimeout(function() { window.location.reload(true); }, 1000);
         }
     })
 
@@ -75,7 +73,7 @@ function adicionarPizza(){
 
 function adicionarEsfiha(){
     //URL Utilizada na Requisicao
-    var URL = 'http://localhost/foodis-restaurante/public/produto/esfiha/add';
+    var URL = 'http://localhost/foodis-restaurante/public/produto/add';
 
     //Informações relacionadas ao Produto
     var saborEsfiha = document.getElementById("sabor-esfiha").value;
@@ -100,6 +98,7 @@ function adicionarEsfiha(){
     var data = {
         'sabor' : saborEsfiha,
         'ingredientes' : ingredientesEsfiha,
+        'type': 'esfiha',
         'tipo' : tipoEsfiha,
         'preco' : precoEsfiha
     };
@@ -116,9 +115,6 @@ function adicionarEsfiha(){
         success: function (result) {
             /* Exibo a mensagem de sucesso */
             document.getElementById('mensagem-sucesso').style.display = 'block';
-
-            /* Faço o reload da página */
-            setTimeout(function() { window.location.reload(true); }, 2000);
         }
     })
 
@@ -126,7 +122,7 @@ function adicionarEsfiha(){
 
 function adicionarSalgado(){
     //URL Utilizada na Requisicao
-    var URL = 'http://localhost/foodis-restaurante/public/produto/salgado/add';
+    var URL = 'http://localhost/foodis-restaurante/public/produto/add';
 
     //Informações Relacionadas ao Produto
     var nomeSalgado = document.getElementById("nome-salgado").value;
@@ -134,9 +130,10 @@ function adicionarSalgado(){
     var precoSalgado = document.getElementById("preco-salgado").value;
 
     var data = {
-       'sabor' : nomeSalgado,
-       'ingredientes': ingredientesSalgado,
-       'preco' : precoSalgado
+        'sabor' : nomeSalgado,
+        'tipo': 'salgado',
+        'ingredientes': ingredientesSalgado,
+        'preco' : precoSalgado
     };
 
     //JSON Pronto para ser enviado como requisicao
@@ -151,9 +148,6 @@ function adicionarSalgado(){
         success: function (result) {
             /* Exibo a mensagem de sucesso */
             document.getElementById('mensagem-sucesso').style.display = 'block';
-
-            /* Faço o reload da página */
-            setTimeout(function() { window.location.reload(true); }, 1000);
         }
     })
 
@@ -161,7 +155,7 @@ function adicionarSalgado(){
 
 function adicionarSanduiche(){
     //URL Utilizada na Requisicao
-    var URL = 'http://localhost/foodis-restaurante/public/produto/sanduiche/add';
+    var URL = 'http://localhost/foodis-restaurante/public/produto/add';
 
     //Informações Relacionadas ao Produto
     var saborSanduiche = document.getElementById("sabor-sanduiche").value;
@@ -170,6 +164,7 @@ function adicionarSanduiche(){
 
     var data = {
         'sabor' : saborSanduiche,
+        'tipo': 'sanduiche',
         'ingredientes': ingredientesSanduiche,
         'preco' : precoSanduiche
     };
@@ -196,7 +191,7 @@ function adicionarSanduiche(){
 
 function adicionarMassas(){
     //URL Utilizada na Requisicao
-    var URL = 'http://localhost/foodis-restaurante/public/produto/massas/add';
+    var URL = 'http://localhost/foodis-restaurante/public/produto/add';
 
     //Informações Relacionadas ao Produto
     var saborMassa = document.getElementById("sabor-massas").value;
@@ -205,6 +200,7 @@ function adicionarMassas(){
 
     var data = {
         'sabor' : saborMassa,
+        'tipo': 'massas',
         'ingredientes': ingredientesMassa,
         'preco' : precoMassa
     };
@@ -221,16 +217,13 @@ function adicionarMassas(){
         success: function (result) {
             /* Exibo a mensagem de sucesso */
             document.getElementById('mensagem-sucesso').style.display = 'block';
-
-            /* Faço o reload da página */
-            setTimeout(function() { window.location.reload(true); }, 1000);
         }
     })
 }
 
 function adicionarOutro(){
     //URL Utilizada na Requisicao
-    var URL = 'http://localhost/foodis-restaurante/public/produto/massas/add';
+    var URL = 'http://localhost/foodis-restaurante/public/produto/add';
 
     //Informações Relacionadas ao Produto
     var nomeOutro = document.getElementById("nome-outros");
@@ -240,7 +233,8 @@ function adicionarOutro(){
     var mensagem = document.getElementById("mensagem-sucesso");
 
     var data = {
-        'nome-produto' : nomeOutro.value,
+        'sabor' : nomeOutro.value,
+        'ingredientes' : '',
         'tipo': tipoOutro,
         'preco' : precoOutro.value
     };
@@ -258,8 +252,6 @@ function adicionarOutro(){
             /* Exibo a mensagem de sucesso */
             document.getElementById('mensagem-sucesso').style.display = 'block';
 
-            /* Faço o reload da página */
-            setTimeout(function() { window.location.reload(true); }, 1000);
         }
     })
 }
