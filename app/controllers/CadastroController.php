@@ -18,4 +18,15 @@ class CadastroController extends BaseController {
     public function sendSMS($ddd, $numero){
 
     }
+
+    public function sendPIN(){
+
+    }
+
+    /* Rota para consultar endereço baseado no cep*/
+    public function consultarCEP($cep){
+        $cep = Cep::find('56332-740');
+        return Response::json($cep->toArray());
+    }
+
 }

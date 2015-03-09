@@ -12,6 +12,19 @@ date_default_timezone_set('America/Recife');
 
 class RestauranteController extends BaseController {
 
+    /*
+     * REGRAS DE CALCULO CASO O ESTELECIMENTO VENDA PIZZA:
+     *
+     * Esses são os tipo que sao utilizados para a realização do calculo
+     *
+     * -- models/CorePizzaria.php
+     * -> Tabela responsavel por conter essas especificações
+     *
+     * 1. Pela pizza mais cara
+     * 2. Pela media dos sabores.
+    */
+
+
     //Método responsavel por cadastrar um restaurante
     public function addRestaurante(){
         $restaurante = new Restaurante; //Model para fazer o insert
@@ -79,9 +92,11 @@ class RestauranteController extends BaseController {
 
         /* Váriaveis de Controle */
         $status = false;
+        /* Variaveis de Controle */
         $flagDinheiro = 0;
         $flagMaquineta = 0;
         $flagOnline = 0;
+        $cont = 0;
 
         $cidade = Cidade::where('nome','=',$cidade)->get();
         foreach($cidade as $city){
@@ -91,7 +106,7 @@ class RestauranteController extends BaseController {
 
         /* Recupero todos os restaurantes da Cidade */
         $resturantes = Restaurante::where('cidade_id','=',$id)->get()->toArray();
-        $data = array("cidade" => $nome);
+        $data = array("cidade" => $nome, "restaurantes" => array());
 
         /* Rotina para Verificar se um estabelecimento está aberto ou não */
         for($i = 0; $i < sizeof($resturantes); $i++){
@@ -113,8 +128,10 @@ class RestauranteController extends BaseController {
                 $status = false;
             }
 
-            /* Rotina para verificar o status do restaurante */
+
+            /* Rotina para verificar os tipos de pagamento aceitos pelo estabelecimento */
             if($status){
+
                 $pagamentos = DB::table('restaurante_pagamento')
                     ->leftJoin('pagamento', 'restaurante_pagamento.tipo_pagamento_id', '=', 'pagamento.id')
                     ->where('restaurante_pagamento.restaurantes_id', '=', $resturantes[$i]['id'])
@@ -144,106 +161,46 @@ class RestauranteController extends BaseController {
 
                 }
 
-                $result = array_merge($resturantes[$i],$payments);
-                array_push($data,$result);
 
-                /* Rotina para verificar o status do restaurante */
-                $payments = array(
-                    "pagamento" => array(
-                        'dinheiro' => 0,
-                        'maquinetadelivery' => 0,
-                        'pagamentoonline' => 0,
-                    ),
+                $configuracoes = new CorePedidos();
+                $result = $configuracoes::where('restaurantes_id','=',$resturantes[$i]['id'])->get()->toArray();
+                foreach($result as $conf){
+                    $jsonConfiguracoes = json_decode($conf['configuracoes_pizzaria']);
+                    $id_type = $conf['core_pizzaria_id'];
+                }
+
+                        $config = array(
+                            "configuracoes" => array(
+                                "saboresfatias" => array(
+                                    "pequena" => $jsonConfiguracoes->config->quantidade->pequena,
+                                    "media" => $jsonConfiguracoes->config->quantidade->media,
+                                    "grande" => $jsonConfiguracoes->config->quantidade->grande,
+                                ),
+                                "pagamentopizzaria" => array(
+                                    "type" => $id_type,
+                                ),
+                            ),
+                        );
+
+                $resultado = array_merge($payments, $config);
+
+                $data = array(
+                        "restaurantes" => $resultado
                 );
 
+                $x[$cont] =  $data;
+                $cont++;
+
+                }
+
             }
+
+            echo '<pre>';
+            $final = array_merge($x);
+            print_r($final);
+
         }
-        echo '<pre>';
-        print_r($data);
-    }
 
-
-    /* Listo todos os Restaurantes Abertos em uma Determinada Cidade */
-
-    public function getOpen($cidade){
-        $data = array(
-            "cidade" => $cidade,
-            "restaurantes" => array(
-                //Primeiro Registro
-                array(
-                    "id" => 234,
-                    "nome" => "Pizza Hunt",
-                    "descricao" => "Pizza Hunt, a melhor opção em pizzas na cidade de Petrolina! PROMOÇÃO: Pizza Grande + Refrigerante 2 litros, apenas R$20",
-                    "endereco" => "Rua São Jose N120 ",
-                    "bairro" => "Areia Branca",
-                    "cidade" => "Petrolina",
-                    "open" => true,
-                    "horario" => array(
-                        "abertura" => "08:00 AM",
-                        "fechamento" => "12:00 PM",
-                    ),
-
-                    "pagamento" => array(
-                        "dinheiro" => true,
-                        "maquineta-delivery" => true,
-                        "pagamento-online" => false,
-                    ),
-
-
-                    "configuracoes" => array(
-                        "sabores-fatias" => array(
-                            "pequena" => 1,
-                            "media" => 2,
-                            "grande" => 4
-                        ),
-
-                        "pagamento-pizzaria" => array(
-                            "type" => 1
-                        ),
-                    ),
-
-
-
-                ),
-                //Segundo Registro
-                array(
-                    "id" => 234,
-                    "nome" => "Habibs",
-                    "descricao" => "Habibs, a melhor opção em comida oriental na cidade. ",
-                    "endereco" => "Rua São Paulo N882 ",
-                    "bairro" => "Centro",
-                    "cidade" => "Petrolina",
-                    "open" => true,
-                    "horario" => array(
-                        "open" => "08:00 AM",
-                        "close" => "12:00 PM",
-                    ),
-
-                    "pagamento" => array(
-                        "dinheiro" => true,
-                        "maquineta-delivery" => true,
-                        "pagamento-online" => false,
-                    ),
-
-                    "configuracoes" => array(
-                        "saboresfatias" => array(
-                            "pequena" => 1,
-                            "media" => 2,
-                            "grande" => 4
-                        ),
-
-                        "pagamentopizzaria" => array(
-                            "type" => 1
-                        ),
-                    ),
-
-
-                )
-            )
-        );
-
-        echo json_encode($data, JSON_PRETTY_PRINT);
-    }
 
     /* Listo o Cardapio de um restaurante em especifico */
 
@@ -364,14 +321,4 @@ class RestauranteController extends BaseController {
     }
 
 
-    /*
-     * Essa rotina retorna o calculo da pizza de acordo com a regra de négocio do cliente, implementamos dois "tipos" de forma de se cobrar
-     * 1. Pela pizza mais cara
-     * 2. Pela media dos sabores.
-    */
-
-    public function getCalculoPizzaria($id_restaurante){
-        $type = 1;
-        return $type;
-    }
 }

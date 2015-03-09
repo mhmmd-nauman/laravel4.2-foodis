@@ -60,6 +60,11 @@ Route::get('/restaurante/calculo-pizza/{id_restaurante}','RestauranteController@
 /* Rotas das Taxas */
 Route::get('/taxas/add/{valor_taxa}','TaxasController@setTaxa');
 
-/* Rota das Cidades*/
 
+/* Rota das Cidades */
 Route::post('/cidade/add','CidadeController@add');
+
+
+/* Rotas para o usuario do app */
+Route::post('/send/pin','CadastroControler@@sendPIN');
+Route::get('/buscar/cep/{cep}','CadastroController@consultarCEP');

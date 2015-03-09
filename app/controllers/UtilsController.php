@@ -51,4 +51,9 @@ class UtilsController extends BaseController {
     public static function clearTime($time){
 
     }
+
+    /* Recupero o Endereço de acordo com CEP */
+    public static function getCEP($cep){
+        return file_get_contents("http://viacep.com.br/ws/$cep/json/");
+    }
 }
