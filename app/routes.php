@@ -52,7 +52,7 @@ Route::get('/funcionario/get', 'FuncionarioController@get');
 /* Rotas dos Restaurantes */
 Route::post('/restaurante/add','RestauranteController@addRestaurante');
 Route::get('/restaurante/categoria/add/{categoria}','RestauranteController@addCategoria');
-Route::get('/restaurante/open/{cidade}', 'RestauranteController@getOpen'); //Consulto os Restaurantes abertos em uma detminada cidade
+Route::get('/restaurante/open/{cidade}', 'RestauranteController@open'); //Consulto os Restaurantes abertos em uma detminada cidade
 Route::get('/restaurante/menu/{id_restaurante}', 'RestauranteController@getMenu'); //Consulto o cardapio de uma especifica cidade.
 Route::get('/pedido/sendPedido', 'RestauranteController@sendPedido');
 Route::get('/restaurante/calculo-pizza/{id_restaurante}','RestauranteController@getCalculoPizzaria');

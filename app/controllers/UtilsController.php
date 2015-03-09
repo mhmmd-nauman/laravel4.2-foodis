@@ -17,4 +17,38 @@ class UtilsController extends BaseController {
     public static function getProdutos($id_categoria){
         return Produto::where('categoria_produto_id', '=', $id_categoria)->get();
     }
+
+    public static function getDay($day){
+        $dia = '';
+
+        switch (true){
+            case stristr($day,'Sunday'):
+                $dia = 'domingo';
+                break;
+            case stristr($day,'Monday'):
+                $dia = 'segunda';
+                break;
+            case stristr($day,'Tuesday'):
+                $dia = 'terca';
+                break;
+            case stristr($day,'Wednesday'):
+                $dia = 'quarta';
+                break;
+            case stristr($day,'Thursday'):
+                $dia = 'quinta';
+                break;
+            case stristr($day,'Friday'):
+                $dia = 'sexta';
+                break;
+            case stristr($day,'Saturday'):
+                $dia = 'sabado';
+                break;
+        }
+
+        return $dia;
+    }
+
+    public static function clearTime($time){
+
+    }
 }

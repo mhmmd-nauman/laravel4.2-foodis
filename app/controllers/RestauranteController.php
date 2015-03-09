@@ -7,12 +7,24 @@
  * Time: 04:23 PM (Na madruga! haha)
  */
 
+date_default_timezone_set('America/Recife');
+
+
 class RestauranteController extends BaseController {
 
     //Método responsavel por cadastrar um restaurante
     public function addRestaurante(){
         $restaurante = new Restaurante; //Model para fazer o insert
         $input = Request::getContent();
+        $horarioFuncionamento = array(
+            "segunda" => "8:00 AM - 22:00 PM",
+            "terca" => "8:00 AM - 22:00 PM",
+            "quarta" => "8:00 AM - 22:00 PM",
+            "quinta" => "8:00 AM - 22:00 PM",
+            "sexta" => "8:00 AM - 22:00 PM",
+            "sabado" => "8:00 AM - 22:00 PM",
+            "domingo" => "fechado"
+        );
 
         $obj = json_decode($input);
         $restaurante->nome_estabelecimento = $obj->nome_estabelecimento;
@@ -23,7 +35,7 @@ class RestauranteController extends BaseController {
         $restaurante->telefone_propietario = $obj->telefone_propietario;
         $restaurante->enabled = 1;
         $restaurante->dias_funcionamento = '';
-        $restaurante->horario_funcionamento  = '';
+        $restaurante->horario_funcionamento  = json_encode($horarioFuncionamento);
         $restaurante->cidade_entrega = 'Juazeiro';
         $restaurante->categoria_restaurante_id = 1;
         $restaurante->taxas_id = 1;
@@ -50,6 +62,106 @@ class RestauranteController extends BaseController {
             ));
         }
     }
+
+    //Método responsavel por adicionar o metodos de pagamento para um estabelecimento
+    public function setMetodoPagamento(){
+        $metodo = new RestaurantePagamento();
+        $metodo->tipo_pagamento = 1;
+        $metodo->restaurantes_id = 1;
+    }
+
+    /* Listo todos os Restaurantes Abertos em uma Determinada Cidade */
+    public function open($cidade){
+        /* Configurações iniciais para a consulta (Dia Atual) e (Hora Atual) */
+        $dias = array("segunda","terca","quarta","quinta","sexta","sabado","domingo");
+        $diaAtual = UtilsController::getDay(date('l'));
+        $horaAtual = date('H:i');
+
+        /* Váriaveis de Controle */
+        $status = false;
+        $flagDinheiro = 0;
+        $flagMaquineta = 0;
+        $flagOnline = 0;
+
+        $cidade = Cidade::where('nome','=',$cidade)->get();
+        foreach($cidade as $city){
+            $id =  $city->id;
+            $nome = $city->nome;
+        }
+
+        /* Recupero todos os restaurantes da Cidade */
+        $resturantes = Restaurante::where('cidade_id','=',$id)->get()->toArray();
+        $data = array("cidade" => $nome);
+
+        /* Rotina para Verificar se um estabelecimento está aberto ou não */
+        for($i = 0; $i < sizeof($resturantes); $i++){
+            $json = $resturantes[$i]['horario_funcionamento'];
+            $obj = json_decode($json,true);
+            $hoje =  $obj[0][$diaAtual];
+            /* Verifico se o dia atual da pesquisa o estabelimentmo não está fechado */
+            if($hoje !== 'fechado'){
+                $horario = explode('-',$hoje);
+                $abertura = $horario[0];
+                @$fechamento = $horario[1];
+                //Verifico se baseado na hora atual do SERVIDOR o restaurante está aberto ou fechado
+                if((strtotime($horaAtual) >= strtotime($abertura)) && (strtotime($horaAtual) < strtotime($fechamento))){
+                    $status = true;
+                }else{
+                    $status = false;
+                }
+            }else{
+                $status = false;
+            }
+
+            /* Rotina para verificar o status do restaurante */
+            if($status){
+                $pagamentos = DB::table('restaurante_pagamento')
+                    ->leftJoin('pagamento', 'restaurante_pagamento.tipo_pagamento_id', '=', 'pagamento.id')
+                    ->where('restaurante_pagamento.restaurantes_id', '=', $resturantes[$i]['id'])
+                    ->get();
+
+
+                for($w = 0; $w < sizeof($pagamentos); $w++){
+                    if($pagamentos[$w]->slug === 'dinheiro'){
+                        $flagDinheiro = 1;
+                    }
+
+                    if($pagamentos[$w]->slug === 'maquinetadelivery'){
+                        $flagMaquineta = 1;
+                    }
+
+                    if($pagamentos[$w]->slug === 'pagamentoonline'){
+                        $flagOnline = 1;
+                    }
+
+                    $payments = array(
+                        "pagamento" => array(
+                            'dinheiro' => $flagDinheiro,
+                            'maquinetadelivery' => $flagMaquineta,
+                            'pagamentoonline' => $flagOnline,
+                        ),
+                    );
+
+                }
+
+                $result = array_merge($resturantes[$i],$payments);
+                array_push($data,$result);
+
+                /* Rotina para verificar o status do restaurante */
+                $payments = array(
+                    "pagamento" => array(
+                        'dinheiro' => 0,
+                        'maquinetadelivery' => 0,
+                        'pagamentoonline' => 0,
+                    ),
+                );
+
+            }
+        }
+        echo '<pre>';
+        print_r($data);
+    }
+
 
     /* Listo todos os Restaurantes Abertos em uma Determinada Cidade */
 
