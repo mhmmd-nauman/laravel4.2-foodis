@@ -8,6 +8,7 @@
  */
 
 class UtilsController extends BaseController {
+
     /* Recupera o id da categoria de um determinado tipo de produto, exemplo (Pizza) */
     public static function getCategoriaProduto($tipo_produto){
         return CategoriaProduto::where('categoria', 'LIKE', "%$tipo_produto%")->get();
@@ -18,6 +19,7 @@ class UtilsController extends BaseController {
         return Produto::where('categoria_produto_id', '=', $id_categoria)->get();
     }
 
+    /* Retorna o dia em Português */
     public static function getDay($day){
         $dia = '';
 
@@ -48,12 +50,9 @@ class UtilsController extends BaseController {
         return $dia;
     }
 
-    public static function clearTime($time){
-
+    /* Gera um PIN de 4 digitos para o usuario */
+    public static function pinGenerator(){
+        return rand(0,9);
     }
 
-    /* Recupero o Endereço de acordo com CEP */
-    public static function getCEP($cep){
-        return file_get_contents("http://viacep.com.br/ws/$cep/json/");
-    }
 }

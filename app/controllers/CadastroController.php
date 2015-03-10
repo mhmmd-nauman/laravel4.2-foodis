@@ -15,17 +15,17 @@ class CadastroController extends BaseController {
     }
 
     //Enviar SMS para o usuario
-    public function sendSMS($ddd, $numero){
-
-    }
-
-    public function sendPIN(){
+    public function sendSMS(){
+      $pin = null;
+      for($i = 0; $i < 4; $i++) {
+          $pin .= UtilsController::pinGenerator();
+      }
 
     }
 
     /* Rota para consultar endereço baseado no cep*/
     public function consultarCEP($cep){
-        $cep = Cep::find('56332-740');
+        $cep = Cep::find($cep);
         return Response::json($cep->toArray());
     }
 
