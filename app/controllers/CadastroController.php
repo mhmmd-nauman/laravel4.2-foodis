@@ -23,8 +23,8 @@ class CadastroController extends BaseController {
           $pin .= UtilsController::pinGenerator();
       }
 
-      echo 'Váriaveis : '.'<br>';
-      print_r($input);
+      //echo 'Váriaveis : '.'<br>';
+      //print_r($input);
 
       return Response::json(
         array(

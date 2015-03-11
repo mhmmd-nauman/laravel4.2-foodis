@@ -55,4 +55,9 @@ class UtilsController extends BaseController {
         return rand(0,9);
     }
 
+    /* Método responsavel pelo disparo de SMS */
+    public static function enviarSMS($ddd,$numero){
+
+    }
+
 }
