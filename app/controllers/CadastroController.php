@@ -16,10 +16,15 @@ class CadastroController extends BaseController {
 
     //Enviar SMS para o usuario
     public function sendSMS(){
+      $input = Request::getContent();
+
       $pin = null;
       for($i = 0; $i < 4; $i++) {
           $pin .= UtilsController::pinGenerator();
       }
+
+      echo 'Váriaveis : '.'<br>';
+      print_r($input);
 
       return Response::json(
         array(
