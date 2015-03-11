@@ -21,13 +21,11 @@ class CadastroController extends BaseController {
           $pin .= UtilsController::pinGenerator();
       }
 
-      echo  json_encode(
+      return Response::json(
         array(
             "status" => 200,
             "message" => "Tudo ok",
-        )
-      );
-
+        ));
     }
 
     /* Rota para consultar endereço baseado no cep*/
