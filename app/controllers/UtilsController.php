@@ -19,6 +19,11 @@ class UtilsController extends BaseController {
         return Produto::where('categoria_produto_id', '=', $id_categoria)->get();
     }
 
+    /* Recupera todos os produtos que estao cadastrado em um estabelecimento especifico */
+    public static function getProdutosRestaurante($id_restaurante){
+        return Produto::where('restaurantes_id','=',$id_restaurante)->get();
+    }
+
     /* Retorna o dia em Português */
     public static function getDay($day){
         $dia = '';
@@ -59,5 +64,7 @@ class UtilsController extends BaseController {
     public static function enviarSMS($ddd,$numero){
 
     }
+
+
 
 }

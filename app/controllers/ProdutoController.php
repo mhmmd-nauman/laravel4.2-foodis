@@ -82,15 +82,57 @@ class ProdutoController extends BaseController {
      * Rotas de GET
      * */
 
+    //Essa rota retorna todos os produtos de uma determinada categoria
     public function get($tipo_produto){
+        $data = array();
+        $preco_produto = array();
+        $preco = array();
+
         $categorias = UtilsController::getCategoriaProduto($tipo_produto);
         foreach($categorias as $categoria){
             $id_categoria = $categoria->id;
         }
 
         $produtos = UtilsController::getProdutos($id_categoria);
-        echo '<pre>';
-        print_r($produtos);
 
+        foreach($produtos as $produto){
+           if($produto->enabled == 1) {
+               $precos = json_decode($produto->preco);
+
+               array_push($data, array(
+                   "id_produto" => $produto->id,
+                   "nome_produto" => $produto->nome_produto,
+                   "preco" => $precos,
+                   "tipo" => $produto->tipo
+                ));
+
+           }
+        }
+
+        return Response::json($data);
     }
+
+    //Essa rota retorna todos os produtos de um estabelecimento especifico
+    public function getAll($id_restaurante){
+        $data = array();
+
+        $produtos = UtilsController::getProdutosRestaurante($id_restaurante);
+
+        foreach($produtos as $produto){
+            if($produto->enabled == 1) {
+                $precos = json_decode($produto->preco);
+
+                array_push($data, array(
+                    "id_produto" => $produto->id,
+                    "nome_produto" => $produto->nome_produto,
+                    "preco" => $precos,
+                    "tipo" => $produto->tipo
+                ));
+
+            }
+        }
+
+        return Response::json($data);
+    }
+
 }

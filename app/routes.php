@@ -41,7 +41,8 @@ Route::get('/dashboard','HomeController@dashboard');
 /* Rotas dos Produtos */
 
 Route::post('/produto/add','ProdutoController@add');
-Route::get('/produto/{tipo_produto}','ProdutoController@get');
+Route::get('/produto/{tipo_produto}','ProdutoController@get'); //Buscar todos os produtos de uma determinada categoria
+Route::get('/produto/restaurante/{id_restaurante}','ProdutoController@getAll');
 
 
 /* Rotas dos Funcionarios */

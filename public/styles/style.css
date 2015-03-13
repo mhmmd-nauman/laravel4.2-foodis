@@ -1,5 +1,8 @@
-#showhide {
-     display: none;
+.hide {
+    display: none;
+}
+.show{
+    display:inline;
 }
 
 .toggleEdit {
