@@ -25,6 +25,7 @@ class ProdutoController extends BaseController {
         $restaurante_id = 3;
         $categoria_produto = $obj->id_categoria;
 
+
         /* Tratamento e Validações de Acordo com o tipo do produto */
 
 
@@ -41,15 +42,18 @@ class ProdutoController extends BaseController {
             if(isset($obj->precos->grande)) {
                 array_push($precos, $preco = array("grande" => $obj->precos->grande));
             }
-        }
-
-        if($obj->type == 'esfiha'){
-            if(isset($obj->tipo)){
-                array_push($precos,$preco = array("preco" => $obj->preco));
+        }else {
+            if (isset($obj->tipo)) {
+               $precos = $obj->preco;
             }
         }
 
-        $jsonPrecos = json_encode($precos);
+        /* O preço da pizza é o unico produto que tem a coluna PREÇO1 serializado. */
+        if($obj->tipo == 'pizzaa') {
+            $jsonPrecos = json_encode($precos);
+        }else{
+            $jsonPrecos = $precos;
+        }
 
         $ingredientes = $obj->ingredientes;
         $tipo_produto = $obj->tipo;

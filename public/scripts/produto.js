@@ -133,6 +133,7 @@ function adicionarSalgado(){
 
     var data = {
         'sabor' : nomeSalgado,
+        'id_categoria' : 3,
         'tipo': 'salgado',
         'ingredientes': ingredientesSalgado,
         'preco' : precoSalgado
@@ -167,6 +168,7 @@ function adicionarSanduiche(){
     var data = {
         'sabor' : saborSanduiche,
         'tipo': 'sanduiche',
+        'id_categoria' : 4,
         'ingredientes': ingredientesSanduiche,
         'preco' : precoSanduiche
     };
@@ -191,6 +193,8 @@ function adicionarSanduiche(){
 
 }
 
+
+
 function adicionarMassas(){
     //URL Utilizada na Requisicao
     var URL = 'http://localhost/foodis-restaurante/public/produto/add';
@@ -203,6 +207,7 @@ function adicionarMassas(){
     var data = {
         'sabor' : saborMassa,
         'tipo': 'massas',
+        'id_categoria' : 5,
         'ingredientes': ingredientesMassa,
         'preco' : precoMassa
     };
@@ -223,6 +228,77 @@ function adicionarMassas(){
     })
 }
 
+function adicionarPrato(){
+    //URL Utilizada na Requisicao
+    var URL = 'http://localhost/foodis-restaurante/public/produto/add';
+
+    //Informações Relacionadas ao Produto
+    var nomePrato = document.getElementById("nome-prato").value;
+    var ingredientesPrato = document.getElementById("ingredientes-prato").value;
+    var precoPrato = document.getElementById("valor-prato").value;
+
+    var data = {
+        'sabor' : nomePrato,
+        'tipo': 'pratos',
+        'id_categoria' : 6,
+        'ingredientes': ingredientesPrato,
+        'preco' : precoPrato
+    };
+
+    //JSON Pronto para ser enviado como requisicao
+    var myJsonString = JSON.stringify(data);
+
+    $.ajax({
+        url: URL,
+        type: "POST",
+        data: JSON.stringify(data),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (result) {
+            /* Exibo a mensagem de sucesso */
+            document.getElementById('mensagem-sucesso').style.display = 'block';
+        }
+    })
+
+}
+
+
+function adicionarJaponesa(){
+    //URL Utilizada na Requisicao
+    var URL = 'http://localhost/foodis-restaurante/public/produto/add';
+
+    //Informações Relacionadas ao Produto
+    var nomeJaponesa = document.getElementById("nome-japonesa").value;
+    var ingredientesJaponesa = document.getElementById("ingredientes-japonesa").value;
+    var precoJaponesa = document.getElementById("valor-japonesa").value;
+
+    var data = {
+        'sabor' : nomeJaponesa,
+        'tipo': 'japonesa',
+        'id_categoria' : 7,
+        'ingredientes': ingredientesJaponesa,
+        'preco' : precoJaponesa
+    };
+
+    //JSON Pronto para ser enviado como requisicao
+    var myJsonString = JSON.stringify(data);
+
+    $.ajax({
+        url: URL,
+        type: "POST",
+        data: JSON.stringify(data),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (result) {
+            /* Exibo a mensagem de sucesso */
+            document.getElementById('mensagem-sucesso').style.display = 'block';
+        }
+    })
+
+}
+
+
+
 function adicionarOutro(){
     //URL Utilizada na Requisicao
     var URL = 'http://localhost/foodis-restaurante/public/produto/add';
@@ -230,14 +306,17 @@ function adicionarOutro(){
     //Informações Relacionadas ao Produto
     var nomeOutro = document.getElementById("nome-outros");
     var precoOutro = document.getElementById("preco-outros");
-    var e = document.getElementById("categorias");
-    var tipoOutro = e.options[e.selectedIndex].text;
+    var tipoOutro = $( "#addOutros option:selected" ).val();
     var mensagem = document.getElementById("mensagem-sucesso");
+
+    alert(tipoOutro);
+
 
     var data = {
         'sabor' : nomeOutro.value,
         'ingredientes' : '',
-        'tipo': tipoOutro,
+        'tipo': 'outros',
+        'id_categoria': tipoOutro,
         'preco' : precoOutro.value
     };
 
@@ -257,5 +336,6 @@ function adicionarOutro(){
         }
     })
 }
+
 
 
