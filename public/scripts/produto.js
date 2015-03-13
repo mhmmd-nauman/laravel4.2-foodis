@@ -42,6 +42,7 @@ function adicionarPizza(){
 
        var data = {
            'sabor' : saborPizza,
+           'id_categoria' : 1,
            'ingredientes' : ingredientes,
            'tipo': 'pizza',
             'precos' : {
@@ -97,6 +98,7 @@ function adicionarEsfiha(){
     //Variaveis de Controle
     var data = {
         'sabor' : saborEsfiha,
+        'id_categoria' : 2,
         'ingredientes' : ingredientesEsfiha,
         'type': 'esfiha',
         'tipo' : tipoEsfiha,
