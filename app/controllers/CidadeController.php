@@ -25,5 +25,10 @@ class CidadeController extends BaseController {
         }
     }
 
+    //Rota para recuperar as cidades cadastradas no banco de dados
+    public function get(){
+        return Response::json(Cidade::all());
+    }
+
 
 }
