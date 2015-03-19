@@ -17,10 +17,25 @@ class CadastroController extends BaseController {
     //Enviar SMS para o usuario
     public function sendSMS(){
       $input = Request::getContent();
+      $objeto = json_decode($input);
 
       $pin = null;
       for($i = 0; $i < 4; $i++) {
           $pin .= UtilsController::pinGenerator();
+      }
+
+      $auth = new CoreAuth();
+      $auth->pin = $pin;
+      $auth->ddd = $objeto->ddd;
+      $auth->celular = $objeto->numero;
+      $auth->status = 'Pendente';
+      if($auth->save()){
+          $data = array(
+              'status' => 200,
+              'message' => 'Usuario cadastrado com sucesso'
+          );
+
+          return Response::json($data);
       }
 
       return Response::json($input);

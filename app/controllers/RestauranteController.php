@@ -251,10 +251,6 @@ class RestauranteController extends BaseController {
 
         }
 
-        echo '<pre>';
-        print_r($produtos);
-        print_r($precos);
-
     }
 
     public function sendPedido(){
