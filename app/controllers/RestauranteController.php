@@ -24,6 +24,7 @@ class RestauranteController extends BaseController {
      * 2. Pela media dos sabores.
     */
 
+    public $payments;
 
     //Método responsavel por cadastrar um restaurante
     public function addRestaurante(){
@@ -85,6 +86,10 @@ class RestauranteController extends BaseController {
 
     /* Listo todos os Restaurantes Abertos em uma Determinada Cidade */
     public function open($cidade){
+
+        $nome_cidade = $cidade;
+
+
         /* Configurações iniciais para a consulta (Dia Atual) e (Hora Atual) */
         $dias = array("segunda","terca","quarta","quinta","sexta","sabado","domingo");
         $diaAtual = UtilsController::getDay(date('l'));
@@ -92,10 +97,11 @@ class RestauranteController extends BaseController {
 
         /* Váriaveis de Controle */
         $status = false;
+
         /* Variaveis de Controle */
         $flagDinheiro = 0;
         $flagMaquineta = 0;
-        $flagOnline = 0;
+        $flag_online = 0;
         $cont = 0;
 
         $cidade = Cidade::where('nome','=',$cidade)->get();
@@ -106,14 +112,15 @@ class RestauranteController extends BaseController {
 
         /* Recupero todos os restaurantes da Cidade */
         $resturantes = Restaurante::where('cidade_id','=',$id)->get()->toArray();
-        $data = array("cidade" => $nome, "restaurantes" => array());
 
         /* Rotina para Verificar se um estabelecimento está aberto ou não */
         for($i = 0; $i < sizeof($resturantes); $i++){
             $json = $resturantes[$i]['horario_funcionamento'];
             $obj = json_decode($json,true);
             $hoje =  $obj[0][$diaAtual];
+
             /* Verifico se o dia atual da pesquisa o estabelimentmo não está fechado */
+
             if($hoje !== 'fechado'){
                 $horario = explode('-',$hoje);
                 $abertura = $horario[0];
@@ -128,197 +135,148 @@ class RestauranteController extends BaseController {
                 $status = false;
             }
 
-
-            /* Rotina para verificar os tipos de pagamento aceitos pelo estabelecimento */
+            //Caso o restaurantes esteja aberto entro aqui para buscar as informações do estabelecimento
             if($status){
 
-                $pagamentos = DB::table('restaurante_pagamento')
-                    ->leftJoin('pagamento', 'restaurante_pagamento.tipo_pagamento_id', '=', 'pagamento.id')
-                    ->where('restaurante_pagamento.restaurantes_id', '=', $resturantes[$i]['id'])
-                    ->get();
+                $pagamentos = RestauranteController::buscarMetodoPagamento($resturantes[$i]['id']);
 
+                //Defino as flags de acordo com os tipos de pagameto disponivel pelo estabelecimento
+                foreach($pagamentos as $pagamento){
 
-                for($w = 0; $w < sizeof($pagamentos); $w++){
-                    if($pagamentos[$w]->slug === 'dinheiro'){
-                        $flagDinheiro = 1;
+                    if($pagamento['slug'] === 'dinheiro'){
+                        $this->flagDinheiro = true;
                     }
 
-                    if($pagamentos[$w]->slug === 'maquinetadelivery'){
-                        $flagMaquineta = 1;
+                    if($pagamento['slug'] === 'maquinetadelivery'){
+                        $this->flagMaquineta = true;
                     }
 
-                    if($pagamentos[$w]->slug === 'pagamentoonline'){
-                        $flagOnline = 1;
+                    if($pagamento['slug'] === 'pagamentoonline'){
+                        $flag_online = true;
                     }
+                }
 
-                    $payments = array(
-                        "pagamento" => array(
-                            'dinheiro' => $flagDinheiro,
-                            'maquinetadelivery' => $flagMaquineta,
-                            'pagamentoonline' => $flagOnline,
+                $quantidade_pequena = 0;
+                $quantidade_media = 0;
+                $quantidade_grande = 0;
+                $tipo_pagamento = 0;
+
+                $configuracoes = RestauranteController::buscarConfiguracoesPizzaria($resturantes[$i]['id']);
+                if(!empty($configuracoes[0]['core_pizzaria_id'])) {
+                    $tipo_pagamento = $configuracoes[0]['core_pizzaria_id'];
+
+                    $objeto = json_decode($configuracoes[0]['configuracoes_pizzaria']);
+
+                    if (!empty($objeto->config)) {
+                        $quantidade_pequena = $objeto->config->quantidade->pequena;
+                        $quantidade_media = $objeto->config->quantidade->media;
+                        $quantidade_grande = $objeto->config->quantidade->grande;
+                    }
+                }
+
+                $data[$i] = array(
+                    'id' => $resturantes[$i]['id'],
+                    'nome' => $resturantes[$i]['nome_estabelecimento'],
+                    'descricao' => $resturantes[$i]['descricao'],
+                    'logo' => 'imagem.png',
+                    'promocoes' => array(),
+                    'endereco' => $resturantes[$i]['endereco'],
+                    'bairro' => $resturantes[$i]['bairro'],
+                    'cidade' => $resturantes[$i]['cidade_entrega'],
+
+                    'pagamento' => array(
+                        "dinheiro" => $this->flagDinheiro,
+                        "maquinetadelivery" => $this->flagMaquineta,
+                        "pagamentoonline" => $flag_online
+                    ),
+
+                    'configuracoes' => array(
+
+                        "saboresfatias" => array(
+                            "pequena" => $quantidade_pequena,
+                            "media" => $quantidade_media,
+                            "grande" => $quantidade_grande,
                         ),
-                    );
 
-                }
-
-
-                $configuracoes = new CorePedidos();
-                $result = $configuracoes::where('restaurantes_id','=',$resturantes[$i]['id'])->get()->toArray();
-                foreach($result as $conf){
-                    $jsonConfiguracoes = json_decode($conf['configuracoes_pizzaria']);
-                    $id_type = $conf['core_pizzaria_id'];
-                }
-
-                        $config = array(
-                            "configuracoes" => array(
-                                "saboresfatias" => array(
-                                    "pequena" => $jsonConfiguracoes->config->quantidade->pequena,
-                                    "media" => $jsonConfiguracoes->config->quantidade->media,
-                                    "grande" => $jsonConfiguracoes->config->quantidade->grande,
-                                ),
-                                "pagamentopizzaria" => array(
-                                    "type" => $id_type,
-                                ),
-                            ),
-                        );
-
-                $resultado = array_merge($payments, $config);
-
-                $data = array(
-                        "restaurantes" => $resultado
+                        "pagamentopizzaria" => array(
+                            "type" => $tipo_pagamento,
+                        ),
+                    )
                 );
 
-                $x[$cont] =  $data;
-                $cont++;
-
-                }
+                /* Reseto os Valores para Não Influenciar em outros estabelecimentos */
+                $quantidade_pequena = null;
+                $quantidade_media = null;
+                $quantidade_grande = null;
+                $this->flagDinheiro = 0;
+                $this->flagMaquineta = 0;
+                $flag_online = 0;
 
             }
 
-            echo '<pre>';
-            $final = array_merge($x);
-            print_r($final);
-
         }
+
+        $json = array("cidade" => $nome_cidade, "restaurantes" => $data);
+        return Response::json($json);
+    }
 
 
     /* Listo o Cardapio de um restaurante em especifico */
 
-    public function getMenu($id_restaurante){
-        /*
-         * {
-                "id_restaurante": "234",
-                "cardapio": {
-                    "pizzas": [
-                        {
-                            "id_produto": 20,
-                            "nome": "Calabresa",
-                            "precos": [
-                                {
-                                    "tipo": "pequena",
-                                    "valor": 16
-                                },
-                                {
-                                    "tipo": "media",
-                                    "valor": 18
-                                },
-                                {
-                                    "tipo": "grande",
-                                    "valor": 22
-                                }
-                            ]
-                        },
-                        {
-                            "id_produto": 21,
-                            "nome": "Mussarela",
-                            "precos": [
-                                {
-                                    "tipo": "pequena",
-                                    "valor": 16
-                                },
-                                {
-                                    "tipo": "media",
-                                    "valor": 18
-                                },
-                                {
-                                    "tipo": "grande",
-                                    "valor": 22
-                                }
-                            ]
-                        }
-                    ],
-                    "esfihas": [
-                        {
-                            "id_produto": 23,
-                            "nome": "Esfiha de Carne",
-                            "precos": [
-                                {
-                                    "tipo": "aberta",
-                                    "valor": 16
-                                },
-                                {
-                                    "tipo": "fechada",
-                                    "valor": 18
-                                }
-                            ]
-                        },
-                        {
-                            "id_produto": 24,
-                            "nome": "Esfiha de Calabresa",
-                            "precos": [
-                                {
-                                    "tipo": "aberta",
-                                    "valor": 16
-                                },
-                                {
-                                    "tipo": "fechada",
-                                    "valor": 18
-                                }
-                            ]
-                        },
-                        {
-                            "id_produto": 25,
-                            "nome": "Esfiha de Queijo",
-                            "precos": [
-                                {
-                                    "tipo": "aberta",
-                                    "valor": 16
-                                },
-                                {
-                                    "tipo": "fechada",
-                                    "valor": 18
-                                }
-                            ]
-                        }
-                    ]
+    public function cardapio($id_restaurante){
+        $produtos = RestauranteController::buscarProdutos($id_restaurante);
+        $data = array();
+        $valor_tamanho = array();
+        $cont = 0;
+        $precos = array();
+
+
+        foreach($produtos as $produto){
+            $categoria = strtolower($produto['categoria']);
+
+            if($categoria === 'pizzas'){
+                $objeto = json_decode($produto['preco'],true);
+                $tamanho = sizeof($objeto);
+
+                foreach($objeto as $key => $value){
+                    $precos['precos'] = array(
+
+                    );
                 }
             }
-                     *
-         * */
+
+            $data = array_add($data, $categoria , array(
+
+            ));
+
+        }
+
+        echo '<pre>';
+        print_r($produtos);
+        print_r($precos);
 
     }
 
     public function sendPedido(){
-        $data = array(
-            "status" => "1",
-            "message" => "Aguardando aprovação do estabelecimento",
-            "pedido" => array(
 
-            )
-        );
-
-        $data['pedido'][0] = array(
-            "id_produto" => 2,
-            "quantidade" => 1,
-        );
-
-        $data['pedido'][1] = array(
-            "id_produto" => 243,
-            "quantidade" => 2,
-        );
-
-        echo json_encode($data);
     }
 
+    /* Recupero o método de pagamento do restaurante em questão (id_restaurante) */
+    public function buscarMetodoPagamento($id_restaurante){
+        $pagamento = RestaurantePagamento::where('restaurantes_id','=',$id_restaurante)->join('pagamento', 'pagamento.id', '=', 'tipo_pagamento_id')->get()->toArray();
+        return $pagamento;
+    }
+
+    /* Recuperar as Configurações do Estabelecimento caso ele seja um pizzaria */
+    public function buscarConfiguracoesPizzaria($id_restaurante){
+        $restaurante = CorePedidos::where('restaurantes_id','=',$id_restaurante)->get()->toArray();
+        return $restaurante;
+    }
+
+    /* Recuperar os Produtos cadastrados para um restaurante especifico */
+    public function buscarProdutos($id_restaurante){
+        $produtos = Produto::where('restaurantes_id','=',$id_restaurante)->join('categoria_produto','categoria_produto.id', '=' ,'categoria_produto_id')->get()->toArray();
+        return $produtos;
+    }
 
 }

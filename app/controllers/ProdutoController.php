@@ -48,7 +48,7 @@ class ProdutoController extends BaseController {
             }
         }
 
-        /* O preço da pizza é o unico produto que tem a coluna PREÇO1 serializado. */
+        /* O preço da pizza é o unico produto que tem a coluna PREÇO serializado. */
         if($obj->tipo == 'pizzaa') {
             $jsonPrecos = json_encode($precos);
         }else{

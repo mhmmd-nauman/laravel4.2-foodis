@@ -54,7 +54,7 @@ Route::get('/funcionario/get', 'FuncionarioController@get');
 Route::post('/restaurante/add','RestauranteController@addRestaurante');
 Route::get('/restaurante/categoria/add/{categoria}','RestauranteController@addCategoria');
 Route::get('/restaurante/open/{cidade}', 'RestauranteController@open'); //Consulto os Restaurantes abertos em uma detminada cidade
-Route::get('/restaurante/menu/{id_restaurante}', 'RestauranteController@getMenu'); //Consulto o cardapio de uma especifica cidade.
+Route::get('/restaurante/menu/{id_restaurante}', 'RestauranteController@cardapio'); //Consulto o cardapio de uma especifica cidade.
 Route::get('/pedido/sendPedido', 'RestauranteController@sendPedido');
 Route::get('/restaurante/calculo-pizza/{id_restaurante}','RestauranteController@getCalculoPizzaria');
 
@@ -70,3 +70,4 @@ Route::post('/cidade/add','CidadeController@add');
 Route::get('/send/pin','CadastroController@sendSMS');
 Route::post('/send/pin','CadastroController@sendSMS');
 Route::get('/buscar/cep/{cep}','CadastroController@consultarCEP');
+Route::post('/add/endereco','CadastroController@addEndereco');
