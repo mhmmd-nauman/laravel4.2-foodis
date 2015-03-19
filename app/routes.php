@@ -67,6 +67,8 @@ Route::post('/cidade/add','CidadeController@add');
 
 
 /* Rotas para o usuario do app */
-Route::post('/user/add','CadastroController@sendSMS');
+Route::post('/user/sms','CadastroController@sendSMS');
+Route::post('/user/add','CadastroController@cadastrarUsuario');
+Route::post('/user/verify','CadastroController@validarPIN');
 Route::get('/buscar/cep/{cep}','CadastroController@consultarCEP');
 Route::post('/add/endereco','CadastroController@addEndereco');
