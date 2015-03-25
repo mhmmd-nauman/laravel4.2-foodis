@@ -96,6 +96,7 @@ class CadastroController extends BaseController {
             $endereco->ponto_referencia = $obj->ponto_referencia;
             $endereco->clientes_id = $obj->clientes_id;
             $endereco->nome_endereco = $obj->nome_endereco;
+            $endereco->enabled = 1;
             if($endereco->save()){
                 return Response::json(array("status" => 200, "message" => "Address successfully registered"));
             }
