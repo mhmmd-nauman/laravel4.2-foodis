@@ -11,7 +11,11 @@ class CadastroController extends BaseController {
 
     //Cadastrar Usuario
     public function cadastrarUsuario(){
-        $input = Input::all();
+        $input = Request::getContent();
+        $objeto = json_decode($input,true);
+
+        echo '<pre>';
+        print_r($objeto);
     }
 
     //Enviar SMS para o usuario
@@ -102,6 +106,25 @@ class CadastroController extends BaseController {
     public function buscarPIN($pin,$ddd,$numero){
         $auth = CoreAuth::where('pin','=',$pin)->where('ddd','=',$ddd)->where('celular','=',$numero)->get()->toArray();
         return $auth;
+    }
+
+    /* Método utilizado para consultar Endereços cadastrados de um usuario */
+    public function consultarEndereco($id_usuario){
+        $enderecos =  Endereco::where('clientes_id','=',$id_usuario)->get();
+        return Response::json($enderecos);
+    }
+
+    /* Método para remover Endereço cadastro de um usuario */
+    public function deletarEndereco($id_endereco){
+        $endereco = Endereco::find($id_endereco);
+        if($endereco->delete()){
+            $data = array(
+                "status" => 200,
+                "message" => "Address removed successfully"
+            );
+
+            return Response::json($data);
+        }
     }
 
 }

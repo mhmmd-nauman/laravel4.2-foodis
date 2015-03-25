@@ -39,10 +39,12 @@ Route::post('/logar','AutenticacaoController@logar');
 Route::get('/dashboard','HomeController@dashboard');
 
 /* Rotas dos Produtos */
-
 Route::post('/produto/add','ProdutoController@add');
 Route::get('/produto/{tipo_produto}','ProdutoController@get'); //Buscar todos os produtos de uma determinada categoria
 Route::get('/produto/restaurante/{id_restaurante}','ProdutoController@getAll');
+
+/* Rota dos Pedidos */
+Route::get('/pedido/{id_usuario}','PedidoController@get');
 
 
 /* Rotas dos Funcionarios */
@@ -72,4 +74,9 @@ Route::post('/user/sms','CadastroController@sendSMS');
 Route::post('/user/add','CadastroController@cadastrarUsuario');
 Route::post('/user/verify','CadastroController@validarPIN');
 Route::get('/buscar/cep/{cep}','CadastroController@consultarCEP');
+
+/* Rotas do Endereço */
+
 Route::post('/add/endereco','CadastroController@addEndereco');
+Route::get('/endereco/{id_usuario}','CadastroController@consultarEndereco');
+Rote::get('/del/endereco/{id_usuario}', 'CadastroController@deletarEndereco');
