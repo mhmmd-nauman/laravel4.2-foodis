@@ -118,7 +118,8 @@ class CadastroController extends BaseController {
     /* Método para remover Endereço cadastro de um usuario */
     public function deletarEndereco($id_endereco){
         $endereco = Endereco::find($id_endereco);
-        if($endereco->delete()){
+        $endereco->enabled = 0;
+        if($endereco->save()){
             $data = array(
                 "status" => 200,
                 "message" => "Address removed successfully"
