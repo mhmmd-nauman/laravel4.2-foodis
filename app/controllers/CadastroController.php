@@ -111,11 +111,14 @@ class CadastroController extends BaseController {
 
     /* Método utilizado para consultar Endereços cadastrados de um usuario */
     public function consultarEndereco($id_usuario){
-        $enderecos =  Endereco::where('clientes_id','=',$id_usuario)->get();
+        $enderecos =  Endereco::where('clientes_id','=',$id_usuario)->where->('enabled','=',1)->get();
         return Response::json($enderecos);
     }
 
-    /* Método para remover Endereço cadastro de um usuario */
+    /*
+        Método para remover Endereço cadastro de um usuario
+        O Método apenas seta enabled = 0;
+    */
     public function deletarEndereco($id_endereco){
         $endereco = Endereco::find($id_endereco);
         $endereco->enabled = 0;
