@@ -111,7 +111,7 @@ class CadastroController extends BaseController {
 
     /* Método utilizado para consultar Endereços cadastrados de um usuario */
     public function consultarEndereco($id_usuario){
-        $enderecos =  Endereco::where('clientes_id','=',$id_usuario)->where->('enabled','=',1)->get();
+        $enderecos =  Endereco::where('clientes_id','=',$id_usuario)->where('enabled','=',1)->get();
         return Response::json($enderecos);
     }
 
