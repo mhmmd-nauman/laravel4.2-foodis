@@ -66,6 +66,7 @@ class PedidoController extends BaseController {
             $pedido->endereco_id = $objeto->id_endereco;
             $pedido->restaurantes_id = $objeto->id_restaurante;
             $pedido->pagamento_id = $objeto->id_pagamento;
+            $pedido->valor_troco = $objeto->valor_troco;
             if ($pedido->save()) {
                 $data = array("status" => 200, "id_pedido" => $pedido->id, "message" => "Order successfully added");
                 return Response::json($data);
