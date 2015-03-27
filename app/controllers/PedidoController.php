@@ -16,36 +16,38 @@ class PedidoController extends BaseController {
                                                                 ->get()->toArray();
 
         $data = array();
-        $primeiro_id = $informacoes_pedido[0]['pedidos_id'];
+        $count = 0;
 
-
-        for($i = 0; $i < sizeof($informacoes_pedido); $i++) {
-
-            /* Informações (id do Pedido, Numero do Pedido, Id do Restaurante, Tipo de Pagamento e Status */
-            $pedido = array(
-                "pedido_id" => $informacoes_pedido[$i]['pedidos_id'],
-                "numero_pedido" => $informacoes_pedido[$i]['numero_pedido'],
-                "restaurante_id" => $informacoes_pedido[$i]['nome_estabelecimento'],
-                "tipo_pagamento" => $informacoes_pedido[$i]['tipo'],
-                "valor_pedido" => $informacoes_pedido[$i]['valor_total'],
-                "status" => $informacoes_pedido[$i]['status']
+        if(sizeof($informacoes_pedido) > 0){
+            $pedido[] = array(
+                "pedido_id" => $informacoes_pedido[0]['pedidos_id'],
+                "numero_pedido" => $informacoes_pedido[0]['numero_pedido'],
+                "restaurante_id" => $informacoes_pedido[0]['nome_estabelecimento'],
+                "tipo_pagamento" => $informacoes_pedido[0]['tipo'],
+                "valor_pedido" => $informacoes_pedido[0]['valor_total'],
+                "status" => $informacoes_pedido[0]['status']
             );
 
-            /* Produtos de um Pedido Especifico */
-            foreach ($informacoes_pedido as $informacoes) {
-                $pedido[] = array(
-                    "nome_produto" => $informacoes['nome_produto'],
-                    "quantidade" => $informacoes['quantidade'],
-                    "preco" => $informacoes['preco'],
-                    "observacoes_produto_pedido" => $informacoes['observacoes_produto_pedido']
-                );
-            }
+        }
 
+        for($i = 0; $i < sizeof($informacoes_pedido); $i++) {
+                if ($informacoes_pedido[$i]['pedidos_id'] != $pedido[$count]['pedido_id']) {
+                    /* Informações (id do Pedido, Numero do Pedido, Id do Restaurante, Tipo de Pagamento e Status */
+                    $pedido[] = array(
+                        "pedido_id" => $informacoes_pedido[$i]['pedidos_id'],
+                        "numero_pedido" => $informacoes_pedido[$i]['numero_pedido'],
+                        "restaurante_id" => $informacoes_pedido[$i]['nome_estabelecimento'],
+                        "tipo_pagamento" => $informacoes_pedido[$i]['tipo'],
+                        "valor_pedido" => $informacoes_pedido[$i]['valor_total'],
+                        "status" => $informacoes_pedido[$i]['status']
+                    );
+                    $count++;
+             }
         }
 
         echo '<pre>';
         print_r($pedido);
-
+        die;
 
     }
 }

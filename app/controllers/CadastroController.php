@@ -80,7 +80,13 @@ class CadastroController extends BaseController {
     /* Método para consultar endereço baseado no cep*/
     public function consultarCEP($cep){
         $cep = Cep::find($cep);
-        return Response::json($cep->toArray());
+        $dados = $cep->toQuerty();
+        if($dados) {
+            return Response::json($cep->toArray());
+        }else{
+            $data = array("status" => 400, "message" => "CEP Invalido");
+            return Response::json($data,400);
+        }
     }
 
     /* Método para adicionar endereco de um Cliente */
