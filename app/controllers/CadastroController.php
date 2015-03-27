@@ -13,9 +13,6 @@ class CadastroController extends BaseController {
     public function cadastrarUsuario(){
         $input = Request::getContent();
         $objeto = json_decode($input,true);
-
-        echo '<pre>';
-        print_r($objeto);
     }
 
     //Enviar SMS para o usuario
@@ -100,6 +97,8 @@ class CadastroController extends BaseController {
             $endereco->numero = $obj->numero;
             $endereco->cep = $obj->cep;
             $endereco->ponto_referencia = $obj->ponto_referencia;
+            $endereco->cidade = $obj->cidade;
+            $endereco->uf = $obj->uf;
             $endereco->clientes_id = $obj->clientes_id;
             $endereco->nome_endereco = $obj->nome_endereco;
             $endereco->enabled = 1;
@@ -125,6 +124,7 @@ class CadastroController extends BaseController {
         Método para remover Endereço cadastro de um usuario
         O Método apenas seta enabled = 0;
     */
+
     public function deletarEndereco($id_endereco){
         $endereco = Endereco::find($id_endereco);
         $endereco->enabled = 0;

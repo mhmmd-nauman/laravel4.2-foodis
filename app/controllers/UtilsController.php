@@ -65,6 +65,10 @@ class UtilsController extends BaseController {
 
     }
 
-
+    /* Método responsavel por gerar o numero do pedido */
+    public static function numeroPedido(){
+        $result = DB::table('pedidos')->max('numero_pedido');
+        return $result;
+    }
 
 }
