@@ -25,6 +25,7 @@ class RestauranteController extends BaseController {
     */
 
     public $payments;
+    public $flagOnline = false;
 
     //Método responsavel por cadastrar um restaurante
     public function addRestaurante(){
@@ -99,9 +100,8 @@ class RestauranteController extends BaseController {
         $status = false;
 
         /* Variaveis de Controle */
-        $flagDinheiro = 0;
-        $flagMaquineta = 0;
-        $flag_online = 0;
+        $flagDinheiro = false;
+        $flagMaquineta = false;
         $cont = 0;
 
         $cidade = Cidade::where('nome','=',$cidade)->get();
@@ -152,7 +152,7 @@ class RestauranteController extends BaseController {
                     }
 
                     if($pagamento['slug'] === 'pagamentoonline'){
-                        $flag_online = true;
+                        $this->flagOnline = true;
                     }
                 }
 
@@ -174,9 +174,26 @@ class RestauranteController extends BaseController {
                     }
                 }
 
+                //Recupero os tipos de pagamento e as bandeiras de cartão de credito aceitas pelo estabelecimento
+                $resturante_pagamento = new RestauranteCartao();
+                $result = $resturante_pagamento->where('id_restaurante','=',$resturantes[$i]['id'])->join('pagamento_cartao', 'pagamento_cartao.id', '=', 'id_pagamento_cartao')->get()->toArray();
+
+                $item = array();
+                $k = 0;
+
+                foreach($result as $resultado){
+                    $item[$k]['nome'] = $resultado['nome'];
+                    $item[$k]['img'] = $resultado['imagem'];
+                    $k++;
+                }
+
+                $online = $this->flagOnline;
+
                 $data[$i] = array(
                     'id' => $resturantes[$i]['id'],
                     'nome' => $resturantes[$i]['nome_estabelecimento'],
+                    'open' => true,
+                    'minimo_entrega' => $resturantes[$i]['minimo_entrega'],
                     'descricao' => $resturantes[$i]['descricao'],
                     'logo' => 'imagem.png',
                     'promocoes' => array(),
@@ -186,8 +203,13 @@ class RestauranteController extends BaseController {
 
                     'pagamento' => array(
                         "dinheiro" => $this->flagDinheiro,
-                        "maquinetadelivery" => $this->flagMaquineta,
-                        "pagamentoonline" => $flag_online
+                        "pagamentoonline" => $this->flagOnline,
+                        "maquinetadelivery" => array(
+                            'status' => $this->flagMaquineta,
+                            'tipos' => array(
+                                $item,
+                            ),
+                        ),
                     ),
 
                     'configuracoes' => array(
@@ -201,7 +223,7 @@ class RestauranteController extends BaseController {
                         "pagamentopizzaria" => array(
                             "type" => $tipo_pagamento,
                         ),
-                    )
+                    ),
                 );
 
                 /* Reseto os Valores para Não Influenciar em outros estabelecimentos */
@@ -210,8 +232,23 @@ class RestauranteController extends BaseController {
                 $quantidade_grande = null;
                 $this->flagDinheiro = 0;
                 $this->flagMaquineta = 0;
-                $flag_online = 0;
+                $this->flag_online = 0;
+                $item = array();
 
+            }else{
+                $data[$i] = array(
+                    'id' => $resturantes[$i]['id'],
+                    'nome' => $resturantes[$i]['nome_estabelecimento'],
+                    'open' => false,
+                    'minimo_entrega' => $resturantes[$i]['minimo_entrega'],
+                    'descricao' => $resturantes[$i]['descricao'],
+                    'logo' => 'imagem.png',
+                    'promocoes' => array(),
+                    'endereco' => $resturantes[$i]['endereco'],
+                    'bairro' => $resturantes[$i]['bairro'],
+                    'cidade' => $resturantes[$i]['cidade_entrega'],
+
+                );
             }
 
         }
@@ -226,11 +263,13 @@ class RestauranteController extends BaseController {
     public function cardapio($id_restaurante){
         $produtos = RestauranteController::buscarProdutos($id_restaurante);
         $data = array();
+        $auxiliar = array();
+
         $valor_tamanho = array();
         $cont = 0;
         $precos = array();
 
-
+        /* Recupero os produtos do Restaurante e exibo o JSON */
         foreach($produtos as $produto){
             $categoria = strtolower($produto['categoria']);
 
@@ -239,21 +278,21 @@ class RestauranteController extends BaseController {
                 $tamanho = sizeof($objeto);
 
                 foreach($objeto as $key => $value){
-                    $precos['precos'] = array(
-
-                    );
+                    $precos[$key] = $value;
                 }
+            }else{
+                $precos = $produto['preco'];
             }
 
-            $data = array_add($data, $categoria , array(
+            $data[$categoria][$cont] = array(
+                'nome_produto' => $produto['nome_produto'],
+                'preco' => $precos
+            );
 
-            ));
-
+            $cont++;
         }
 
-    }
-
-    public function sendPedido(){
+        return Response::json($data);
 
     }
 

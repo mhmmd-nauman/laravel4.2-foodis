@@ -28,7 +28,6 @@ class ProdutoController extends BaseController {
 
         /* Tratamento e Validações de Acordo com o tipo do produto */
 
-
         if($obj->tipo == 'pizza'){
 
             if(isset($obj->precos->pequena)){
@@ -49,7 +48,7 @@ class ProdutoController extends BaseController {
         }
 
         /* O preço da pizza é o unico produto que tem a coluna PREÇO serializado. */
-        if($obj->tipo == 'pizzaa') {
+        if($obj->tipo == 'pizza') {
             $jsonPrecos = json_encode($precos);
         }else{
             $jsonPrecos = $precos;
