@@ -110,7 +110,7 @@ class RestauranteController extends BaseController {
         }
 
         /* Recupero todos os restaurantes da Cidade */
-        $restaurantes = Restaurante::where('cidade_id','=',$id)->select('*','restaurantes.id as id_restaurante')->join('cidade','cidade.id','=','restaurantes.cidade_id')->get()->toArray();
+        $restaurantes = Restaurante::where('cidade_id','=',$id)->where('enabled','=',0)->select('*','restaurantes.id as id_restaurante')->join('cidade','cidade.id','=','restaurantes.cidade_id')->get()->toArray();
 
 
         /* For responsavel por buscar informações do estabelecimento e as informações de pagamento  */
