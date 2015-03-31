@@ -2,6 +2,12 @@
  * Created by claudiohenrique on 14/02/15.
  */
 
+//Criação da Função personalizada
+jQuery.fn.reset = function (){
+    $(this).each (function(){
+        this.reset();
+    });
+}
 
 function adicionarPizza(){
     //URL Utilizada na Requisicao
@@ -67,6 +73,7 @@ function adicionarPizza(){
         success: function (result) {
             /* Exibo a mensagem de sucesso */
             document.getElementById('mensagem-sucesso').style.display = 'block';
+            $('form').reset();
         }
     })
 
@@ -117,6 +124,7 @@ function adicionarEsfiha(){
         success: function (result) {
             /* Exibo a mensagem de sucesso */
             document.getElementById('mensagem-sucesso').style.display = 'block';
+            $('form').reset();
         }
     })
 

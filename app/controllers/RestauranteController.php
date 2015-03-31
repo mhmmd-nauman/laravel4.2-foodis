@@ -247,7 +247,6 @@ class RestauranteController extends BaseController {
                     'endereco' => $resturantes[$i]['endereco'],
                     'bairro' => $resturantes[$i]['bairro'],
                     'cidade' => $resturantes[$i]['cidade_entrega'],
-
                 );
             }
 
@@ -261,37 +260,35 @@ class RestauranteController extends BaseController {
     /* Listo o Cardapio de um restaurante em especifico */
 
     public function cardapio($id_restaurante){
+
         $produtos = RestauranteController::buscarProdutos($id_restaurante);
+
         $data = array();
         $auxiliar = array();
-
         $valor_tamanho = array();
         $cont = 0;
         $precos = array();
+        $tamanho = 0;
+
 
         /* Recupero os produtos do Restaurante e exibo o JSON */
         foreach($produtos as $produto){
-            $categoria = strtolower($produto['categoria']);
-
-            if($categoria === 'pizzas'){
-                $objeto = json_decode($produto['preco'],true);
-                $tamanho = sizeof($objeto);
-
-                foreach($objeto as $key => $value){
-                    $precos[$key] = $value;
-                }
+            if($produto['categoria'] === 'Pizzas'){
+                $preco = json_decode($produto['preco']);
             }else{
-                $precos = $produto['preco'];
+                $preco = $produto['preco'];
             }
 
-            $data[$categoria][$cont] = array(
+            $data[] = array(
+                'produto_id' => $produto['produto_id'],
                 'nome_produto' => $produto['nome_produto'],
-                'preco' => $precos
+                'ingredientes' => $produto['ingredientes'],
+                'categoria' => $produto['categoria'],
+                'preco' => $preco
             );
 
-            $cont++;
         }
-
+        
         return Response::json($data);
 
     }
@@ -310,8 +307,9 @@ class RestauranteController extends BaseController {
 
     /* Recuperar os Produtos cadastrados para um restaurante especifico */
     public function buscarProdutos($id_restaurante){
-        $produtos = Produto::where('restaurantes_id','=',$id_restaurante)->join('categoria_produto','categoria_produto.id', '=' ,'categoria_produto_id')->get()->toArray();
+        $produtos = Produto::where('restaurantes_id','=',$id_restaurante)->select('*', 'produtos.id as produto_id')->join('categoria_produto','categoria_produto.id', '=' ,'produtos.categoria_produto_id')->get()->toArray();
         return $produtos;
     }
+
 
 }
