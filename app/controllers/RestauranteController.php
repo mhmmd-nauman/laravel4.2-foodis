@@ -221,7 +221,7 @@ class RestauranteController extends BaseController {
 
 
 
-            $data['cardapio'][$categoria] = array(
+            $data['cardapio'][$categoria][] = array(
                 'id_produto' => $produto['produto_id'],
                 'nome' => $produto['nome_produto'],
                 'ingredientes' => $produto['ingredientes'],
