@@ -264,13 +264,7 @@ class RestauranteController extends BaseController {
         $produtos = RestauranteController::buscarProdutos($id_restaurante);
 
         $data = array();
-        $auxiliar = array();
-        $valor_tamanho = array();
-        $cont = 0;
-        $precos = array();
-        $tamanho = 0;
-
-
+        
         /* Recupero os produtos do Restaurante e exibo o JSON */
         foreach($produtos as $produto){
             if($produto['categoria'] === 'Pizzas'){
@@ -288,7 +282,7 @@ class RestauranteController extends BaseController {
             );
 
         }
-        
+
         return Response::json($data);
 
     }
