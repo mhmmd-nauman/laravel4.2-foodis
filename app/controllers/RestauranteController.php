@@ -185,7 +185,7 @@ class RestauranteController extends BaseController {
 
         $produtos = RestauranteController::buscarProdutos($id_restaurante);
 
-        $data = array();
+        $data = array("id_restaurante" => $id_restaurante);
         $status = false;
         $cont = 0;
         $cont_main = 0;
@@ -219,11 +219,12 @@ class RestauranteController extends BaseController {
 
             $categoria = strtolower($produto['categoria']);
 
-            $data[$categoria][] = array(
-                'produto_id' => $produto['produto_id'],
-                'nome_produto' => $produto['nome_produto'],
+
+
+            $data['cardapio'][$categoria] = array(
+                'id_produto' => $produto['produto_id'],
+                'nome' => $produto['nome_produto'],
                 'ingredientes' => $produto['ingredientes'],
-                'categoria' => $produto['categoria'],
                 "precos" =>  $preco
             );
 
@@ -232,9 +233,7 @@ class RestauranteController extends BaseController {
             $cont = 0;
 
         }
-
         return Response::json($data);
-
     }
 
     /* Recupero o método de pagamento do restaurante especifico (id_restaurante) */
