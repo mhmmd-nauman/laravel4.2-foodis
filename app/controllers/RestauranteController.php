@@ -25,7 +25,12 @@ class RestauranteController extends BaseController {
     */
 
     public $payments;
+
+    /* Variaveis de Controle */
+    public $flagDinheiro = false;
+    public $flagMaquineta = false;
     public $flagOnline = false;
+    public $cont = 0;
 
     //Método responsavel por cadastrar um restaurante
     public function addRestaurante(){
@@ -90,7 +95,6 @@ class RestauranteController extends BaseController {
 
         $nome_cidade = $cidade;
 
-
         /* Configurações iniciais para a consulta (Dia Atual) e (Hora Atual) */
         $dias = array("segunda","terca","quarta","quinta","sexta","sabado","domingo");
         $diaAtual = UtilsController::getDay(date('l'));
@@ -99,11 +103,6 @@ class RestauranteController extends BaseController {
         /* Váriaveis de Controle */
         $status = false;
 
-        /* Variaveis de Controle */
-        $flagDinheiro = false;
-        $flagMaquineta = false;
-        $cont = 0;
-
         $cidade = Cidade::where('nome','=',$cidade)->get();
         foreach($cidade as $city){
             $id =  $city->id;
@@ -111,21 +110,26 @@ class RestauranteController extends BaseController {
         }
 
         /* Recupero todos os restaurantes da Cidade */
-        $resturantes = Restaurante::where('cidade_id','=',$id)->get()->toArray();
+        $restaurantes = Restaurante::where('cidade_id','=',$id)->select('*','restaurantes.id as id_restaurante')->join('cidade','cidade.id','=','restaurantes.cidade_id')->get()->toArray();
 
-        /* Rotina para Verificar se um estabelecimento está aberto ou não */
-        for($i = 0; $i < sizeof($resturantes); $i++){
-            $json = $resturantes[$i]['horario_funcionamento'];
+
+        /* For responsavel por buscar informações do estabelecimento e as informações de pagamento  */
+        for($i = 0; $i < sizeof($restaurantes); $i++){
+
+            /* Método para Recuperar formas de pagamento de um estabelecimento especifico */
+            $pagamento_restaurante = RestauranteController::buscarInformacoesPagamento($restaurantes[$i]['id_restaurante']);
+
+            $json = $restaurantes[$i]['horario_funcionamento'];
             $obj = json_decode($json,true);
             $hoje =  $obj[0][$diaAtual];
 
             /* Verifico se o dia atual da pesquisa o estabelimentmo não está fechado */
-
             if($hoje !== 'fechado'){
                 $horario = explode('-',$hoje);
                 $abertura = $horario[0];
                 @$fechamento = $horario[1];
                 //Verifico se baseado na hora atual do SERVIDOR o restaurante está aberto ou fechado
+                //Caso a Hora atual do sistema for maior ou igual a hora de abertura do estabelecimento E A HORA Atual for menor que a do fechamento (Estabelecimento Fechado)
                 if((strtotime($horaAtual) >= strtotime($abertura)) && (strtotime($horaAtual) < strtotime($fechamento))){
                     $status = true;
                 }else{
@@ -135,122 +139,41 @@ class RestauranteController extends BaseController {
                 $status = false;
             }
 
-            //Caso o restaurantes esteja aberto entro aqui para buscar as informações do estabelecimento
-            if($status){
-
-                $pagamentos = RestauranteController::buscarMetodoPagamento($resturantes[$i]['id']);
-
-                //Defino as flags de acordo com os tipos de pagameto disponivel pelo estabelecimento
-                foreach($pagamentos as $pagamento){
-
-                    if($pagamento['slug'] === 'dinheiro'){
-                        $this->flagDinheiro = true;
-                    }
-
-                    if($pagamento['slug'] === 'maquinetadelivery'){
-                        $this->flagMaquineta = true;
-                    }
-
-                    if($pagamento['slug'] === 'pagamentoonline'){
-                        $this->flagOnline = true;
-                    }
-                }
-
-                $quantidade_pequena = 0;
-                $quantidade_media = 0;
-                $quantidade_grande = 0;
-                $tipo_pagamento = 0;
-
-                $configuracoes = RestauranteController::buscarConfiguracoesPizzaria($resturantes[$i]['id']);
-                if(!empty($configuracoes[0]['core_pizzaria_id'])) {
-                    $tipo_pagamento = $configuracoes[0]['core_pizzaria_id'];
-
-                    $objeto = json_decode($configuracoes[0]['configuracoes_pizzaria']);
-
-                    if (!empty($objeto->config)) {
-                        $quantidade_pequena = $objeto->config->quantidade->pequena;
-                        $quantidade_media = $objeto->config->quantidade->media;
-                        $quantidade_grande = $objeto->config->quantidade->grande;
-                    }
-                }
-
-                //Recupero os tipos de pagamento e as bandeiras de cartão de credito aceitas pelo estabelecimento
-                $resturante_pagamento = new RestauranteCartao();
-                $result = $resturante_pagamento->where('id_restaurante','=',$resturantes[$i]['id'])->join('pagamento_cartao', 'pagamento_cartao.id', '=', 'id_pagamento_cartao')->get()->toArray();
-
-                $item = array();
-                $k = 0;
-
-                foreach($result as $resultado){
-                    $item[$k]['nome'] = $resultado['nome'];
-                    $item[$k]['img'] = $resultado['imagem'];
-                    $k++;
-                }
-
-                $online = $this->flagOnline;
-
                 $data[$i] = array(
-                    'id' => $resturantes[$i]['id'],
-                    'nome' => $resturantes[$i]['nome_estabelecimento'],
-                    'open' => true,
-                    'minimo_entrega' => $resturantes[$i]['minimo_entrega'],
-                    'descricao' => $resturantes[$i]['descricao'],
+                    'id' => $restaurantes[$i]['id_restaurante'],
+                    'nome' => $restaurantes[$i]['nome_estabelecimento'],
+                    'open' => $status,
+                    'cidade' => $restaurantes[$i]['nome'],
+                    'minimo_entrega' => $restaurantes[$i]['minimo_entrega'],
+                    'descricao' => $restaurantes[$i]['descricao'],
                     'logo' => 'imagem.png',
                     'promocoes' => array(),
-                    'endereco' => $resturantes[$i]['endereco'],
-                    'bairro' => $resturantes[$i]['bairro'],
-                    'cidade' => $resturantes[$i]['cidade_entrega'],
-
+                    'endereco' => $restaurantes[$i]['endereco'],
+                    'bairro' => $restaurantes[$i]['bairro'],
+                    'cidade_entrega' => $restaurantes[$i]['cidade_entrega'],
                     'pagamento' => array(
-                        "dinheiro" => $this->flagDinheiro,
-                        "pagamentoonline" => $this->flagOnline,
+                        "dinheiro" => $pagamento_restaurante['dinheiro'],
+                        "pagamentoonline" => $pagamento_restaurante['online'],
                         "maquinetadelivery" => array(
-                            'status' => $this->flagMaquineta,
-                            'tipos' => array(
-                                $item,
-                            ),
+                            'status' => $pagamento_restaurante['maquineta']['status'],
+                            'tipos' => $pagamento_restaurante['maquineta']['itens']
                         ),
                     ),
 
                     'configuracoes' => array(
 
                         "saboresfatias" => array(
-                            "pequena" => $quantidade_pequena,
-                            "media" => $quantidade_media,
-                            "grande" => $quantidade_grande,
+                            "pequena" => $pagamento_restaurante['configuracoes']['quantidade_pequena'],
+                            "media" => $pagamento_restaurante['configuracoes']['quantidade_media'],
+                            "grande" => $pagamento_restaurante['configuracoes']['quantidade_grande'],
                         ),
 
                         "pagamentopizzaria" => array(
-                            "type" => $tipo_pagamento,
+                            "type" => $pagamento_restaurante['tipo_pagamento'],
                         ),
                     ),
                 );
-
-                /* Reseto os Valores para Não Influenciar em outros estabelecimentos */
-                $quantidade_pequena = null;
-                $quantidade_media = null;
-                $quantidade_grande = null;
-                $this->flagDinheiro = 0;
-                $this->flagMaquineta = 0;
-                $this->flag_online = 0;
-                $item = array();
-
-            }else{
-                $data[$i] = array(
-                    'id' => $resturantes[$i]['id'],
-                    'nome' => $resturantes[$i]['nome_estabelecimento'],
-                    'open' => false,
-                    'minimo_entrega' => $resturantes[$i]['minimo_entrega'],
-                    'descricao' => $resturantes[$i]['descricao'],
-                    'logo' => 'imagem.png',
-                    'promocoes' => array(),
-                    'endereco' => $resturantes[$i]['endereco'],
-                    'bairro' => $resturantes[$i]['bairro'],
-                    'cidade' => $resturantes[$i]['cidade_entrega'],
-                );
             }
-
-        }
 
         $json = array("cidade" => $nome_cidade, "restaurantes" => $data);
         return Response::json($json);
@@ -258,13 +181,12 @@ class RestauranteController extends BaseController {
 
 
     /* Listo o Cardapio de um restaurante em especifico */
-
     public function cardapio($id_restaurante){
 
         $produtos = RestauranteController::buscarProdutos($id_restaurante);
 
         $data = array();
-        
+
         /* Recupero os produtos do Restaurante e exibo o JSON */
         foreach($produtos as $produto){
             if($produto['categoria'] === 'Pizzas'){
@@ -303,6 +225,84 @@ class RestauranteController extends BaseController {
     public function buscarProdutos($id_restaurante){
         $produtos = Produto::where('restaurantes_id','=',$id_restaurante)->select('*', 'produtos.id as produto_id')->join('categoria_produto','categoria_produto.id', '=' ,'produtos.categoria_produto_id')->get()->toArray();
         return $produtos;
+    }
+
+    public function buscarInformacoesPagamento($id_restaurante){
+
+        /* Váriaveis de Controle Interno */
+        $online = false;
+        $maquineta = false;
+        $dinheiro = false;
+
+        //Verifico os métodos de pagamento e as configurações do estabelecimento
+        $pagamentos = RestauranteController::buscarMetodoPagamento($id_restaurante);
+
+        //Defino as flags de acordo com os tipos de pagameto disponivel pelo estabelecimento
+        foreach($pagamentos as $pagamento){
+
+            if($pagamento['slug'] === 'dinheiro'){
+                $dinheiro = true;
+            }
+
+            if($pagamento['slug'] === 'maquinetadelivery'){
+                $maquineta = true;
+            }
+
+            if($pagamento['slug'] === 'pagamentoonline'){
+                $online  = true;
+            }
+        }
+
+        $quantidade_pequena = 0;
+        $quantidade_media = 0;
+        $quantidade_grande = 0;
+        $tipo_pagamento = 0;
+
+        $configuracoes = RestauranteController::buscarConfiguracoesPizzaria($id_restaurante);
+        if(!empty($configuracoes[0]['core_pizzaria_id'])) {
+            $tipo_pagamento = $configuracoes[0]['core_pizzaria_id'];
+
+            $objeto = json_decode($configuracoes[0]['configuracoes_pizzaria']);
+
+            if (!empty($objeto->config)) {
+                $quantidade_pequena = $objeto->config->quantidade->pequena;
+                $quantidade_media = $objeto->config->quantidade->media;
+                $quantidade_grande = $objeto->config->quantidade->grande;
+            }
+        }
+
+        if($maquineta) {
+            //Recupero os tipos de pagamento e as bandeiras de cartão de credito aceitas pelo estabelecimento
+            $resturante_pagamento = new RestauranteCartao();
+            $result = $resturante_pagamento->where('id_restaurante', '=', $id_restaurante)->join('pagamento_cartao', 'pagamento_cartao.id', '=', 'id_pagamento_cartao')->get()->toArray();
+
+            $item = array();
+            $k = 0;
+
+            foreach ($result as $resultado) {
+                $item[$k]['nome'] = $resultado['nome'];
+                $item[$k]['img'] = $resultado['imagem'];
+                $k++;
+            }
+        }
+
+        $data = array(
+            'dinheiro' => $dinheiro,
+            'maquineta' => array(
+                'status' => $maquineta,
+                'itens' => $item,
+            ),
+            'online' => $online,
+            'configuracoes' => array(
+                'quantidade_pequena' => $quantidade_pequena,
+                'quantidade_media' => $quantidade_media,
+                'quantidade_grande' => $quantidade_grande
+            ),
+
+            'tipo_pagamento' => $tipo_pagamento
+        );
+
+        return $data;
     }
 
 
