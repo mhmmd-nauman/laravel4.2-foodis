@@ -146,7 +146,7 @@ class RestauranteController extends BaseController {
                     'cidade' => $restaurantes[$i]['nome'],
                     'minimo_entrega' => $restaurantes[$i]['minimo_entrega'],
                     'descricao' => $restaurantes[$i]['descricao'],
-                    'logo' => 'imagem.png',
+                    'logo' => $restaurantes[$i]['logo'],
                     'promocoes' => array(),
                     'endereco' => $restaurantes[$i]['endereco'],
                     'bairro' => $restaurantes[$i]['bairro'],
@@ -216,10 +216,7 @@ class RestauranteController extends BaseController {
 
             }
 
-
             $categoria = strtolower($produto['categoria']);
-
-
 
             $data['cardapio'][$categoria][] = array(
                 'id_produto' => $produto['produto_id'],
@@ -256,7 +253,6 @@ class RestauranteController extends BaseController {
 
     /* Recupera as informações de pagamento de um restaurante especifico */
     public function buscarInformacoesPagamento($id_restaurante){
-
         /* Váriaveis de Controle Interno */
         $online = false;
         $maquineta = false;
