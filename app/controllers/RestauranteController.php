@@ -186,22 +186,50 @@ class RestauranteController extends BaseController {
         $produtos = RestauranteController::buscarProdutos($id_restaurante);
 
         $data = array();
+        $status = false;
+        $cont = 0;
+        $cont_main = 0;
+        $preco = array('tipo' => 0, 'valor' => 0);
+        $info = array();
 
         /* Recupero os produtos do Restaurante e exibo o JSON */
         foreach($produtos as $produto){
             if($produto['categoria'] === 'Pizzas'){
-                $preco = json_decode($produto['preco']);
+                $precos_produto = json_decode($produto['preco'],true);
+                $status = true;
             }else{
                 $preco = $produto['preco'];
             }
 
-            $data[] = array(
+            if($status) {
+                $preco = array();
+                for ($i = 0; $i < sizeof($precos_produto); $i++) {
+                    foreach ($precos_produto[$i] as $key => $value) {
+                        $preco[$cont] = array(
+                            'tipo' => $key,
+                            'valor' => $value
+                        );
+
+                        $cont++;
+                    }
+                }
+
+            }
+
+
+            $categoria = strtolower($produto['categoria']);
+
+            $data[$categoria][] = array(
                 'produto_id' => $produto['produto_id'],
                 'nome_produto' => $produto['nome_produto'],
                 'ingredientes' => $produto['ingredientes'],
                 'categoria' => $produto['categoria'],
-                'preco' => $preco
+                "precos" =>  $preco
             );
+
+            $status = false;
+            $preco = array();
+            $cont = 0;
 
         }
 
@@ -209,7 +237,7 @@ class RestauranteController extends BaseController {
 
     }
 
-    /* Recupero o método de pagamento do restaurante em questão (id_restaurante) */
+    /* Recupero o método de pagamento do restaurante especifico (id_restaurante) */
     public function buscarMetodoPagamento($id_restaurante){
         $pagamento = RestaurantePagamento::where('restaurantes_id','=',$id_restaurante)->join('pagamento', 'pagamento.id', '=', 'tipo_pagamento_id')->get()->toArray();
         return $pagamento;
@@ -227,6 +255,7 @@ class RestauranteController extends BaseController {
         return $produtos;
     }
 
+    /* Recupera as informações de pagamento de um restaurante especifico */
     public function buscarInformacoesPagamento($id_restaurante){
 
         /* Váriaveis de Controle Interno */
