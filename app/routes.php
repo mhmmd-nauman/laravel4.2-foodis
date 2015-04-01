@@ -46,8 +46,6 @@ Route::get('/produto/restaurante/{id_restaurante}','ProdutoController@getAll');
 /* Rota dos Pedidos */
 Route::get('/pedido/{id_usuario}','PedidoController@get');
 Route::post('/pedido/add','PedidoController@add');
-Route::post('/pedido/produto','PedidoController@addProduto');
-
 
 /* Rotas dos Funcionarios */
 Route::post('/funcionario/add', 'FuncionarioController@add');
