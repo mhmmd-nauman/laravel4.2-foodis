@@ -142,7 +142,7 @@ function adicionarSalgado(){
     var data = {
         'sabor' : nomeSalgado,
         'id_categoria' : 3,
-        'tipo': 'salgado',
+        'tipo': 'unico',
         'ingredientes': ingredientesSalgado,
         'preco' : precoSalgado
     };
@@ -175,7 +175,7 @@ function adicionarSanduiche(){
 
     var data = {
         'sabor' : saborSanduiche,
-        'tipo': 'sanduiche',
+        'tipo': 'unico',
         'id_categoria' : 4,
         'ingredientes': ingredientesSanduiche,
         'preco' : precoSanduiche
@@ -214,7 +214,7 @@ function adicionarMassas(){
 
     var data = {
         'sabor' : saborMassa,
-        'tipo': 'massas',
+        'tipo': 'unico',
         'id_categoria' : 5,
         'ingredientes': ingredientesMassa,
         'preco' : precoMassa
@@ -247,7 +247,7 @@ function adicionarPrato(){
 
     var data = {
         'sabor' : nomePrato,
-        'tipo': 'pratos',
+        'tipo': 'unico',
         'id_categoria' : 6,
         'ingredientes': ingredientesPrato,
         'preco' : precoPrato
@@ -282,7 +282,7 @@ function adicionarJaponesa(){
 
     var data = {
         'sabor' : nomeJaponesa,
-        'tipo': 'japonesa',
+        'tipo': 'unico',
         'id_categoria' : 7,
         'ingredientes': ingredientesJaponesa,
         'preco' : precoJaponesa
@@ -323,7 +323,7 @@ function adicionarOutro(){
     var data = {
         'sabor' : nomeOutro.value,
         'ingredientes' : '',
-        'tipo': 'outros',
+        'tipo': 'unico',
         'id_categoria': tipoOutro,
         'preco' : precoOutro.value
     };

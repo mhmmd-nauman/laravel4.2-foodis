@@ -217,12 +217,14 @@ class RestauranteController extends BaseController {
             }else{
                 $preco = array(
                     array(
-                    'tipo' => 'unico',
-                    'valor' => $preco,
+                        'tipo' => $produto['tipo'],
+                        'valor' => $preco,
                     ),
                 );
 
             }
+
+
 
             $categoria = strtolower($produto['categoria']);
 
