@@ -70,7 +70,7 @@ Route::post('/cidade/add','CidadeController@add');
 Route::get('/cidade/get','CidadeController@get');
 
 
-/* Rotas para o usuario do app */
+/* Rotas de Cadastro do Usuário     */
 Route::post('/user/sms','CadastroController@sendSMS');
 Route::post('/user/add','CadastroController@cadastrarUsuario');
 Route::post('/user/verify','CadastroController@validarPIN');

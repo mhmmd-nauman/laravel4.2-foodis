@@ -57,6 +57,7 @@ class PedidoController extends BaseController {
         $numeroPedido = UtilsController::numeroPedido() + 1;
         $input = Request::getContent();
         $objeto = json_decode($input);
+
         try {
             $pedido = new Pedido();
             $pedido->valor_total = $objeto->valor_total;
@@ -68,40 +69,67 @@ class PedidoController extends BaseController {
             $pedido->pagamento_id = $objeto->id_pagamento;
             $pedido->valor_troco = $objeto->valor_troco;
             if ($pedido->save()) {
+                $array = (array) $objeto->produtos;
+                $x = PedidoController::addProduto($array,$pedido->id);
                 $data = array("status" => 200, "id_pedido" => $pedido->id, "message" => "Order successfully added");
-                return Response::json($data);
             } else {
                 $data = array("status" => 400, "message" => "Erro ao adicionar Pedido");
                 return Response::json($data, 400);
             }
         }catch(Exception $e){
            $data = array("status" => 400, "message" => "Exception :/ ");
+            echo $e->getMessage();
         }
 
         return Response::json($data, 400);
     }
 
     /* Método para Registrar Produtos do Pedido */
-    public function addProduto(){
-        $input = Request::getContent();
-        $objeto = json_decode($input);
+    public function addProduto($data,$id_pedido){
+        $produtos = array();
+        $i = 0;
+        foreach($data as $datas){
+            $produtos[] = array(
+                'nome_produto' => $datas->nome_produto,
+                'id_produto' => $datas->id_produto,
+                'tipo' => $datas->tipo,
+                'quantidade' => $datas->quantidade,
+                'valor' => $datas->valor,
+                'observacoes' => $datas->observacoes
+            );
+        }
+
+        $tamanho = sizeof($produtos);
+
         try {
-            $produto = new ProdutoPedido();
-            $produto->pedidos_id = $objeto->id_pedido;
-            $produto->produtos_id = $objeto->id_produto;
-            $produto->observacoes_produto_pedido = $objeto->observacoes;
-            $produto->quantidade = $objeto->quantidade;
-            if ($produto->save()) {
-                $data = array("status" => 200, "message" => "Produto adicionado ao Pedido");
-                return Response::json($data);
-            } else {
-                $data = array("status" => 400, "message" => "Não foi possivel adicionar o Produto ao Pedido");
-                return Response::json($data);
+            for($i = 0; $i < $tamanho; $i++) {
+                $produto = new ProdutoPedido();
+                $produto->pedidos_id = $id_pedido;
+                $produto->produtos_id = $produtos[$i]['id_produto'];
+                $produto->valor  = $produtos[$i]['valor'];
+                $produto->observacoes_produto_pedido = $produtos[$i]['observacoes'];
+                $produto->quantidade = $produtos[$i]['quantidade'];
+                $produto->tipo = $produtos[$i]['tipo'];
+                $produto->save();
             }
+
         }catch(Exception $e){
             $data = array("status" => 400, "message" => "Exception :/ ");
         }
             return Response::json($data, 400);
+    }
+
+    public function objectToArray( $object )
+    {
+        if( !is_object( $object ) && !is_array( $object ) )
+        {
+            return $object;
+        }
+        if( is_object( $object ) )
+        {
+            $object = get_object_vars( $object );
+        }
+        return array_map( 'objectToArray', $object );
     }
 }
 

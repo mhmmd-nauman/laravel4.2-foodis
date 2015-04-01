@@ -224,8 +224,6 @@ class RestauranteController extends BaseController {
 
             }
 
-
-
             $categoria = strtolower($produto['categoria']);
 
             $data['cardapio'][$categoria][] = array(

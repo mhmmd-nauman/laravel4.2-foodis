@@ -24,9 +24,10 @@ class CadastroController extends BaseController {
 
       $pin = null;
       for($i = 0; $i < 4; $i++) {
-          $pin .= UtilsController::pinGenerator();
+          $pin = $pin . UtilsController::pinGenerator();
       }
 
+      /* Gravo as Informações na base de dados */
       $auth = new CoreAuth();
       $auth->pin = $pin;
       $auth->ddd = $objeto->ddd;
@@ -52,9 +53,11 @@ class CadastroController extends BaseController {
         $input = Request::getContent();
         $objeto = json_decode($input);
 
+        /* Verifico se o PIN informado pelo usuário é valido */
         $validar = CadastroController::buscarPIN($objeto->pinInformado,$objeto->ddd,$objeto->numero);
         $result = sizeof($validar);
 
+        /* Lógica de validação */
         if($result){
             $auth = CoreAuth::find($validar[0]['id']);
             $auth->status = 'Aprovado';
@@ -76,6 +79,7 @@ class CadastroController extends BaseController {
 
     /* Método para consultar endereço baseado no cep*/
     public function consultarCEP($cep){
+        /* Consulta */
         $cep = Cep::find($cep);
         $dados = $cep->toQuerty();
         if($dados) {
