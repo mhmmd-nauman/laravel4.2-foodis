@@ -122,8 +122,6 @@ return array(
 		'Illuminate\View\ViewServiceProvider',
 		'Illuminate\Workbench\WorkbenchServiceProvider',
         'Canducci\Cep\CepServiceProvider',
-        'Artistan\Nexmo\NexmoServiceProvider',
-
 	),
 
 	/*
