@@ -81,14 +81,14 @@ class PedidoController extends BaseController {
             echo $e->getMessage();
         }
 
-        return Response::json($data, 400);
+        return Response::json($data, 200);
     }
 
     /* Método para Registrar Produtos do Pedido */
     public function addProduto($data,$id_pedido){
         $produtos = array();
         $i = 0;
-        
+
         /* Convertendo um object (stdClass) para um array - Não consegui fazer o casting utilizando o (array) */
         foreach($data as $datas){
             $produtos[] = array(
