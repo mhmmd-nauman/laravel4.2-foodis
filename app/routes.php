@@ -51,7 +51,6 @@ Route::post('/pedido/add','PedidoController@add');
 Route::post('/funcionario/add', 'FuncionarioController@add');
 Route::get('/funcionario/get', 'FuncionarioController@get');
 
-
 /* Rotas dos Restaurantes */
 Route::post('/restaurante/add','RestauranteController@addRestaurante');
 Route::get('/restaurante/categoria/add/{categoria}','RestauranteController@addCategoria');
@@ -62,11 +61,9 @@ Route::get('/restaurante/calculo-pizza/{id_restaurante}','RestauranteController@
 /* Rotas das Taxas */
 Route::get('/taxas/add/{valor_taxa}','TaxasController@setTaxa');
 
-
 /* Rota das Cidades */
 Route::post('/cidade/add','CidadeController@add');
 Route::get('/cidade/get','CidadeController@get');
-
 
 /* Rotas de Cadastro do Usuário     */
 Route::post('/user/sms','CadastroController@sendSMS');
@@ -75,7 +72,6 @@ Route::post('/user/verify','CadastroController@validarPIN');
 Route::get('/buscar/cep/{cep}','CadastroController@consultarCEP');
 
 /* Rotas do Endereço */
-
 Route::post('/add/endereco','CadastroController@addEndereco');
 Route::get('/endereco/{id_usuario}','CadastroController@consultarEndereco');
 Route::get('/del/endereco/{id_usuario}', 'CadastroController@deletarEndereco');

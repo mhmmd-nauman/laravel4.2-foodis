@@ -9,6 +9,7 @@
 class PedidoController extends BaseController {
 
     public function get($id_usuario){
+        /* Realizo a consulta para retornar todas as informações relevantes do pedido */
         $informacoes_pedido = Pedido::where('clientes_id','=',$id_usuario)->join('produto_pedido','produto_pedido.pedidos_id','=','pedidos.id')
                                                                 ->join('produtos','produtos.id','=','produto_pedido.produtos_id')
                                                                 ->join('pagamento','pagamento.id','=','pedidos.pagamento_id')
@@ -18,6 +19,7 @@ class PedidoController extends BaseController {
         $data = array();
         $count = 0;
 
+        /* Adiciono as informações uteis dentro do array $pedido*/
         if(sizeof($informacoes_pedido) > 0){
             $pedido[] = array(
                 "pedido_id" => $informacoes_pedido[0]['pedidos_id'],
@@ -27,11 +29,10 @@ class PedidoController extends BaseController {
                 "valor_pedido" => $informacoes_pedido[0]['valor_total'],
                 "status" => $informacoes_pedido[0]['status']
             );
-
         }
 
         for($i = 0; $i < sizeof($informacoes_pedido); $i++) {
-                if ($informacoes_pedido[$i]['pedidos_id'] != $pedido[$count]['pedido_id']) {
+            if ($informacoes_pedido[$i]['pedidos_id'] != $pedido[$count]['pedido_id']) {
                     /* Informações (id do Pedido, Numero do Pedido, Id do Restaurante, Tipo de Pagamento e Status */
                     $pedido[] = array(
                         "pedido_id" => $informacoes_pedido[$i]['pedidos_id'],
@@ -45,10 +46,8 @@ class PedidoController extends BaseController {
              }
         }
 
-
-        echo '<pre>';
-        print_r($informacoes_pedido);
-        die;
+        /* Retorno os pedidos do usuário especifico */
+        return Response::json($data);
 
     }
 
@@ -58,6 +57,7 @@ class PedidoController extends BaseController {
         $input = Request::getContent();
         $objeto = json_decode($input);
 
+        /* Insiro as informações no banco de dados */
         try {
             $pedido = new Pedido();
             $pedido->valor_total = $objeto->valor_total;
@@ -70,7 +70,7 @@ class PedidoController extends BaseController {
             $pedido->valor_troco = $objeto->valor_troco;
             if ($pedido->save()) {
                 $array = (array) $objeto->produtos;
-                $x = PedidoController::addProduto($array,$pedido->id);
+                $adicionarProduto = PedidoController::addProduto($array,$pedido->id);
                 $data = array("status" => 200, "id_pedido" => $pedido->id, "message" => "Order successfully added");
             } else {
                 $data = array("status" => 400, "message" => "Erro ao adicionar Pedido");
@@ -88,19 +88,22 @@ class PedidoController extends BaseController {
     public function addProduto($data,$id_pedido){
         $produtos = array();
         $i = 0;
+
+        /* Convertendo um object (stdClass) para um array - Não consegui fazer o casting utilizando o (array) */
         foreach($data as $datas){
             $produtos[] = array(
-                'nome_produto' => $datas->nome_produto,
-                'id_produto' => $datas->id_produto,
+                'nome_produto' => $datas->titulo,
+                'id_produto' => $datas->id,
                 'tipo' => $datas->tipo,
-                'quantidade' => $datas->quantidade,
-                'valor' => $datas->valor,
-                'observacoes' => $datas->observacoes
+                'quantidade' => $datas->purchaseQuantity,
+                'valor' => $datas->price,
+                'observacoes' => $datas->description
             );
         }
 
         $tamanho = sizeof($produtos);
 
+        /* Insiro as informações no banco de dados */
         try {
             for($i = 0; $i < $tamanho; $i++) {
                 $produto = new ProdutoPedido();
@@ -115,21 +118,10 @@ class PedidoController extends BaseController {
 
         }catch(Exception $e){
             $data = array("status" => 400, "message" => "Exception :/ ");
-        }
             return Response::json($data, 400);
+        }
+
     }
 
-    public function objectToArray( $object )
-    {
-        if( !is_object( $object ) && !is_array( $object ) )
-        {
-            return $object;
-        }
-        if( is_object( $object ) )
-        {
-            $object = get_object_vars( $object );
-        }
-        return array_map( 'objectToArray', $object );
-    }
 }
 
