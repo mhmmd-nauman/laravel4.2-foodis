@@ -46,6 +46,22 @@ class PedidoController extends BaseController {
 
     }
 
+    public function produtosPedido($id_pedido){
+        /* Realizo a consulta para retorna os produtos vinculados a um pedido */
+        $produtos = ProdutoPedido::where('pedidos_id','=',$id_pedido)->join('produtos','produtos.id','=','produto_pedido.produtos_id')->get()->toArray();
+
+        foreach($produtos as $produto){
+            $data[] = array(
+                'nome_produto' =>  $produto['nome_produto'],
+                'quantidade' =>  $produto['quantidade'],
+                'observacoes' =>  $produto['observacoes_produto_pedido'],
+                'valor' => $produto['valor']
+            );
+        }
+
+        return Response::json($data);
+    }
+
     /* Método para Registrar Pedido */
     public function add(){
         $numeroPedido = UtilsController::numeroPedido() + 1;
