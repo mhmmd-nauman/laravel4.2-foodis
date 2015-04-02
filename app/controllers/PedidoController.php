@@ -88,7 +88,7 @@ class PedidoController extends BaseController {
     public function addProduto($data,$id_pedido){
         $produtos = array();
         $i = 0;
-
+        
         /* Convertendo um object (stdClass) para um array - Não consegui fazer o casting utilizando o (array) */
         foreach($data as $datas){
             $produtos[] = array(
@@ -109,10 +109,10 @@ class PedidoController extends BaseController {
                 $produto = new ProdutoPedido();
                 $produto->pedidos_id = $id_pedido;
                 $produto->produtos_id = $produtos[$i]['id_produto'];
+                $produto->tipo = $produtos[$i]['tipo'];
+                $produto->quantidade = $produtos[$i]['quantidade'];
                 $produto->valor  = $produtos[$i]['valor'];
                 $produto->observacoes_produto_pedido = $produtos[$i]['observacoes'];
-                $produto->quantidade = $produtos[$i]['quantidade'];
-                $produto->tipo = $produtos[$i]['tipo'];
                 $produto->save();
             }
 
