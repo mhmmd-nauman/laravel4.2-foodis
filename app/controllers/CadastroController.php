@@ -15,6 +15,13 @@ class CadastroController extends BaseController {
         $objeto = json_decode($input,true);
     }
 
+    public function enviarSMS(){
+        $sms = new Artistan\Nexmo\Service\Message\Sms;
+        $result = $sms->sendText('NEXMO','558788784079','Welcome+to+Nexmo');
+        echo '<pre>';
+        var_dump($result);
+    }
+
     //Enviar SMS para o usuario
     public function sendSMS(){
       $input = Request::getContent();

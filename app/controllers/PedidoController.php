@@ -16,38 +16,33 @@ class PedidoController extends BaseController {
                                                                 ->join('restaurantes','restaurantes.id','=','pedidos.restaurantes_id')
                                                                 ->get()->toArray();
 
-        $data = array();
-        $count = 0;
+
 
         /* Adiciono as informações uteis dentro do array $pedido*/
-        if(sizeof($informacoes_pedido) > 0){
-            $pedido[] = array(
-                "pedido_id" => $informacoes_pedido[0]['pedidos_id'],
-                "numero_pedido" => $informacoes_pedido[0]['numero_pedido'],
-                "restaurante_id" => $informacoes_pedido[0]['nome_estabelecimento'],
-                "tipo_pagamento" => $informacoes_pedido[0]['tipo'],
-                "valor_pedido" => $informacoes_pedido[0]['valor_total'],
-                "status" => $informacoes_pedido[0]['status']
-            );
-        }
-
         for($i = 0; $i < sizeof($informacoes_pedido); $i++) {
-            if ($informacoes_pedido[$i]['pedidos_id'] != $pedido[$count]['pedido_id']) {
-                    /* Informações (id do Pedido, Numero do Pedido, Id do Restaurante, Tipo de Pagamento e Status */
-                    $pedido[] = array(
+              $endereco = Endereco::where('id','=',$informacoes_pedido[$i]['endereco_id'])->get()->toArray();
+
+              /* Informações (id do Pedido, Numero do Pedido, Id do Restaurante, Tipo de Pagamento e Status */
+              $pedido[] = array(
                         "pedido_id" => $informacoes_pedido[$i]['pedidos_id'],
                         "numero_pedido" => $informacoes_pedido[$i]['numero_pedido'],
                         "restaurante_id" => $informacoes_pedido[$i]['nome_estabelecimento'],
                         "tipo_pagamento" => $informacoes_pedido[$i]['tipo'],
                         "valor_pedido" => $informacoes_pedido[$i]['valor_total'],
-                        "status" => $informacoes_pedido[$i]['status']
-                    );
-                    $count++;
-             }
+                        "status" => $informacoes_pedido[$i]['status'],
+                        "endereco" => array(
+                            "nome_endereco" => $endereco[0]['endereco'],
+                            "bairro" => $endereco[0]['bairro'],
+                            "numero" => $endereco[0]['numero'],
+                            "cep" => $endereco[0]['cep'],
+                            "cidade" => $endereco[0]['cidade'],
+                            "UF" => $endereco[0]['UF']
+                        )
+              );
         }
 
         /* Retorno os pedidos do usuário especifico */
-        return Response::json($data);
+        return Response::json($pedido);
 
     }
 

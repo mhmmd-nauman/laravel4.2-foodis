@@ -122,6 +122,7 @@ return array(
 		'Illuminate\View\ViewServiceProvider',
 		'Illuminate\Workbench\WorkbenchServiceProvider',
         'Canducci\Cep\CepServiceProvider',
+        'Artistan\Nexmo\NexmoServiceProvider',
 
 	),
 
@@ -190,7 +191,6 @@ return array(
 		'Validator'         => 'Illuminate\Support\Facades\Validator',
 		'View'              => 'Illuminate\Support\Facades\View',
         'Cep'               => 'Canducci\Cep\Facade\Cep',
-
 	),
 
 );

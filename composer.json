@@ -7,7 +7,8 @@
 	"require": {
 		"laravel/framework": "4.2.*",
 		"guzzle/guzzle": "~3.0",
-		"canducci/cep": "dev-master"
+		"canducci/cep": "dev-master",
+		"artistan/nexmo": "0.1.*"
 	},
 	"autoload": {
 		"classmap": [

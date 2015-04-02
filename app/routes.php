@@ -75,3 +75,5 @@ Route::get('/buscar/cep/{cep}','CadastroController@consultarCEP');
 Route::post('/add/endereco','CadastroController@addEndereco');
 Route::get('/endereco/{id_usuario}','CadastroController@consultarEndereco');
 Route::get('/del/endereco/{id_usuario}', 'CadastroController@deletarEndereco');
+
+Route::get('/sms','CadastroController@enviarSMS');
