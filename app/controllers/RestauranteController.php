@@ -151,6 +151,7 @@ class RestauranteController extends BaseController {
                     'endereco' => $restaurantes[$i]['endereco'],
                     'bairro' => $restaurantes[$i]['bairro'],
                     'cidade_entrega' => $restaurantes[$i]['cidade_entrega'],
+                    'taxa_entrega' => $restaurantes[$i]['taxa_entrega'],
                     'pagamento' => array(
                         "dinheiro" => $pagamento_restaurante['dinheiro'],
                         "pagamentoonline" => $pagamento_restaurante['online'],
