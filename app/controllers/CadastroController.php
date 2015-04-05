@@ -13,9 +13,7 @@ class CadastroController extends BaseController {
     public function sendSMS(){
       $input = Request::getContent();
       $objeto = json_decode($input);
-
-      $password = Hash::make($objeto->senha);
-
+        
       /* PIN GERADO RANDOMICAMENTE */
       $pin = null;
       for($i = 0; $i < 4; $i++) {
