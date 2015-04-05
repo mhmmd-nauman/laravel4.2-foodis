@@ -23,6 +23,7 @@ class CadastroController extends BaseController {
 
       $password = Hash::make($objeto->senha);
 
+      /* PIN GERADO RANDOMICAMENTE */
       $pin = null;
       for($i = 0; $i < 4; $i++) {
           $pin = $pin . UtilsController::pinGenerator();
@@ -36,7 +37,8 @@ class CadastroController extends BaseController {
       $auth->password = $password;
       $auth->status = 'Pendente';
       if($auth->save()){
-          $v = Array(
+          /* Configurações necessarias para efetuar a requisição sem nenhum problema */
+          $header = Array(
               'Proxy-Connection: Close',
               'User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/535.19 (KHTML, like Gecko) Chrome/18.0.1017.2 Safari/535.19',
               'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
@@ -46,28 +48,45 @@ class CadastroController extends BaseController {
               'Connection: Close'
           );
 
-          $sms = "https://rest.nexmo.com/sms/json?api_key=8f899a50&api_secret=aa25fcca&from=Foodis&to=55$objeto->ddd$objeto->numero&text=$pin";
+          $mensagem = urlencode("Bem vindo ao Foodis, SEU PIN: $pin");
+
+          $sms = "https://rest.nexmo.com/sms/json?api_key=8f899a50&api_secret=aa25fcca&from=Foodis&to=55$objeto->ddd$objeto->numero&text=$mensagem";
 
           $ch = curl_init();
           curl_setopt($ch, CURLOPT_URL, $sms);
           curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-          curl_setopt($ch, CURLOPT_HTTPHEADER, $v);
+          curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
           curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
 
           $output = curl_exec($ch);
           curl_close($ch);
 
-          if(!empty($output)){
-              $JSON = json_decode($output,true);
-              if(!strcmp($JSON['messages'][0]['status'],"0")){
+          /* Verifico se tudo correu bem e se a mensagem foi enviada com sucesso */
+          if(!empty($output)) {
+              $JSON = json_decode($output, true);
+              if (!strcmp($JSON['messages'][0]['status'], "0")) {
                   $data = array(
                       'status' => 200,
                       'message' => 'SMS Enviado com sucesso'
                   );
 
-                  return Response::json($data);
+
+              }else{
+                  $data = array(
+                      'status' => 300,
+                      'message' => 'Ocorreu algum erro no envio do SMS'
+                  );
               }
+
+              return Response::json($data);
           }
+      }else{
+          $data = array(
+              'status' => 400,
+              'message' => 'Erro ao cadastrar um novo usuário ao sistema'
+          );
+
+          return Response::json($data);
       }
     }
 
