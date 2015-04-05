@@ -14,6 +14,7 @@ class CadastroController extends BaseController {
         $input = Request::getContent();
         $objeto = json_decode($input);
         $status = 0;
+        $data = array();
         try{
             $cliente = new Cliente();
             $cliente->nome = $objeto->nome;
