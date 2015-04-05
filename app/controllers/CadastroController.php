@@ -13,39 +13,46 @@ class CadastroController extends BaseController {
     public function sendSMS(){
       $input = Request::getContent();
       $objeto = json_decode($input);
-        
+
       /* PIN GERADO RANDOMICAMENTE */
       $pin = null;
       for($i = 0; $i < 4; $i++) {
           $pin = $pin . UtilsController::pinGenerator();
       }
 
-      /* Gravo as Informações na base de dados */
-      $auth = new CoreAuth();
-      $auth->pin = $pin;
-      $auth->ddd = $objeto->ddd;
-      $auth->celular = $objeto->numero;
-      $auth->status = 'Pendente';
-      if($auth->save()){
-          /* Configurações necessarias para efetuar a requisição sem nenhum problema */
-          $sms = CadastroController::enviarSMS($pin, $objeto->ddd, $objeto->numero);
-          if($sms){
-              $data = array(
-                  "status" => 200,
-                  "message" => "Mensagem enviada com sucesso"
-              );
-          }else{
-              $data = array(
-                  "status" => 300,
-                  "message" => "Erro ao enviar SMS"
-              );
-          }
-      }else{
-          $data = array(
-              'status' => 400,
-              'message' => 'Erro ao cadastrar um novo usuário ao sistema'
-          );
+      /* Regra para validar o numero e ddd informado */
+      $usuario = CadastroController::pinUsuario($objeto->ddd,$objeto->numero);
+      if(sizeof($usuario) > 0 ){
+            $data = array("status" => 402, "message" => "Numero informado já existe");
+      }else {
 
+          /* Gravo as Informações na base de dados */
+          $auth = new CoreAuth();
+          $auth->pin = $pin;
+          $auth->ddd = $objeto->ddd;
+          $auth->celular = $objeto->numero;
+          $auth->status = 'Pendente';
+          if ($auth->save()) {
+              /* Configurações necessarias para efetuar a requisição sem nenhum problema */
+              $sms = CadastroController::enviarSMS($pin, $objeto->ddd, $objeto->numero);
+              if ($sms) {
+                  $data = array(
+                      "status" => 200,
+                      "message" => "Mensagem enviada com sucesso"
+                  );
+              } else {
+                  $data = array(
+                      "status" => 300,
+                      "message" => "Erro ao enviar SMS"
+                  );
+              }
+          } else {
+              $data = array(
+                  'status' => 400,
+                  'message' => 'Erro ao cadastrar um novo usuário ao sistema'
+              );
+
+          }
       }
 
         return Response::json($data);
