@@ -9,10 +9,39 @@
 
 class CadastroController extends BaseController {
 
+    /* Esse método ira cadastrar os utilizadores do APP */
+    public function cadastrarUsuario(){
+        $input = Request::getContent();
+        $objeto = json_decode($input);
+        $status = 0;
+        try{
+            $cliente = new Cliente();
+            $cliente->nome = $objeto->nome;
+            $cliente->sobrenome = $objeto->sobrenome;
+            $cliente->cpf = $objeto->cpf;
+            $cliente->email = $objeto->email;
+            $cliente->senha = $objeto->senha;
+            $cliente->enabled = 1;
+            $cliente->core_auth_id = $objeto->core_auth_id;
+            if($cliente->save()){
+                $data = array("status" => 200, "message" => "Cadastro realizado com sucesso");
+                $status = 200;
+            }else{
+                $data = array("status" => 400, "message" => "Ocorreu algum erro durante o cadastro");
+                $status = 400;
+            }
+        }catch(Exception $e){
+
+        }
+
+        return Response::json($data,$status);
+    }
+
     //Enviar SMS para o usuario
     public function sendSMS(){
       $input = Request::getContent();
       $objeto = json_decode($input);
+      $status = 0;
 
       /* PIN GERADO RANDOMICAMENTE */
       $pin = null;
@@ -24,6 +53,7 @@ class CadastroController extends BaseController {
       $usuario = CadastroController::pinUsuario($objeto->ddd,$objeto->numero);
       if(sizeof($usuario) > 0 ){
             $data = array("status" => 402, "message" => "Numero informado já existe");
+            $status = 402;
       }else {
 
           /* Gravo as Informações na base de dados */
@@ -40,11 +70,15 @@ class CadastroController extends BaseController {
                       "status" => 200,
                       "message" => "Mensagem enviada com sucesso"
                   );
+
+                  $status = 200;
               } else {
                   $data = array(
                       "status" => 300,
                       "message" => "Erro ao enviar SMS"
                   );
+
+                  $status = 300;
               }
           } else {
               $data = array(
@@ -52,10 +86,12 @@ class CadastroController extends BaseController {
                   'message' => 'Erro ao cadastrar um novo usuário ao sistema'
               );
 
+              $status = 400;
+
           }
       }
 
-        return Response::json($data);
+        return Response::json($data,$status);
     }
 
     /* Método para validar o pin */
@@ -68,13 +104,14 @@ class CadastroController extends BaseController {
         $result = sizeof($validar);
 
         /* Lógica de validação */
-        if($result){
+        if($result > 0){
             $auth = CoreAuth::find($validar[0]['id']);
             $auth->status = 'Aprovado';
             if($auth->save()) {
                 $data = array(
                     "status" => 200,
-                    "message" => "PIN Correto, Usuario liberado para realizar o cadastro"
+                    "message" => "PIN Correto, Usuario liberado para realizar o cadastro",
+                    "id_core_auth" => $validar[0]['id']
                 );
             }
         }else{
