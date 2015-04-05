@@ -9,13 +9,6 @@
 
 class CadastroController extends BaseController {
 
-    //Cadastrar Usuario
-    public function cadastrarUsuario(){
-        $input = Request::getContent();
-        $objeto = json_decode($input,true);
-    }
-
-
     //Enviar SMS para o usuario
     public function sendSMS(){
       $input = Request::getContent();
@@ -34,7 +27,6 @@ class CadastroController extends BaseController {
       $auth->pin = $pin;
       $auth->ddd = $objeto->ddd;
       $auth->celular = $objeto->numero;
-      $auth->password = $password;
       $auth->status = 'Pendente';
       if($auth->save()){
           /* Configurações necessarias para efetuar a requisição sem nenhum problema */
