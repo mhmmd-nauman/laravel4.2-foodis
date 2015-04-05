@@ -69,6 +69,7 @@ Route::get('/cidade/get','CidadeController@get');
 /* Rotas de Cadastro do Usuário     */
 Route::post('/user/sms','CadastroController@sendSMS');
 Route::post('/user/verify','CadastroController@validarPIN');
+Route::post('/user/resend','CadastroController@reSend');
 Route::get('/buscar/cep/{cep}','CadastroController@consultarCEP');
 
 /* Rotas do Endereço */

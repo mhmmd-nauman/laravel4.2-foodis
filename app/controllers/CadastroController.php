@@ -30,47 +30,17 @@ class CadastroController extends BaseController {
       $auth->status = 'Pendente';
       if($auth->save()){
           /* Configurações necessarias para efetuar a requisição sem nenhum problema */
-          $header = Array(
-              'Proxy-Connection: Close',
-              'User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/535.19 (KHTML, like Gecko) Chrome/18.0.1017.2 Safari/535.19',
-              'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-              'Accept-Language: en-US,en;q=0.8',
-              'Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.3',
-              'Cookie: __qca=blabla',
-              'Connection: Close'
-          );
-
-          $mensagem = urlencode("Bem vindo ao Foodis, SEU PIN: $pin");
-
-          $sms = "https://rest.nexmo.com/sms/json?api_key=8f899a50&api_secret=aa25fcca&from=Foodis&to=55$objeto->ddd$objeto->numero&text=$mensagem";
-
-          $ch = curl_init();
-          curl_setopt($ch, CURLOPT_URL, $sms);
-          curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-          curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
-          curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
-
-          $output = curl_exec($ch);
-          curl_close($ch);
-
-          /* Verifico se tudo correu bem e se a mensagem foi enviada com sucesso */
-          if(!empty($output)) {
-              $JSON = json_decode($output, true);
-              if (!strcmp($JSON['messages'][0]['status'], "0")) {
-                  $data = array(
-                      'status' => 200,
-                      'message' => 'SMS Enviado com sucesso'
-                  );
-
-
-              }else{
-                  $data = array(
-                      'status' => 300,
-                      'message' => 'Ocorreu algum erro no envio do SMS'
-                  );
-              }
-
-              return Response::json($data);
+          $sms = CadastroController::enviarSMS($pin, $objeto->ddd, $objeto->numero);
+          if($sms){
+              $data = array(
+                  "status" => 200,
+                  "message" => "Mensagem enviada com sucesso"
+              );
+          }else{
+              $data = array(
+                  "status" => 300,
+                  "message" => "Erro ao enviar SMS"
+              );
           }
       }else{
           $data = array(
@@ -78,8 +48,9 @@ class CadastroController extends BaseController {
               'message' => 'Erro ao cadastrar um novo usuário ao sistema'
           );
 
-          return Response::json($data);
       }
+
+        return Response::json($data);
     }
 
     /* Método para validar o pin */
@@ -174,6 +145,73 @@ class CadastroController extends BaseController {
 
             return Response::json($data);
         }
+    }
+
+    /* Método para re-enviar o SMS caso ocorra algum problema no CLIENT */
+    public function reSend(){
+        $input = Request::getContent();
+        $objeto = json_decode($input);
+
+        $pin = CadastroController::pinUsuario($objeto->ddd,$objeto->numero);
+        $sms = CadastroController::enviarSMS($pin[0]['pin'],$objeto->ddd,$objeto->numero);
+        if($sms){
+            $data = array(
+                "status" => 200,
+                "message" => "Mensagem enviada com sucesso"
+            );
+        }else{
+            $data = array(
+                "status" => 300,
+                "message" => "Erro ao enviar SMS"
+            );
+        }
+
+        return Response::json($data);
+    }
+
+    /* Método para enviar SMS */
+    public function enviarSMS($pin,$ddd,$numero){
+
+        $status = false;
+
+        $header = Array(
+            'Proxy-Connection: Close',
+            'User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/535.19 (KHTML, like Gecko) Chrome/18.0.1017.2 Safari/535.19',
+            'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+            'Accept-Language: en-US,en;q=0.8',
+            'Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.3',
+            'Cookie: __qca=blabla',
+            'Connection: Close'
+        );
+
+        $mensagem = urlencode("Bem vindo ao Foodis, SEU PIN: $pin");
+
+        $sms = "https://rest.nexmo.com/sms/json?api_key=8f899a50&api_secret=aa25fcca&from=Foodis&to=55$ddd$numero&text=$mensagem";
+
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $sms);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
+
+        $output = curl_exec($ch);
+        curl_close($ch);
+
+        /* Verifico se tudo correu bem e se a mensagem foi enviada com sucesso */
+        if(!empty($output)) {
+            $JSON = json_decode($output, true);
+            if (!strcmp($JSON['messages'][0]['status'], "0")) {
+                $status = true;
+            }
+        }
+
+        return $status;
+    }
+
+    /* Método para Consultar PIN do Usuário */
+    public function pinUsuario($ddd,$numero){
+        $pin = CoreAuth::where('ddd','=',$ddd)->where('celular','=',$numero)->get()->toArray();
+        return $pin;
     }
 
 }
