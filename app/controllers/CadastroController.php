@@ -99,6 +99,7 @@ class CadastroController extends BaseController {
     public function validarPIN(){
         $input = Request::getContent();
         $objeto = json_decode($input);
+        $status = 0;
 
         /* Verifico se o PIN informado pelo usuário é valido */
         $validar = CadastroController::buscarPIN($objeto->pinInformado,$objeto->ddd,$objeto->numero);
@@ -114,15 +115,19 @@ class CadastroController extends BaseController {
                     "message" => "PIN Correto, Usuario liberado para realizar o cadastro",
                     "id_core_auth" => $validar[0]['id']
                 );
+
+                $status = 200;
             }
         }else{
             $data = array(
                 "status" => 300,
                 "message" => "PIN Invalido, try again!!"
             );
+
+                $status = 300;
         }
 
-        return Response::json($data);
+        return Response::json($data,$status);
     }
 
     /* Método para consultar endereço baseado no cep*/
