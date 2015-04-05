@@ -15,12 +15,6 @@ class CadastroController extends BaseController {
         $objeto = json_decode($input,true);
     }
 
-    public function enviarSMS(){
-        $sms = new Artistan\Nexmo\Service\Message\Sms;
-        $result = $sms->sendText('NEXMO','558788784079','Welcome+to+Nexmo');
-        echo '<pre>';
-        var_dump($result);
-    }
 
     //Enviar SMS para o usuario
     public function sendSMS(){
@@ -42,17 +36,39 @@ class CadastroController extends BaseController {
       $auth->password = $password;
       $auth->status = 'Pendente';
       if($auth->save()){
-          //Falta implementar Envio do SMS
-
-          $data = array(
-              'status' => 200,
-              'message' => 'SMS Enviado com sucesso'
+          $v = Array(
+              'Proxy-Connection: Close',
+              'User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/535.19 (KHTML, like Gecko) Chrome/18.0.1017.2 Safari/535.19',
+              'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+              'Accept-Language: en-US,en;q=0.8',
+              'Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.3',
+              'Cookie: __qca=blabla',
+              'Connection: Close'
           );
 
-          return Response::json($data);
-      }
+          $sms = "https://rest.nexmo.com/sms/json?api_key=8f899a50&api_secret=aa25fcca&from=Foodis&to=55$objeto->ddd$objeto->numero&text=$pin";
 
-      return Response::json($input);
+          $ch = curl_init();
+          curl_setopt($ch, CURLOPT_URL, $sms);
+          curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+          curl_setopt($ch, CURLOPT_HTTPHEADER, $v);
+          curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
+
+          $output = curl_exec($ch);
+          curl_close($ch);
+
+          if(!empty($output)){
+              $JSON = json_decode($output,true);
+              if(!strcmp($JSON['messages'][0]['status'],"0")){
+                  $data = array(
+                      'status' => 200,
+                      'message' => 'SMS Enviado com sucesso'
+                  );
+
+                  return Response::json($data);
+              }
+          }
+      }
     }
 
     /* Método para validar o pin */
