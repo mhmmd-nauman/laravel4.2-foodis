@@ -38,8 +38,8 @@
       <file leaf-file-name="CadastroController.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/controllers/CadastroController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-3.1008506" vertical-offset="3422" max-vertical-offset="4245">
-              <caret line="63" column="24" selection-start-line="62" selection-start-column="10" selection-end-line="63" selection-end-column="24" />
+            <state vertical-scroll-proportion="4.848117" vertical-offset="0" max-vertical-offset="4245">
+              <caret line="271" column="78" selection-start-line="271" selection-start-column="78" selection-end-line="271" selection-end-column="78" />
               <folding />
             </state>
           </provider>
@@ -732,8 +732,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/controllers/CadastroController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-3.1008506" vertical-offset="3422" max-vertical-offset="4245">
-          <caret line="63" column="24" selection-start-line="62" selection-start-column="10" selection-end-line="63" selection-end-column="24" />
+        <state vertical-scroll-proportion="4.848117" vertical-offset="0" max-vertical-offset="4245">
+          <caret line="271" column="78" selection-start-line="271" selection-start-column="78" selection-end-line="271" selection-end-column="78" />
           <folding />
         </state>
       </provider>

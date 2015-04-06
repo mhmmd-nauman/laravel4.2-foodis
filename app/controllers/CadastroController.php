@@ -269,7 +269,7 @@ class CadastroController extends BaseController {
 
     /* Método para Consultar se o Usuário já fez o Registro do Sistema porem possui o status de Pendente */
     public function usuarioPendente($ddd,$numero){
-        $pin = CoreAuth::where('ddd','=',$ddd)->where('celular','=',$numero)->where('status','=','Pendente')->get()->toArray();
+        $pin = CoreAuth::where('ddd','=',$ddd)->where('celular','=',$numero)->get()->toArray();
         return $pin;
     }
 
