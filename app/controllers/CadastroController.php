@@ -50,13 +50,19 @@ class CadastroController extends BaseController {
           $pin = $pin . UtilsController::pinGenerator();
       }
 
-      /* Regra para validar o numero e ddd informado */
-      $usuario = CadastroController::pinUsuario($objeto->ddd,$objeto->numero);
+      /* Regra para verificar se o numero já possui dentro do sistema  */
+      $usuario = CadastroController::usuarioPendente($objeto->ddd,$objeto->numero);
+
+      /* Regra para verificar se o numero já possui o registro completo dentro do sistema */
+      $existeCadastro = CadastroController::verificarCadastro($objeto->ddd,$objeto->numero);
+
       if(sizeof($usuario) > 0 ){
             $data = array("status" => 402, "message" => "Numero informado já existe");
             $status = 402;
+      }else if(sizeof($existeCadastro) > 0){
+          $data = array("status" => 403, "message" => "Numero informado já possui cadastro completo no sistema");
+          $status = 403;
       }else {
-
           /* Gravo as Informações na base de dados */
           $auth = new CoreAuth();
           $auth->pin = $pin;
@@ -88,7 +94,6 @@ class CadastroController extends BaseController {
               );
 
               $status = 400;
-
           }
       }
 
@@ -260,6 +265,19 @@ class CadastroController extends BaseController {
     public function pinUsuario($ddd,$numero){
         $pin = CoreAuth::where('ddd','=',$ddd)->where('celular','=',$numero)->get()->toArray();
         return $pin;
+    }
+
+    /* Método para Consultar se o Usuário já fez o Registro do Sistema porem possui o status de Pendente */
+    public function usuarioPendente($ddd,$numero){
+        $pin = CoreAuth::where('ddd','=',$ddd)->where('celular','=',$numero)->where('status','=','Pendente')->get()->toArray();
+        return $pin;
+    }
+
+    /* Método para Verificar se o Usuário já realizou o cadastro */
+    public function verificarCadastro($ddd,$numero){
+        $pin = CadastroController::pinUsuario($ddd,$numero);
+        $usuario = Cliente::where('core_auth_id','=',$pin[0]['id'])->get()->toArray();
+        return $usuario;
     }
 
 }
