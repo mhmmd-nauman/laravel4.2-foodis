@@ -69,6 +69,7 @@ class CadastroController extends BaseController {
           $auth->ddd = $objeto->ddd;
           $auth->celular = $objeto->numero;
           $auth->status = 'Pendente';
+          $auth->contador_envio = 1;
           if ($auth->save()) {
               /* Configurações necessarias para efetuar a requisição sem nenhum problema */
               $sms = CadastroController::enviarSMS($pin, $objeto->ddd, $objeto->numero);
@@ -227,34 +228,48 @@ class CadastroController extends BaseController {
 
         $status = false;
 
-        $header = Array(
-            'Proxy-Connection: Close',
-            'User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/535.19 (KHTML, like Gecko) Chrome/18.0.1017.2 Safari/535.19',
-            'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-            'Accept-Language: en-US,en;q=0.8',
-            'Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.3',
-            'Cookie: __qca=blabla',
-            'Connection: Close'
-        );
+        /* Verifico a quantidade de envios do SMS */
+        $contador_sms = CoreAuth::where('ddd','=',$ddd)->where('numero','=',$numero)->get()->toArray();
 
-        $mensagem = urlencode("Bem vindo ao Foodis, SEU PIN: $pin");
+        if(sizeof($contador_sms) > 0){
+            if($contador_sms[0]['contador_envio'] < 2){
 
-        $sms = "https://rest.nexmo.com/sms/json?api_key=8f899a50&api_secret=aa25fcca&from=Foodis&to=55$ddd$numero&text=$mensagem";
+                $header = Array(
+                    'Proxy-Connection: Close',
+                    'User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/535.19 (KHTML, like Gecko) Chrome/18.0.1017.2 Safari/535.19',
+                    'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+                    'Accept-Language: en-US,en;q=0.8',
+                    'Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.3',
+                    'Cookie: __qca=blabla',
+                    'Connection: Close'
+                );
 
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $sms);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
+                $mensagem = urlencode("Bem vindo ao Foodis, SEU PIN: $pin");
 
-        $output = curl_exec($ch);
-        curl_close($ch);
+                $sms = "https://rest.nexmo.com/sms/json?api_key=8f899a50&api_secret=aa25fcca&from=Foodis&to=55$ddd$numero&text=$mensagem";
 
-        /* Verifico se tudo correu bem e se a mensagem foi enviada com sucesso */
-        if(!empty($output)) {
-            $JSON = json_decode($output, true);
-            if (!strcmp($JSON['messages'][0]['status'], "0")) {
-                $status = true;
+                $ch = curl_init();
+                curl_setopt($ch, CURLOPT_URL, $sms);
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
+                curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
+
+                $output = curl_exec($ch);
+                curl_close($ch);
+
+                /* Verifico se tudo correu bem e se a mensagem foi enviada com sucesso */
+                if(!empty($output)) {
+                    $JSON = json_decode($output, true);
+                    if (!strcmp($JSON['messages'][0]['status'], "0")) {
+                        $status = true;
+                    }
+                }
+
+                /* Incremento o Contador */
+                $contador = CoreAuth::find($contador_sms[0]['id']);
+                $contador->contador_envio = $contador_sms[0]['contador_envio'] + 1;
+                $contador->save();
+
             }
         }
 
@@ -279,5 +294,7 @@ class CadastroController extends BaseController {
         $usuario = Cliente::where('core_auth_id','=',$pin[0]['id'])->get()->toArray();
         return $usuario;
     }
+
+    /* */
 
 }
