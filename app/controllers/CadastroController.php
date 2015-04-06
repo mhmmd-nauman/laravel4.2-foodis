@@ -56,12 +56,12 @@ class CadastroController extends BaseController {
       /* Regra para verificar se o numero já possui o registro completo dentro do sistema */
       $existeCadastro = CadastroController::verificarCadastro($objeto->ddd,$objeto->numero);
 
-      if(sizeof($usuario) > 0 ){
-            $data = array("status" => 402, "message" => "Numero informado já existe");
-            $status = 402;
-      }else if(sizeof($existeCadastro) > 0){
-          $data = array("status" => 403, "message" => "Numero informado já possui cadastro completo no sistema");
-          $status = 403;
+      if(sizeof($existeCadastro) > 0 ){
+            $data = array("status" => 403, "message" => "Numero informado já possui cadastro completo no sistema");
+            $status = 403;
+      }else if(sizeof($usuario) > 0){
+          $data = array("status" => 402, "message" => "Numero informado já existe");
+          $status = 402;
       }else {
           /* Gravo as Informações na base de dados */
           $auth = new CoreAuth();
@@ -129,7 +129,7 @@ class CadastroController extends BaseController {
                 "message" => "PIN Invalido, try again!!"
             );
 
-                $status = 300;
+            $status = 300;
         }
 
         return Response::json($data,$status);
