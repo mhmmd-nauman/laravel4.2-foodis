@@ -293,7 +293,12 @@ class CadastroController extends BaseController {
     /* Método para Verificar se o Usuário já realizou o cadastro */
     public function verificarCadastro($ddd,$numero){
         $pin = CadastroController::pinUsuario($ddd,$numero);
-        $usuario = Cliente::where('core_auth_id','=',$pin[0]['id'])->get()->toArray();
+        if(sizeof($pin) > 0) {
+            $usuario = Cliente::where('core_auth_id', '=', $pin[0]['id'])->get()->toArray();
+        }else{
+            $usuario = 0;
+        }
+
         return $usuario;
     }
 
