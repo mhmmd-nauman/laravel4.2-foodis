@@ -38,9 +38,11 @@
       <file leaf-file-name="CadastroController.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/controllers/CadastroController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.7472661" vertical-offset="3315" max-vertical-offset="4500">
-              <caret line="267" column="41" selection-start-line="267" selection-start-column="41" selection-end-line="267" selection-end-column="41" />
-              <folding />
+            <state vertical-scroll-proportion="0.9113001" vertical-offset="2850" max-vertical-offset="4140">
+              <caret line="271" column="76" selection-start-line="271" selection-start-column="76" selection-end-line="271" selection-end-column="76" />
+              <folding>
+                <element signature="n#cadastrarUsuario#0;n#CadastroController#0;n#!!top" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -732,9 +734,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/controllers/CadastroController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.7472661" vertical-offset="3315" max-vertical-offset="4500">
-          <caret line="267" column="41" selection-start-line="267" selection-start-column="41" selection-end-line="267" selection-end-column="41" />
-          <folding />
+        <state vertical-scroll-proportion="0.9113001" vertical-offset="2850" max-vertical-offset="4140">
+          <caret line="271" column="76" selection-start-line="271" selection-start-column="76" selection-end-line="271" selection-end-column="76" />
+          <folding>
+            <element signature="n#cadastrarUsuario#0;n#CadastroController#0;n#!!top" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>

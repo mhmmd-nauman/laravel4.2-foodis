@@ -70,6 +70,7 @@ class CadastroController extends BaseController {
           $auth->celular = $objeto->numero;
           $auth->status = 'Pendente';
           $auth->contador_envio = 1;
+          $auth->contador_total = 1;
           if ($auth->save()) {
               /* Configurações necessarias para efetuar a requisição sem nenhum problema */
               $sms = CadastroController::enviarSMS($pin, $objeto->ddd, $objeto->numero);
@@ -268,6 +269,7 @@ class CadastroController extends BaseController {
                 /* Incremento o Contador */
                 $contador = CoreAuth::find($contador_sms[0]['id']);
                 $contador->contador_envio = $contador_sms[0]['contador_envio'] + 1;
+                $contador->contador_total = $contador_sms[0]['contador_total'] + 1;
                 $contador->save();
 
             }
